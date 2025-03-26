@@ -350,25 +350,25 @@ class complex_dot_iterative (n: Int, k: Int, bw: Int, mult_pd: Int, add_pd: Int)
   io.out_imag := d2aInst(num_acc - 1).io.output(((bw / 2) - 1), 0)
   io.out_valid := ShiftRegister(io.in_valid, latency, io.in_en)
 
-  printf(p"Counter: $counter\n")
+  //printf(p"Counter: $counter\n")
 
-  for (i <- 0 until n) {
-    printf(p"Dot Input VecA :[${i}] ${complex_dot.io.vec_a(i)}\n")
-  }
-  for (i <- 0 until n) {
-    printf(p"Dot Input VecB :[${i}] ${complex_dot.io.vec_b(i)}\n")
-  }
+  //for (i <- 0 until n) {
+  //  printf(p"Dot Input VecA :[${i}] ${complex_dot.io.vec_a(i)}\n")
+  //}
+  //for (i <- 0 until n) {
+  //  printf(p"Dot Input VecB :[${i}] ${complex_dot.io.vec_b(i)}\n")
+  //}
 
-  printf(p"Dot Product Output: ${complex_dot.io.out_s}\n")
+  //printf(p"Dot Product Output: ${complex_dot.io.out_s}\n")
 
-  for (i <- 0 until num_acc) {
-    printf(p"acc_Input: ${d2aInst(i).io.input}, acc_Output: ${d2aInst(i).io.output}\n")
-  }
+  //for (i <- 0 until num_acc) {
+  //  printf(p"acc_Input: ${d2aInst(i).io.input}, acc_Output: ${d2aInst(i).io.output}\n")
+  //}
 
-  printf(p"Final_Out: ${io.out_s}\n")
-  printf(p"Real_Out: ${io.out_real}\n")
-  printf(p"Imag_Out: ${io.out_imag}\n")
-  printf("\n")
+  //printf(p"Final_Out: ${io.out_s}\n")
+  //printf(p"Real_Out: ${io.out_real}\n")
+  //printf(p"Imag_Out: ${io.out_imag}\n")
+  //printf("\n")
 
 }
 

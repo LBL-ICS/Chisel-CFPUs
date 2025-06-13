@@ -21,3 +21,13 @@ object main2 extends App {
   )
 }
 
+object main3 extends App {
+  (new ChiselStage).execute(
+    Array("--target", "systemverilog", "--target-dir", "verification/dut"),
+    Seq(ChiselGeneratorAnnotation(() => new complex_adder(32, 13)),
+      FirtoolOption("--disable-all-randomization"),
+      FirtoolOption("-strip-debug-info")
+    )
+  )
+}
+

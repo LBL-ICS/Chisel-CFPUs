@@ -5,7 +5,7 @@ import chiseltest.WriteVcdAnnotation
 import chiseltest.VerilatorBackendAnnotation
 import chisel3.stage.ChiselGeneratorAnnotation
 import circt.stage.{ChiselStage, FirtoolOption}
-
+import New_FPU_Mario.FPUnits._
 import Complex_FPU._
 
 
@@ -31,3 +31,12 @@ object main3 extends App {
   )
 }
 
+object main4 extends App {
+  (new ChiselStage).execute(
+    Array("--target", "systemverilog", "--target-dir", "verification/dut"),
+    Seq(ChiselGeneratorAnnotation(() => new FP_div(32, 10)),
+      FirtoolOption("--disable-all-randomization"),
+      FirtoolOption("-strip-debug-info")
+    )
+  )
+}

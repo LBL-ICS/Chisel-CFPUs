@@ -1,0 +1,7252 @@
+FIRRTL version 1.2.0
+circuit tsqr_outer_loop :
+  module full_adder : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 78:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 78:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 78:9]
+    input io_in_a : UInt<8> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    input io_in_b : UInt<8> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    input io_in_c : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    output io_out_s : UInt<8> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    output io_out_c : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+
+    node _result_T = add(io_in_a, io_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 87:23]
+    node _result_T_1 = add(_result_T, io_in_c) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 87:34]
+    node result = bits(_result_T_1, 8, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 86:22 87:12]
+    node _io_out_s_T = bits(result, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 88:23]
+    node _io_out_c_T = bits(result, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 89:23]
+    io_out_s <= _io_out_s_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 88:14]
+    io_out_c <= _io_out_c_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 89:14]
+
+  module multiplier : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 106:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 106:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 106:9]
+    input io_in_a : UInt<24> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 107:16]
+    input io_in_b : UInt<24> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 107:16]
+    output io_out_s : UInt<48> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 107:16]
+
+    node _result_T = mul(io_in_a, io_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 113:23]
+    node result = _result_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 112:22 113:12]
+    io_out_s <= result @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 114:14]
+
+  module FP_mult_32_10_v2 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 148:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 148:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 148:9]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 151:16]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 151:16]
+    input io_in_a : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 151:16]
+    input io_in_b : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 151:16]
+    output io_out_s : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 151:16]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 151:16]
+
+    inst exp_adder of full_adder @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 226:27]
+    inst multiplier of multiplier @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 237:33]
+    reg in_a : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), in_a) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 175:29]
+    node _GEN_0 = mux(io_in_en, io_in_a, in_a) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 175:{29,29,29}]
+    reg in_b : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 176:29]
+    node _GEN_1 = mux(io_in_en, io_in_b, in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 176:{29,29,29}]
+    node _sign_wire_0_T = bits(in_a, 31, 31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 179:25]
+    node _sign_wire_1_T = bits(in_b, 31, 31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 180:25]
+    node _T = bits(in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 190:14]
+    node _T_1 = gt(_T, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 190:33]
+    node _T_2 = bits(in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 192:20]
+    node _T_3 = lt(_T_2, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 192:36]
+    node _exp_wire_0_T = bits(in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 195:26]
+    node _GEN_2 = mux(_T_3, UInt<8>("h1"), _exp_wire_0_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 192:46 193:19 195:19]
+    node _GEN_3 = mux(_T_1, UInt<8>("hfe"), _GEN_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 190:44 191:19]
+    node _T_4 = bits(in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 197:14]
+    node _T_5 = gt(_T_4, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 197:33]
+    node _T_6 = bits(in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 199:20]
+    node _T_7 = lt(_T_6, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 199:36]
+    node _exp_wire_1_T = bits(in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 202:26]
+    node _GEN_4 = mux(_T_7, UInt<8>("h1"), _exp_wire_1_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 199:46 200:19 202:19]
+    node _GEN_5 = mux(_T_5, UInt<8>("hfe"), _GEN_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 197:44 198:19]
+    node _frac_wire_0_T = bits(in_a, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 207:25]
+    node _frac_wire_1_T = bits(in_b, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 208:25]
+    node frac_wire_0 = _frac_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 206:25 207:18]
+    node _whole_frac_wire_0_T = cat(UInt<1>("h1"), frac_wire_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 212:31]
+    node frac_wire_1 = _frac_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 206:25 208:18]
+    node _whole_frac_wire_1_T = cat(UInt<1>("h1"), frac_wire_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 213:31]
+    reg whole_frac_sr_0 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 215:38]
+    reg whole_frac_sr_1 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 215:38]
+    node whole_frac_wire_0 = _whole_frac_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 211:31 212:24]
+    node _GEN_6 = mux(io_in_en, whole_frac_wire_0, whole_frac_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 215:{38,38,38}]
+    node whole_frac_wire_1 = _whole_frac_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 211:31 213:24]
+    node _GEN_7 = mux(io_in_en, whole_frac_wire_1, whole_frac_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 215:{38,38,38}]
+    reg sign_sr_0 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 216:32]
+    reg sign_sr_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 216:32]
+    node sign_wire_0 = _sign_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 178:25 179:18]
+    node _GEN_8 = mux(io_in_en, sign_wire_0, sign_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 216:{32,32,32}]
+    node sign_wire_1 = _sign_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 178:25 180:18]
+    node _GEN_9 = mux(io_in_en, sign_wire_1, sign_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 216:{32,32,32}]
+    reg exp_sr_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 217:31]
+    reg exp_sr_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 217:31]
+    node exp_wire_0 = _GEN_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 189:24]
+    node _GEN_10 = mux(io_in_en, exp_wire_0, exp_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 217:{31,31,31}]
+    node exp_wire_1 = _GEN_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 189:24]
+    node _GEN_11 = mux(io_in_en, exp_wire_1, exp_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 217:{31,31,31}]
+    node _new_sign_wire_T = xor(sign_sr_0, sign_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 220:33]
+    reg new_sign_sr : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 222:36]
+    node new_sign_wire = _new_sign_wire_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 219:29 220:19]
+    node _GEN_12 = mux(io_in_en, new_sign_wire, new_sign_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 222:{36,36,36}]
+    reg exp_sr_2_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 223:33]
+    reg exp_sr_2_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 223:33]
+    node _GEN_13 = mux(io_in_en, exp_sr_0, exp_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 223:{33,33,33}]
+    node _GEN_14 = mux(io_in_en, exp_sr_1, exp_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 223:{33,33,33}]
+    reg whole_frac_sr_2_0 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 224:40]
+    reg whole_frac_sr_2_1 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 224:40]
+    node _GEN_15 = mux(io_in_en, whole_frac_sr_0, whole_frac_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 224:{40,40,40}]
+    node _GEN_16 = mux(io_in_en, whole_frac_sr_1, whole_frac_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 224:{40,40,40}]
+    node _exp_adder_io_in_b_T = sub(exp_sr_2_1, UInt<8>("h7f")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 228:38]
+    node _exp_adder_io_in_b_T_1 = tail(_exp_adder_io_in_b_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 228:38]
+    reg exp_adder_outs_sr : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_adder_outs_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 231:42]
+    node _GEN_17 = mux(io_in_en, exp_adder.io_out_s, exp_adder_outs_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 231:{42,42,42}]
+    reg exp_adder_outc_sr : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), exp_adder_outc_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 232:42]
+    node _GEN_18 = mux(io_in_en, exp_adder.io_out_c, exp_adder_outc_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 232:{42,42,42}]
+    reg new_sign_sr_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_sr_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 233:38]
+    node _GEN_19 = mux(io_in_en, new_sign_sr, new_sign_sr_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 233:{38,38,38}]
+    reg exp_sr_3_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 234:33]
+    reg exp_sr_3_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 234:33]
+    node _GEN_20 = mux(io_in_en, exp_sr_2_0, exp_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 234:{33,33,33}]
+    node _GEN_21 = mux(io_in_en, exp_sr_2_1, exp_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 234:{33,33,33}]
+    reg whole_frac_sr_3_0 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 235:40]
+    reg whole_frac_sr_3_1 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 235:40]
+    node _GEN_22 = mux(io_in_en, whole_frac_sr_2_0, whole_frac_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 235:{40,40,40}]
+    node _GEN_23 = mux(io_in_en, whole_frac_sr_2_1, whole_frac_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 235:{40,40,40}]
+    reg frac_mult_out_sr : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), frac_mult_out_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 241:41]
+    node _GEN_24 = mux(io_in_en, multiplier.io_out_s, frac_mult_out_sr) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 241:{41,41,41}]
+    reg exp_adder_outs_sr_2 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_adder_outs_sr_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 242:44]
+    node _GEN_25 = mux(io_in_en, exp_adder_outs_sr, exp_adder_outs_sr_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 242:{44,44,44}]
+    reg exp_adder_outc_sr_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), exp_adder_outc_sr_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 243:44]
+    node _GEN_26 = mux(io_in_en, exp_adder_outc_sr, exp_adder_outc_sr_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 243:{44,44,44}]
+    reg new_sign_sr_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_sr_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 244:38]
+    node _GEN_27 = mux(io_in_en, new_sign_sr_2, new_sign_sr_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 244:{38,38,38}]
+    reg exp_sr_4_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_4_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 245:33]
+    reg exp_sr_4_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_4_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 245:33]
+    node _GEN_28 = mux(io_in_en, exp_sr_3_0, exp_sr_4_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 245:{33,33,33}]
+    node _GEN_29 = mux(io_in_en, exp_sr_3_1, exp_sr_4_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 245:{33,33,33}]
+    reg uo_check_r : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 248:33]
+    node _GEN_30 = mux(io_in_en, exp_sr_4_1, uo_check_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 248:{33,33,33}]
+    node uo_check = lt(uo_check_r, UInt<8>("h7f")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 248:69]
+    node _carry_flag_T = bits(exp_adder_outc_sr_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 249:56]
+    reg carry_flag : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 249:35]
+    node _GEN_31 = mux(io_in_en, _carry_flag_T, carry_flag) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 249:{35,35,35}]
+    reg exp_sum : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 250:32]
+    node _GEN_32 = mux(io_in_en, exp_adder_outs_sr_2, exp_sum) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 250:{32,32,32}]
+    reg new_sign_reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 251:37]
+    node _GEN_33 = mux(io_in_en, new_sign_sr_3, new_sign_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 251:{37,37,37}]
+    node _msb_check_T = bits(frac_mult_out_sr, 47, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 252:51]
+    reg msb_check : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), msb_check) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 252:34]
+    node _GEN_34 = mux(io_in_en, _msb_check_T, msb_check) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 252:{34,34,34}]
+    reg new_frac_reg : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), new_frac_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 253:37]
+    node _GEN_35 = mux(io_in_en, frac_mult_out_sr, new_frac_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 253:{37,37,37}]
+    node _u_flag_reg_T = eq(carry_flag, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 257:49]
+    node _u_flag_reg_T_1 = add(exp_sum, msb_check) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 257:74]
+    node _u_flag_reg_T_2 = lt(_u_flag_reg_T_1, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 257:95]
+    node _u_flag_reg_T_3 = or(_u_flag_reg_T, _u_flag_reg_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 257:61]
+    node _u_flag_reg_T_4 = mux(uo_check, _u_flag_reg_T_3, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 257:39]
+    reg u_flag_reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), u_flag_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 257:35]
+    node _GEN_36 = mux(io_in_en, _u_flag_reg_T_4, u_flag_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 257:{35,35,35}]
+    node _o_flag_reg_T = eq(uo_check, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 258:40]
+    node _o_flag_reg_T_1 = add(exp_sum, msb_check) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 258:74]
+    node _o_flag_reg_T_2 = gt(_o_flag_reg_T_1, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 258:95]
+    node _o_flag_reg_T_3 = or(carry_flag, _o_flag_reg_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 258:61]
+    node _o_flag_reg_T_4 = mux(_o_flag_reg_T, _o_flag_reg_T_3, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 258:39]
+    reg o_flag_reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), o_flag_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 258:35]
+    node _GEN_37 = mux(io_in_en, _o_flag_reg_T_4, o_flag_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 258:{35,35,35}]
+    reg new_exp_reg : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), new_exp_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 259:36]
+    node _GEN_38 = mux(io_in_en, exp_sum, new_exp_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 259:{36,36,36}]
+    reg new_sign_reg_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 260:39]
+    node _GEN_39 = mux(io_in_en, new_sign_reg, new_sign_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 260:{39,39,39}]
+    reg new_frac_reg_2 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), new_frac_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 261:39]
+    node _GEN_40 = mux(io_in_en, new_frac_reg, new_frac_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 261:{39,39,39}]
+    node _out_exp_innermux_T = bits(new_frac_reg_2, 47, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 266:60]
+    node _out_exp_innermux_T_1 = add(new_exp_reg, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 266:105]
+    node _out_exp_innermux_T_2 = tail(_out_exp_innermux_T_1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 266:105]
+    node _out_exp_innermux_T_3 = mux(_out_exp_innermux_T, _out_exp_innermux_T_2, new_exp_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 266:45]
+    reg out_exp_innermux : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), out_exp_innermux) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 266:41]
+    node _GEN_41 = mux(io_in_en, _out_exp_innermux_T_3, out_exp_innermux) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 266:{41,41,41}]
+    node _out_frac_innermux_T = bits(new_frac_reg_2, 47, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 267:61]
+    node _out_frac_innermux_T_1 = bits(new_frac_reg_2, 46, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 267:108]
+    node _out_frac_innermux_T_2 = bits(new_frac_reg_2, 45, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 267:162]
+    node _out_frac_innermux_T_3 = mux(_out_frac_innermux_T, _out_frac_innermux_T_1, _out_frac_innermux_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 267:46]
+    reg out_frac_innermux : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), out_frac_innermux) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 267:42]
+    node _GEN_42 = mux(io_in_en, _out_frac_innermux_T_3, out_frac_innermux) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 267:{42,42,42}]
+    reg u_flag_reg_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), u_flag_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 268:37]
+    node _GEN_43 = mux(io_in_en, u_flag_reg, u_flag_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 268:{37,37,37}]
+    reg o_flag_reg_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), o_flag_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 269:37]
+    node _GEN_44 = mux(io_in_en, o_flag_reg, o_flag_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 269:{37,37,37}]
+    reg new_sign_reg_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 270:39]
+    node _GEN_45 = mux(io_in_en, new_sign_reg_2, new_sign_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 270:{39,39,39}]
+    node _out_exp_innermux_2_T = mux(o_flag_reg_2, UInt<8>("hfe"), out_exp_innermux) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 274:47]
+    reg out_exp_innermux_2 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), out_exp_innermux_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 274:43]
+    node _GEN_46 = mux(io_in_en, _out_exp_innermux_2_T, out_exp_innermux_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 274:{43,43,43}]
+    node _out_frac_innermux_2_T = mux(o_flag_reg_2, UInt<23>("h7fffff"), out_frac_innermux) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 275:48]
+    reg out_frac_innermux_2 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), out_frac_innermux_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 275:44]
+    node _GEN_47 = mux(io_in_en, _out_frac_innermux_2_T, out_frac_innermux_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 275:{44,44,44}]
+    reg new_sign_reg_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 276:39]
+    node _GEN_48 = mux(io_in_en, new_sign_reg_3, new_sign_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 276:{39,39,39}]
+    reg u_flag_reg_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), u_flag_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 277:37]
+    node _GEN_49 = mux(io_in_en, u_flag_reg_2, u_flag_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 277:{37,37,37}]
+    node out_exp = mux(u_flag_reg_3, UInt<8>("h1"), out_exp_innermux_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 280:22]
+    node out_frac = mux(u_flag_reg_3, UInt<23>("h0"), out_frac_innermux_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 281:23]
+    node _io_out_s_T = cat(new_sign_reg_4, out_exp) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 282:40]
+    node _io_out_s_T_1 = cat(_io_out_s_T, out_frac) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 282:51]
+    reg io_out_s_r : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), io_out_s_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 282:30]
+    node _GEN_50 = mux(io_in_en, _io_out_s_T_1, io_out_s_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 282:{30,30,30}]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_51 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_52 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_53 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_54 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_55 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_56 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_57 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_58 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_59 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:34]
+    node _GEN_60 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:{34,34,34}]
+    io_out_s <= io_out_s_r @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 282:14]
+    io_out_valid <= io_out_valid_r_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 283:18]
+    in_a <= _GEN_0
+    in_b <= _GEN_1
+    whole_frac_sr_0 <= _GEN_6
+    whole_frac_sr_1 <= _GEN_7
+    sign_sr_0 <= _GEN_8
+    sign_sr_1 <= _GEN_9
+    exp_sr_0 <= _GEN_10
+    exp_sr_1 <= _GEN_11
+    new_sign_sr <= _GEN_12
+    exp_sr_2_0 <= _GEN_13
+    exp_sr_2_1 <= _GEN_14
+    whole_frac_sr_2_0 <= _GEN_15
+    whole_frac_sr_2_1 <= _GEN_16
+    exp_adder.clock <= clock
+    exp_adder.reset <= reset
+    exp_adder.io_in_a <= exp_sr_2_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 227:23]
+    exp_adder.io_in_b <= _exp_adder_io_in_b_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 228:23]
+    exp_adder.io_in_c <= UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 229:23]
+    exp_adder_outs_sr <= _GEN_17
+    exp_adder_outc_sr <= _GEN_18
+    new_sign_sr_2 <= _GEN_19
+    exp_sr_3_0 <= _GEN_20
+    exp_sr_3_1 <= _GEN_21
+    whole_frac_sr_3_0 <= _GEN_22
+    whole_frac_sr_3_1 <= _GEN_23
+    multiplier.clock <= clock
+    multiplier.reset <= reset
+    multiplier.io_in_a <= whole_frac_sr_3_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 238:26]
+    multiplier.io_in_b <= whole_frac_sr_3_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 239:26]
+    frac_mult_out_sr <= _GEN_24
+    exp_adder_outs_sr_2 <= _GEN_25
+    exp_adder_outc_sr_2 <= _GEN_26
+    new_sign_sr_3 <= _GEN_27
+    exp_sr_4_0 <= _GEN_28
+    exp_sr_4_1 <= _GEN_29
+    uo_check_r <= _GEN_30
+    carry_flag <= _GEN_31
+    exp_sum <= _GEN_32
+    new_sign_reg <= _GEN_33
+    msb_check <= _GEN_34
+    new_frac_reg <= _GEN_35
+    u_flag_reg <= _GEN_36
+    o_flag_reg <= _GEN_37
+    new_exp_reg <= _GEN_38
+    new_sign_reg_2 <= _GEN_39
+    new_frac_reg_2 <= _GEN_40
+    out_exp_innermux <= _GEN_41
+    out_frac_innermux <= _GEN_42
+    u_flag_reg_2 <= _GEN_43
+    o_flag_reg_2 <= _GEN_44
+    new_sign_reg_3 <= _GEN_45
+    out_exp_innermux_2 <= _GEN_46
+    out_frac_innermux_2 <= _GEN_47
+    new_sign_reg_4 <= _GEN_48
+    u_flag_reg_3 <= _GEN_49
+    io_out_s_r <= _GEN_50
+    io_out_valid_r <= _GEN_51
+    io_out_valid_r_1 <= _GEN_52
+    io_out_valid_r_2 <= _GEN_53
+    io_out_valid_r_3 <= _GEN_54
+    io_out_valid_r_4 <= _GEN_55
+    io_out_valid_r_5 <= _GEN_56
+    io_out_valid_r_6 <= _GEN_57
+    io_out_valid_r_7 <= _GEN_58
+    io_out_valid_r_8 <= _GEN_59
+    io_out_valid_r_9 <= _GEN_60
+
+  module full_subtractor : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 92:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 92:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 92:9]
+    input io_in_a : UInt<8> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 93:16]
+    input io_in_b : UInt<8> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 93:16]
+    input io_in_c : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 93:16]
+    output io_out_s : UInt<8> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 93:16]
+    output io_out_c : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 93:16]
+
+    node _result_T = sub(io_in_a, io_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 101:23]
+    node _result_T_1 = asUInt(_result_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 101:23]
+    node _result_T_2 = sub(_result_T_1, io_in_c) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 101:34]
+    node _result_T_3 = asUInt(_result_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 101:34]
+    node result = bits(_result_T_3, 8, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 100:22 101:12]
+    node _io_out_s_T = bits(result, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 102:23]
+    node _io_out_c_T = bits(result, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 103:23]
+    io_out_s <= _io_out_s_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 102:14]
+    io_out_c <= _io_out_c_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 103:14]
+
+  module full_adder_4 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 78:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 78:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 78:9]
+    input io_in_a : UInt<24> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    input io_in_b : UInt<24> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    input io_in_c : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    output io_out_s : UInt<24> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+    output io_out_c : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 79:16]
+
+    node _result_T = add(io_in_a, io_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 87:23]
+    node _result_T_1 = add(_result_T, io_in_c) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 87:34]
+    node result = bits(_result_T_1, 24, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 86:22 87:12]
+    node _io_out_s_T = bits(result, 23, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 88:23]
+    node _io_out_c_T = bits(result, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 89:23]
+    io_out_s <= _io_out_s_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 88:14]
+    io_out_c <= _io_out_c_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 89:14]
+
+  module LZC_enc2 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 8:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 8:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 8:9]
+    input io_in_r : UInt<2> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 9:16]
+    output io_out_e : UInt<2> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 9:16]
+
+    node seq_0_1 = eq(io_in_r, UInt<2>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 24:48]
+    node seq_1_1 = eq(io_in_r, UInt<2>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 24:48]
+    node seq_2_1 = eq(io_in_r, UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 24:48]
+    node seq_3_1 = eq(io_in_r, UInt<2>("h3")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 24:48]
+    node _out_enc_T = mux(seq_3_1, UInt<2>("h0"), UInt<1>("h0")) @[src/main/scala/chisel3/util/Mux.scala 126:16]
+    node _out_enc_T_1 = mux(seq_2_1, UInt<2>("h0"), _out_enc_T) @[src/main/scala/chisel3/util/Mux.scala 126:16]
+    node _out_enc_T_2 = mux(seq_1_1, UInt<2>("h1"), _out_enc_T_1) @[src/main/scala/chisel3/util/Mux.scala 126:16]
+    node _out_enc_T_3 = mux(seq_0_1, UInt<2>("h2"), _out_enc_T_2) @[src/main/scala/chisel3/util/Mux.scala 126:16]
+    node out_enc = _out_enc_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 25:23 26:13]
+    io_out_e <= out_enc @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 27:14]
+
+  module LZC_Merge2 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input io_in_h : UInt<2> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    input io_in_l : UInt<2> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    output io_out_m : UInt<3> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+
+    node _result_h_1_T = bits(io_in_h, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:27]
+    node _result_h_1_T_1 = bits(io_in_l, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:43]
+    node _result_h_1_T_2 = and(_result_h_1_T, _result_h_1_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:34]
+    node _result_h_0_T = bits(io_in_h, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:31]
+    node _result_h_0_T_1 = bits(io_in_l, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:54]
+    node _result_h_0_T_2 = eq(_result_h_0_T_1, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:46]
+    node _result_h_0_T_3 = bits(io_in_h, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:69]
+    node _result_h_0_T_4 = mux(_result_h_0_T, _result_h_0_T_2, _result_h_0_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:23]
+    node _result_l_T = bits(io_in_h, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:28]
+    node _result_l_T_1 = bits(io_in_l, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:50]
+    node _result_l_T_2 = bits(io_in_h, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:67]
+    node _result_l_T_3 = mux(_result_l_T, _result_l_T_1, _result_l_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:20]
+    node result_h_1 = _result_h_1_T_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 72:17]
+    node result_h_0 = _result_h_0_T_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 73:17]
+    node _io_out_m_T = cat(result_h_1, result_h_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:26]
+    node result_l = _result_l_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 71:24 74:14]
+    node _io_out_m_T_1 = cat(_io_out_m_T, result_l) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:33]
+    io_out_m <= _io_out_m_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:14]
+
+  module LZC_Merge3 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input io_in_h : UInt<3> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    input io_in_l : UInt<3> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    output io_out_m : UInt<4> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+
+    node _result_h_1_T = bits(io_in_h, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:27]
+    node _result_h_1_T_1 = bits(io_in_l, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:43]
+    node _result_h_1_T_2 = and(_result_h_1_T, _result_h_1_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:34]
+    node _result_h_0_T = bits(io_in_h, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:31]
+    node _result_h_0_T_1 = bits(io_in_l, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:54]
+    node _result_h_0_T_2 = eq(_result_h_0_T_1, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:46]
+    node _result_h_0_T_3 = bits(io_in_h, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:69]
+    node _result_h_0_T_4 = mux(_result_h_0_T, _result_h_0_T_2, _result_h_0_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:23]
+    node _result_l_T = bits(io_in_h, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:28]
+    node _result_l_T_1 = bits(io_in_l, 1, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:50]
+    node _result_l_T_2 = bits(io_in_h, 1, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:67]
+    node _result_l_T_3 = mux(_result_l_T, _result_l_T_1, _result_l_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:20]
+    node result_h_1 = _result_h_1_T_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 72:17]
+    node result_h_0 = _result_h_0_T_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 73:17]
+    node _io_out_m_T = cat(result_h_1, result_h_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:26]
+    node result_l = _result_l_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 71:24 74:14]
+    node _io_out_m_T_1 = cat(_io_out_m_T, result_l) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:33]
+    io_out_m <= _io_out_m_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:14]
+
+  module LZC_Merge4 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input io_in_h : UInt<4> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    input io_in_l : UInt<4> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    output io_out_m : UInt<5> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+
+    node _result_h_1_T = bits(io_in_h, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:27]
+    node _result_h_1_T_1 = bits(io_in_l, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:43]
+    node _result_h_1_T_2 = and(_result_h_1_T, _result_h_1_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:34]
+    node _result_h_0_T = bits(io_in_h, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:31]
+    node _result_h_0_T_1 = bits(io_in_l, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:54]
+    node _result_h_0_T_2 = eq(_result_h_0_T_1, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:46]
+    node _result_h_0_T_3 = bits(io_in_h, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:69]
+    node _result_h_0_T_4 = mux(_result_h_0_T, _result_h_0_T_2, _result_h_0_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:23]
+    node _result_l_T = bits(io_in_h, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:28]
+    node _result_l_T_1 = bits(io_in_l, 2, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:50]
+    node _result_l_T_2 = bits(io_in_h, 2, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:67]
+    node _result_l_T_3 = mux(_result_l_T, _result_l_T_1, _result_l_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:20]
+    node result_h_1 = _result_h_1_T_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 72:17]
+    node result_h_0 = _result_h_0_T_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 73:17]
+    node _io_out_m_T = cat(result_h_1, result_h_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:26]
+    node result_l = _result_l_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 71:24 74:14]
+    node _io_out_m_T_1 = cat(_io_out_m_T, result_l) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:33]
+    io_out_m <= _io_out_m_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:14]
+
+  module LZC_Merge5 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 63:9]
+    input io_in_h : UInt<5> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    input io_in_l : UInt<5> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+    output io_out_m : UInt<6> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 64:16]
+
+    node _result_h_1_T = bits(io_in_h, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:27]
+    node _result_h_1_T_1 = bits(io_in_l, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:43]
+    node _result_h_1_T_2 = and(_result_h_1_T, _result_h_1_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 72:34]
+    node _result_h_0_T = bits(io_in_h, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:31]
+    node _result_h_0_T_1 = bits(io_in_l, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:54]
+    node _result_h_0_T_2 = eq(_result_h_0_T_1, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:46]
+    node _result_h_0_T_3 = bits(io_in_h, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:69]
+    node _result_h_0_T_4 = mux(_result_h_0_T, _result_h_0_T_2, _result_h_0_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 73:23]
+    node _result_l_T = bits(io_in_h, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:28]
+    node _result_l_T_1 = bits(io_in_l, 3, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:50]
+    node _result_l_T_2 = bits(io_in_h, 3, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:67]
+    node _result_l_T_3 = mux(_result_l_T, _result_l_T_1, _result_l_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 74:20]
+    node result_h_1 = _result_h_1_T_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 72:17]
+    node result_h_0 = _result_h_0_T_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 70:24 73:17]
+    node _io_out_m_T = cat(result_h_1, result_h_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:26]
+    node result_l = _result_l_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 71:24 74:14]
+    node _io_out_m_T_1 = cat(_io_out_m_T, result_l) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:33]
+    io_out_m <= _io_out_m_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 75:14]
+
+  module LZC32_2 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 30:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 30:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 30:9]
+    input io_in_d : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 31:16]
+    output io_out_c : UInt<6> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 31:16]
+
+    inst LZC_enc2 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_1 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_2 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_3 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_4 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_5 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_6 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_7 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_8 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_9 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_10 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_11 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_12 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_13 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_14 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_enc2_15 of LZC_enc2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 36:50]
+    inst LZC_Merge2 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge2_1 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge2_2 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge2_3 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge2_4 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge2_5 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge2_6 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge2_7 of LZC_Merge2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge3 of LZC_Merge3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge3_1 of LZC_Merge3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge3_2 of LZC_Merge3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge3_3 of LZC_Merge3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge4 of LZC_Merge4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge4_1 of LZC_Merge4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    inst LZC_Merge5 of LZC_Merge5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 46:37]
+    node encoded_enc_in = bits(io_in_d, 1, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_1 = bits(io_in_d, 3, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_2 = bits(io_in_d, 5, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_3 = bits(io_in_d, 7, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_4 = bits(io_in_d, 9, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_5 = bits(io_in_d, 11, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_6 = bits(io_in_d, 13, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_7 = bits(io_in_d, 15, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_8 = bits(io_in_d, 17, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_9 = bits(io_in_d, 19, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_10 = bits(io_in_d, 21, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_11 = bits(io_in_d, 23, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_12 = bits(io_in_d, 25, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_13 = bits(io_in_d, 27, 26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_14 = bits(io_in_d, 29, 28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    node encoded_enc_in_15 = bits(io_in_d, 31, 30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 38:27]
+    io_out_c <= LZC_Merge5.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 60:14]
+    LZC_enc2.clock <= clock
+    LZC_enc2.reset <= reset
+    LZC_enc2.io_in_r <= encoded_enc_in @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_1.clock <= clock
+    LZC_enc2_1.reset <= reset
+    LZC_enc2_1.io_in_r <= encoded_enc_in_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_2.clock <= clock
+    LZC_enc2_2.reset <= reset
+    LZC_enc2_2.io_in_r <= encoded_enc_in_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_3.clock <= clock
+    LZC_enc2_3.reset <= reset
+    LZC_enc2_3.io_in_r <= encoded_enc_in_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_4.clock <= clock
+    LZC_enc2_4.reset <= reset
+    LZC_enc2_4.io_in_r <= encoded_enc_in_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_5.clock <= clock
+    LZC_enc2_5.reset <= reset
+    LZC_enc2_5.io_in_r <= encoded_enc_in_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_6.clock <= clock
+    LZC_enc2_6.reset <= reset
+    LZC_enc2_6.io_in_r <= encoded_enc_in_6 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_7.clock <= clock
+    LZC_enc2_7.reset <= reset
+    LZC_enc2_7.io_in_r <= encoded_enc_in_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_8.clock <= clock
+    LZC_enc2_8.reset <= reset
+    LZC_enc2_8.io_in_r <= encoded_enc_in_8 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_9.clock <= clock
+    LZC_enc2_9.reset <= reset
+    LZC_enc2_9.io_in_r <= encoded_enc_in_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_10.clock <= clock
+    LZC_enc2_10.reset <= reset
+    LZC_enc2_10.io_in_r <= encoded_enc_in_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_11.clock <= clock
+    LZC_enc2_11.reset <= reset
+    LZC_enc2_11.io_in_r <= encoded_enc_in_11 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_12.clock <= clock
+    LZC_enc2_12.reset <= reset
+    LZC_enc2_12.io_in_r <= encoded_enc_in_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_13.clock <= clock
+    LZC_enc2_13.reset <= reset
+    LZC_enc2_13.io_in_r <= encoded_enc_in_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_14.clock <= clock
+    LZC_enc2_14.reset <= reset
+    LZC_enc2_14.io_in_r <= encoded_enc_in_14 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_enc2_15.clock <= clock
+    LZC_enc2_15.reset <= reset
+    LZC_enc2_15.io_in_r <= encoded_enc_in_15 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 39:24]
+    LZC_Merge2.clock <= clock
+    LZC_Merge2.reset <= reset
+    LZC_Merge2.io_in_h <= LZC_enc2_15.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2.io_in_l <= LZC_enc2_14.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge2_1.clock <= clock
+    LZC_Merge2_1.reset <= reset
+    LZC_Merge2_1.io_in_h <= LZC_enc2_13.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2_1.io_in_l <= LZC_enc2_12.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge2_2.clock <= clock
+    LZC_Merge2_2.reset <= reset
+    LZC_Merge2_2.io_in_h <= LZC_enc2_11.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2_2.io_in_l <= LZC_enc2_10.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge2_3.clock <= clock
+    LZC_Merge2_3.reset <= reset
+    LZC_Merge2_3.io_in_h <= LZC_enc2_9.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2_3.io_in_l <= LZC_enc2_8.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge2_4.clock <= clock
+    LZC_Merge2_4.reset <= reset
+    LZC_Merge2_4.io_in_h <= LZC_enc2_7.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2_4.io_in_l <= LZC_enc2_6.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge2_5.clock <= clock
+    LZC_Merge2_5.reset <= reset
+    LZC_Merge2_5.io_in_h <= LZC_enc2_5.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2_5.io_in_l <= LZC_enc2_4.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge2_6.clock <= clock
+    LZC_Merge2_6.reset <= reset
+    LZC_Merge2_6.io_in_h <= LZC_enc2_3.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2_6.io_in_l <= LZC_enc2_2.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge2_7.clock <= clock
+    LZC_Merge2_7.reset <= reset
+    LZC_Merge2_7.io_in_h <= LZC_enc2_1.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 52:30]
+    LZC_Merge2_7.io_in_l <= LZC_enc2.io_out_e @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 53:30]
+    LZC_Merge3.clock <= clock
+    LZC_Merge3.reset <= reset
+    LZC_Merge3.io_in_h <= LZC_Merge2.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 55:30]
+    LZC_Merge3.io_in_l <= LZC_Merge2_1.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 56:30]
+    LZC_Merge3_1.clock <= clock
+    LZC_Merge3_1.reset <= reset
+    LZC_Merge3_1.io_in_h <= LZC_Merge2_2.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 55:30]
+    LZC_Merge3_1.io_in_l <= LZC_Merge2_3.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 56:30]
+    LZC_Merge3_2.clock <= clock
+    LZC_Merge3_2.reset <= reset
+    LZC_Merge3_2.io_in_h <= LZC_Merge2_4.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 55:30]
+    LZC_Merge3_2.io_in_l <= LZC_Merge2_5.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 56:30]
+    LZC_Merge3_3.clock <= clock
+    LZC_Merge3_3.reset <= reset
+    LZC_Merge3_3.io_in_h <= LZC_Merge2_6.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 55:30]
+    LZC_Merge3_3.io_in_l <= LZC_Merge2_7.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 56:30]
+    LZC_Merge4.clock <= clock
+    LZC_Merge4.reset <= reset
+    LZC_Merge4.io_in_h <= LZC_Merge3.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 55:30]
+    LZC_Merge4.io_in_l <= LZC_Merge3_1.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 56:30]
+    LZC_Merge4_1.clock <= clock
+    LZC_Merge4_1.reset <= reset
+    LZC_Merge4_1.io_in_h <= LZC_Merge3_2.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 55:30]
+    LZC_Merge4_1.io_in_l <= LZC_Merge3_3.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 56:30]
+    LZC_Merge5.clock <= clock
+    LZC_Merge5.reset <= reset
+    LZC_Merge5.io_in_h <= LZC_Merge4.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 55:30]
+    LZC_Merge5.io_in_l <= LZC_Merge4_1.io_out_m @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 56:30]
+
+  module FP_add_32_13 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 287:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 287:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 287:9]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 290:16]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 290:16]
+    input io_in_a : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 290:16]
+    input io_in_b : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 290:16]
+    output io_out_s : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 290:16]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 290:16]
+
+    inst exp_subtractor of full_subtractor @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 362:32]
+    inst full_adder of full_adder_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 389:28]
+    inst LZC32_2 of LZC32_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 407:26]
+    reg in_a : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), in_a) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 321:29]
+    node _GEN_0 = mux(io_in_en, io_in_a, in_a) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 321:{29,29,29}]
+    reg in_b : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 322:29]
+    node _GEN_1 = mux(io_in_en, io_in_b, in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 322:{29,29,29}]
+    node _sign_wire_0_T = bits(in_a, 31, 31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 327:25]
+    node _sign_wire_1_T = bits(in_b, 31, 31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 328:25]
+    node _T = bits(in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 332:14]
+    node _T_1 = sub(UInt<9>("h100"), UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 332:61]
+    node _T_2 = tail(_T_1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 332:61]
+    node _T_3 = gt(_T, _T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 332:33]
+    node _exp_wire_0_T = sub(UInt<9>("h100"), UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 333:48]
+    node _exp_wire_0_T_1 = tail(_exp_wire_0_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 333:48]
+    node _T_4 = bits(in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 334:20]
+    node _T_5 = lt(_T_4, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 334:36]
+    node _exp_wire_0_T_2 = bits(in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 337:26]
+    node _GEN_2 = mux(_T_5, UInt<1>("h1"), _exp_wire_0_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 334:42 335:19 337:19]
+    node _GEN_3 = mux(_T_3, _exp_wire_0_T_1, _GEN_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 332:68 333:19]
+    node _T_6 = bits(in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 339:14]
+    node _T_7 = sub(UInt<9>("h100"), UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 339:61]
+    node _T_8 = tail(_T_7, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 339:61]
+    node _T_9 = gt(_T_6, _T_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 339:33]
+    node _exp_wire_1_T = sub(UInt<9>("h100"), UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 340:48]
+    node _exp_wire_1_T_1 = tail(_exp_wire_1_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 340:48]
+    node _T_10 = bits(in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 341:20]
+    node _T_11 = lt(_T_10, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 341:36]
+    node _exp_wire_1_T_2 = bits(in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 344:26]
+    node _GEN_4 = mux(_T_11, UInt<1>("h1"), _exp_wire_1_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 341:42 342:19 344:19]
+    node _GEN_5 = mux(_T_9, _exp_wire_1_T_1, _GEN_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 339:68 340:19]
+    node _frac_wire_0_T = bits(in_a, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 349:25]
+    node _frac_wire_1_T = bits(in_b, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 350:25]
+    node frac_wire_0 = _frac_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 348:25 349:18]
+    node _whole_frac_wire_0_T = cat(UInt<1>("h1"), frac_wire_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 354:31]
+    node frac_wire_1 = _frac_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 348:25 350:18]
+    node _whole_frac_wire_1_T = cat(UInt<1>("h1"), frac_wire_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 355:31]
+    reg exp_sr_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 358:31]
+    reg exp_sr_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 358:31]
+    node exp_wire_0 = bits(_GEN_3, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 331:24]
+    node _GEN_6 = mux(io_in_en, exp_wire_0, exp_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 358:{31,31,31}]
+    node exp_wire_1 = bits(_GEN_5, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 331:24]
+    node _GEN_7 = mux(io_in_en, exp_wire_1, exp_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 358:{31,31,31}]
+    reg whole_frac_sr_0 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 359:38]
+    reg whole_frac_sr_1 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 359:38]
+    node whole_frac_wire_0 = _whole_frac_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 353:31 354:24]
+    node _GEN_8 = mux(io_in_en, whole_frac_wire_0, whole_frac_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 359:{38,38,38}]
+    node whole_frac_wire_1 = _whole_frac_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 353:31 355:24]
+    node _GEN_9 = mux(io_in_en, whole_frac_wire_1, whole_frac_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 359:{38,38,38}]
+    reg sign_sr_0 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 360:32]
+    reg sign_sr_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 360:32]
+    node sign_wire_0 = _sign_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 326:25 327:18]
+    node _GEN_10 = mux(io_in_en, sign_wire_0, sign_sr_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 360:{32,32,32}]
+    node sign_wire_1 = _sign_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 326:25 328:18]
+    node _GEN_11 = mux(io_in_en, sign_wire_1, sign_sr_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 360:{32,32,32}]
+    reg exp_sub_out_c_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), exp_sub_out_c_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 367:38]
+    node _GEN_12 = mux(io_in_en, exp_subtractor.io_out_c, exp_sub_out_c_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 367:{38,38,38}]
+    reg exp_sub_out_c : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), exp_sub_out_c) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 367:38]
+    node _GEN_13 = mux(io_in_en, exp_sub_out_c_r, exp_sub_out_c) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 367:{38,38,38}]
+    reg exp_sub_out_s_r : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sub_out_s_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 368:38]
+    node _GEN_14 = mux(io_in_en, exp_subtractor.io_out_s, exp_sub_out_s_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 368:{38,38,38}]
+    reg exp_sub_out_s : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sub_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 368:38]
+    node _GEN_15 = mux(io_in_en, exp_sub_out_s_r, exp_sub_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 368:{38,38,38}]
+    reg exp_sr_2_r_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_2_r_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:33]
+    reg exp_sr_2_r_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_2_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:33]
+    node _GEN_16 = mux(io_in_en, exp_sr_0, exp_sr_2_r_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:{33,33,33}]
+    node _GEN_17 = mux(io_in_en, exp_sr_1, exp_sr_2_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:{33,33,33}]
+    reg exp_sr_2_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:33]
+    reg exp_sr_2_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:33]
+    node _GEN_18 = mux(io_in_en, exp_sr_2_r_0, exp_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:{33,33,33}]
+    node _GEN_19 = mux(io_in_en, exp_sr_2_r_1, exp_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 369:{33,33,33}]
+    reg whole_frac_sr_2_r_0 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_2_r_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:40]
+    reg whole_frac_sr_2_r_1 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_2_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:40]
+    node _GEN_20 = mux(io_in_en, whole_frac_sr_0, whole_frac_sr_2_r_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:{40,40,40}]
+    node _GEN_21 = mux(io_in_en, whole_frac_sr_1, whole_frac_sr_2_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:{40,40,40}]
+    reg whole_frac_sr_2_0 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:40]
+    reg whole_frac_sr_2_1 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:40]
+    node _GEN_22 = mux(io_in_en, whole_frac_sr_2_r_0, whole_frac_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:{40,40,40}]
+    node _GEN_23 = mux(io_in_en, whole_frac_sr_2_r_1, whole_frac_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 370:{40,40,40}]
+    reg sign_sr_2_r_0 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_2_r_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:34]
+    reg sign_sr_2_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_2_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:34]
+    node _GEN_24 = mux(io_in_en, sign_sr_0, sign_sr_2_r_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:{34,34,34}]
+    node _GEN_25 = mux(io_in_en, sign_sr_1, sign_sr_2_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:{34,34,34}]
+    reg sign_sr_2_0 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:34]
+    reg sign_sr_2_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:34]
+    node _GEN_26 = mux(io_in_en, sign_sr_2_r_0, sign_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:{34,34,34}]
+    node _GEN_27 = mux(io_in_en, sign_sr_2_r_1, sign_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 371:{34,34,34}]
+    node _eqexp_arrange_T = eq(exp_sr_2_0, exp_sr_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 373:54]
+    node _eqexp_arrange_T_1 = gt(whole_frac_sr_2_1, whole_frac_sr_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 373:88]
+    node _eqexp_arrange_T_2 = mux(_eqexp_arrange_T, _eqexp_arrange_T_1, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 373:42]
+    reg eqexp_arrange : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), eqexp_arrange) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 373:38]
+    node _GEN_28 = mux(io_in_en, _eqexp_arrange_T_2, eqexp_arrange) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 373:{38,38,38}]
+    reg exp_sr_3_0 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 374:33]
+    reg exp_sr_3_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 374:33]
+    node _GEN_29 = mux(io_in_en, exp_sr_2_0, exp_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 374:{33,33,33}]
+    node _GEN_30 = mux(io_in_en, exp_sr_2_1, exp_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 374:{33,33,33}]
+    reg whole_frac_sr_3_0 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 375:40]
+    reg whole_frac_sr_3_1 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), whole_frac_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 375:40]
+    node _GEN_31 = mux(io_in_en, whole_frac_sr_2_0, whole_frac_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 375:{40,40,40}]
+    node _GEN_32 = mux(io_in_en, whole_frac_sr_2_1, whole_frac_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 375:{40,40,40}]
+    reg sign_sr_3_0 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 376:34]
+    reg sign_sr_3_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 376:34]
+    node _GEN_33 = mux(io_in_en, sign_sr_2_0, sign_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 376:{34,34,34}]
+    node _GEN_34 = mux(io_in_en, sign_sr_2_1, sign_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 376:{34,34,34}]
+    reg exp_sub_out_c_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), exp_sub_out_c_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 377:40]
+    node _GEN_35 = mux(io_in_en, exp_sub_out_c, exp_sub_out_c_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 377:{40,40,40}]
+    reg exp_sub_out_s_2 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sub_out_s_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 378:40]
+    node _GEN_36 = mux(io_in_en, exp_sub_out_s, exp_sub_out_s_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 378:{40,40,40}]
+    node _redundant_op_T = bits(exp_sub_out_c_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:58]
+    node _redundant_op_T_1 = not(exp_sub_out_s_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:67]
+    node _redundant_op_T_2 = add(_redundant_op_T_1, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:92]
+    node _redundant_op_T_3 = tail(_redundant_op_T_2, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:92]
+    node _redundant_op_T_4 = mux(_redundant_op_T, _redundant_op_T_3, exp_sub_out_s_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:41]
+    node _redundant_op_T_5 = gt(_redundant_op_T_4, UInt<5>("h17")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:116]
+    reg redundant_op : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), redundant_op) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:37]
+    node _GEN_37 = mux(io_in_en, _redundant_op_T_5, redundant_op) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 381:{37,37,37}]
+    node _fracadd_in_a_T = bits(exp_sub_out_c_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 382:58]
+    node _GEN_38 = validif(eq(UInt<1>("h0"), eqexp_arrange), whole_frac_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 382:{41,41}]
+    node _GEN_39 = mux(eq(UInt<1>("h1"), eqexp_arrange), whole_frac_sr_3_1, _GEN_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 382:{41,41}]
+    node _whole_frac_sr_3_eqexp_arrange = _GEN_39 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 382:41]
+    node _fracadd_in_a_T_1 = mux(_fracadd_in_a_T, whole_frac_sr_3_1, _whole_frac_sr_3_eqexp_arrange) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 382:41]
+    reg fracadd_in_a : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), fracadd_in_a) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 382:37]
+    node _GEN_40 = mux(io_in_en, _fracadd_in_a_T_1, fracadd_in_a) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 382:{37,37,37}]
+    node _fracadd_in_b_T = bits(exp_sub_out_c_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:58]
+    node _fracadd_in_b_T_1 = not(exp_sub_out_s_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:90]
+    node _fracadd_in_b_T_2 = add(_fracadd_in_b_T_1, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:115]
+    node _fracadd_in_b_T_3 = tail(_fracadd_in_b_T_2, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:115]
+    node _fracadd_in_b_T_4 = dshr(whole_frac_sr_3_0, _fracadd_in_b_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:85]
+    node _fracadd_in_b_T_5 = eq(eqexp_arrange, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:139]
+    node _GEN_41 = validif(eq(UInt<1>("h0"), _fracadd_in_b_T_5), whole_frac_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:{155,155}]
+    node _GEN_42 = mux(eq(UInt<1>("h1"), _fracadd_in_b_T_5), whole_frac_sr_3_1, _GEN_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:{155,155}]
+    node _whole_frac_sr_3_fracadd_in_b_T_5 = _GEN_42 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:155]
+    node _fracadd_in_b_T_6 = dshr(_whole_frac_sr_3_fracadd_in_b_T_5, exp_sub_out_s_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:155]
+    node _fracadd_in_b_T_7 = mux(_fracadd_in_b_T, _fracadd_in_b_T_4, _fracadd_in_b_T_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:41]
+    reg fracadd_in_b : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), fracadd_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:37]
+    node _GEN_43 = mux(io_in_en, _fracadd_in_b_T_7, fracadd_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 383:{37,37,37}]
+    node _ref_exp_T = bits(exp_sub_out_c_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 384:53]
+    node _ref_exp_T_1 = mux(_ref_exp_T, exp_sr_3_1, exp_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 384:36]
+    reg ref_exp : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), ref_exp) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 384:32]
+    node _GEN_44 = mux(io_in_en, _ref_exp_T_1, ref_exp) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 384:{32,32,32}]
+    node _ref_sign_T = bits(exp_sub_out_c_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 385:54]
+    node _GEN_45 = validif(eq(UInt<1>("h0"), eqexp_arrange), sign_sr_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 385:{37,37}]
+    node _GEN_46 = mux(eq(UInt<1>("h1"), eqexp_arrange), sign_sr_3_1, _GEN_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 385:{37,37}]
+    node _sign_sr_3_eqexp_arrange = _GEN_46 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 385:37]
+    node _ref_sign_T_1 = mux(_ref_sign_T, sign_sr_3_1, _sign_sr_3_eqexp_arrange) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 385:37]
+    reg ref_sign : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), ref_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 385:33]
+    node _GEN_47 = mux(io_in_en, _ref_sign_T_1, ref_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 385:{33,33,33}]
+    node _diff_sign_T = xor(sign_sr_3_0, sign_sr_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 386:48]
+    reg diff_sign : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), diff_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 386:34]
+    node _GEN_48 = mux(io_in_en, _diff_sign_T, diff_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 386:{34,34,34}]
+    node _T_12 = bits(diff_sign, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 391:38]
+    node _T_13 = not(fracadd_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 391:47]
+    node _T_14 = add(_T_13, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 391:69]
+    node _T_15 = tail(_T_14, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 391:69]
+    node _T_16 = mux(_T_12, _T_15, fracadd_in_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 391:27]
+    reg frac_adder_out_c_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), frac_adder_out_c_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 394:41]
+    node _GEN_49 = mux(io_in_en, full_adder.io_out_c, frac_adder_out_c_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 394:{41,41,41}]
+    reg frac_adder_out_c : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), frac_adder_out_c) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 394:41]
+    node _GEN_50 = mux(io_in_en, frac_adder_out_c_r, frac_adder_out_c) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 394:{41,41,41}]
+    reg frac_adder_out_s_r : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), frac_adder_out_s_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 395:41]
+    node _GEN_51 = mux(io_in_en, full_adder.io_out_s, frac_adder_out_s_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 395:{41,41,41}]
+    reg frac_adder_out_s : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), frac_adder_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 395:41]
+    node _GEN_52 = mux(io_in_en, frac_adder_out_s_r, frac_adder_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 395:{41,41,41}]
+    reg diff_sign_2_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), diff_sign_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 396:36]
+    node _GEN_53 = mux(io_in_en, diff_sign, diff_sign_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 396:{36,36,36}]
+    reg diff_sign_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), diff_sign_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 396:36]
+    node _GEN_54 = mux(io_in_en, diff_sign_2_r, diff_sign_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 396:{36,36,36}]
+    reg redundant_op_2_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), redundant_op_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 397:39]
+    node _GEN_55 = mux(io_in_en, redundant_op, redundant_op_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 397:{39,39,39}]
+    reg redundant_op_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), redundant_op_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 397:39]
+    node _GEN_56 = mux(io_in_en, redundant_op_2_r, redundant_op_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 397:{39,39,39}]
+    reg ref_sign_2_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), ref_sign_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 398:35]
+    node _GEN_57 = mux(io_in_en, ref_sign, ref_sign_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 398:{35,35,35}]
+    reg ref_sign_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), ref_sign_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 398:35]
+    node _GEN_58 = mux(io_in_en, ref_sign_2_r, ref_sign_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 398:{35,35,35}]
+    reg ref_exp_2_r : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), ref_exp_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 399:34]
+    node _GEN_59 = mux(io_in_en, ref_exp, ref_exp_2_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 399:{34,34,34}]
+    reg ref_exp_2 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), ref_exp_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 399:34]
+    node _GEN_60 = mux(io_in_en, ref_exp_2_r, ref_exp_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 399:{34,34,34}]
+    node _sign_out_T = bits(diff_sign_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:50]
+    node _sign_out_T_1 = eq(redundant_op_2, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:60]
+    node _sign_out_T_2 = and(_sign_out_T, _sign_out_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:57]
+    node _sign_out_T_3 = bits(frac_adder_out_c, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:98]
+    node _sign_out_T_4 = eq(ref_sign_2, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:118]
+    node _sign_out_T_5 = mux(_sign_out_T_3, ref_sign_2, _sign_out_T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:80]
+    node _sign_out_T_6 = mux(_sign_out_T_2, _sign_out_T_5, ref_sign_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:37]
+    reg sign_out : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_out) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:33]
+    node _GEN_61 = mux(io_in_en, _sign_out_T_6, sign_out) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 401:{33,33,33}]
+    reg fracadd_outs : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), fracadd_outs) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 402:37]
+    node _GEN_62 = mux(io_in_en, frac_adder_out_s, fracadd_outs) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 402:{37,37,37}]
+    reg fracadd_outc : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), fracadd_outc) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 403:37]
+    node _GEN_63 = mux(io_in_en, frac_adder_out_c, fracadd_outc) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 403:{37,37,37}]
+    reg diff_sign_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), diff_sign_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 404:36]
+    node _GEN_64 = mux(io_in_en, diff_sign_2, diff_sign_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 404:{36,36,36}]
+    reg ref_exp_3 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), ref_exp_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 405:34]
+    node _GEN_65 = mux(io_in_en, ref_exp_2, ref_exp_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 405:{34,34,34}]
+    node _WIRE_1 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node _WIRE_0 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node lo_lo = cat(_WIRE_1, _WIRE_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:82]
+    node _WIRE_3 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node _WIRE_2 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node lo_hi = cat(_WIRE_3, _WIRE_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:82]
+    node lo = cat(lo_hi, lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:82]
+    node _WIRE_5 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node _WIRE_4 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node hi_lo = cat(_WIRE_5, _WIRE_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:82]
+    node _WIRE_7 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node _WIRE_6 = UInt<1>("h1") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:{72,72}]
+    node hi_hi = cat(_WIRE_7, _WIRE_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:82]
+    node hi = cat(hi_hi, hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:82]
+    node _T_17 = cat(hi, lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:82]
+    node _T_18 = cat(fracadd_outs, _T_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:35]
+    reg leadzeroindex : UInt<6>, clock with :
+      reset => (UInt<1>("h0"), leadzeroindex) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 409:38]
+    node _GEN_66 = mux(io_in_en, LZC32_2.io_out_c, leadzeroindex) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 409:{38,38,38}]
+    reg ref_exp_4 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), ref_exp_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 410:34]
+    node _GEN_67 = mux(io_in_en, ref_exp_3, ref_exp_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 410:{34,34,34}]
+    reg fracadd_outs_2 : UInt<24>, clock with :
+      reset => (UInt<1>("h0"), fracadd_outs_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 411:39]
+    node _GEN_68 = mux(io_in_en, fracadd_outs, fracadd_outs_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 411:{39,39,39}]
+    reg diff_sign_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), diff_sign_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 412:36]
+    node _GEN_69 = mux(io_in_en, diff_sign_3, diff_sign_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 412:{36,36,36}]
+    reg fracadd_outc_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), fracadd_outc_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 413:39]
+    node _GEN_70 = mux(io_in_en, fracadd_outc, fracadd_outc_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 413:{39,39,39}]
+    reg sign_out_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_out_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 414:35]
+    node _GEN_71 = mux(io_in_en, sign_out, sign_out_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 414:{35,35,35}]
+    node _red_T = sub(ref_exp_4, leadzeroindex) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 416:25]
+    node red = asUInt(_red_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 416:25]
+    node inc = add(ref_exp_4, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 417:25]
+    node _shifted_left_T = bits(fracadd_outs_2, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 419:38]
+    node shifted_left = dshl(_shifted_left_T, leadzeroindex) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 419:56]
+    reg diff_sign_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), diff_sign_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 421:36]
+    node _GEN_72 = mux(io_in_en, diff_sign_4, diff_sign_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 421:{36,36,36}]
+    node _innermux_frac_true_T = bits(fracadd_outs_2, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:62]
+    node _innermux_frac_true_T_1 = bits(fracadd_outs_2, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:95]
+    node _innermux_frac_true_T_2 = bits(red, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:118]
+    node _innermux_frac_true_T_3 = lt(red, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:137]
+    node _innermux_frac_true_T_4 = or(_innermux_frac_true_T_2, _innermux_frac_true_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:129]
+    node _innermux_frac_true_T_5 = mux(_innermux_frac_true_T_4, UInt<23>("h0"), shifted_left) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:114]
+    node _innermux_frac_true_T_6 = mux(_innermux_frac_true_T, _innermux_frac_true_T_1, _innermux_frac_true_T_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:47]
+    reg innermux_frac_true : UInt<86>, clock with :
+      reset => (UInt<1>("h0"), innermux_frac_true) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:43]
+    node _GEN_73 = mux(io_in_en, _innermux_frac_true_T_6, innermux_frac_true) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 422:{43,43,43}]
+    node _innermux_frac_false_T = bits(fracadd_outc_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:64]
+    node _innermux_frac_false_T_1 = bits(inc, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:79]
+    node _innermux_frac_false_T_2 = gt(inc, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:98]
+    node _innermux_frac_false_T_3 = or(_innermux_frac_false_T_1, _innermux_frac_false_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:90]
+    node _innermux_frac_false_T_4 = bits(fracadd_outs_2, 23, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:134]
+    node _innermux_frac_false_T_5 = mux(_innermux_frac_false_T_3, UInt<23>("h7fffff"), _innermux_frac_false_T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:75]
+    node _innermux_frac_false_T_6 = bits(fracadd_outs_2, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:163]
+    node _innermux_frac_false_T_7 = mux(_innermux_frac_false_T, _innermux_frac_false_T_5, _innermux_frac_false_T_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:48]
+    reg innermux_frac_false : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), innermux_frac_false) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:44]
+    node _GEN_74 = mux(io_in_en, _innermux_frac_false_T_7, innermux_frac_false) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 423:{44,44,44}]
+    node _innermux_exp_true_T = bits(fracadd_outs_2, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:61]
+    node _innermux_exp_true_T_1 = bits(red, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:98]
+    node _innermux_exp_true_T_2 = lt(red, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:117]
+    node _innermux_exp_true_T_3 = or(_innermux_exp_true_T_1, _innermux_exp_true_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:109]
+    node _innermux_exp_true_T_4 = bits(red, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:141]
+    node _innermux_exp_true_T_5 = mux(_innermux_exp_true_T_3, UInt<8>("h1"), _innermux_exp_true_T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:94]
+    node _innermux_exp_true_T_6 = mux(_innermux_exp_true_T, ref_exp_4, _innermux_exp_true_T_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:46]
+    reg innermux_exp_true : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), innermux_exp_true) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:42]
+    node _GEN_75 = mux(io_in_en, _innermux_exp_true_T_6, innermux_exp_true) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 424:{42,42,42}]
+    node _innermux_exp_false_T = bits(fracadd_outc_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:63]
+    node _innermux_exp_false_T_1 = bits(inc, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:78]
+    node _innermux_exp_false_T_2 = gt(inc, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:97]
+    node _innermux_exp_false_T_3 = or(_innermux_exp_false_T_1, _innermux_exp_false_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:89]
+    node _innermux_exp_false_T_4 = bits(inc, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:121]
+    node _innermux_exp_false_T_5 = mux(_innermux_exp_false_T_3, UInt<8>("hfe"), _innermux_exp_false_T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:74]
+    node _innermux_exp_false_T_6 = mux(_innermux_exp_false_T, _innermux_exp_false_T_5, ref_exp_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:47]
+    reg innermux_exp_false : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), innermux_exp_false) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:43]
+    node _GEN_76 = mux(io_in_en, _innermux_exp_false_T_6, innermux_exp_false) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 425:{43,43,43}]
+    reg sign_out_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sign_out_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 426:35]
+    node _GEN_77 = mux(io_in_en, sign_out_2, sign_out_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 426:{35,35,35}]
+    node _norm_out_frac_T = bits(diff_sign_5, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 428:56]
+    node _norm_out_frac_T_1 = mux(_norm_out_frac_T, innermux_frac_true, innermux_frac_false) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 428:43]
+    reg norm_out_frac_r : UInt<86>, clock with :
+      reset => (UInt<1>("h0"), norm_out_frac_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 428:39]
+    node _GEN_78 = mux(io_in_en, _norm_out_frac_T_1, norm_out_frac_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 428:{39,39,39}]
+    reg norm_out_frac_r_1 : UInt<86>, clock with :
+      reset => (UInt<1>("h0"), norm_out_frac_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 428:39]
+    node _GEN_79 = mux(io_in_en, norm_out_frac_r, norm_out_frac_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 428:{39,39,39}]
+    node norm_out_frac = bits(norm_out_frac_r_1, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 431:30]
+    node _norm_out_exp_T = bits(diff_sign_5, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 433:54]
+    node _norm_out_exp_T_1 = mux(_norm_out_exp_T, innermux_exp_true, innermux_exp_false) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 433:41]
+    reg norm_out_exp_r : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), norm_out_exp_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 433:37]
+    node _GEN_80 = mux(io_in_en, _norm_out_exp_T_1, norm_out_exp_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 433:{37,37,37}]
+    reg norm_out_exp : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), norm_out_exp) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 433:37]
+    node _GEN_81 = mux(io_in_en, norm_out_exp_r, norm_out_exp) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 433:{37,37,37}]
+    reg norm_out_sign_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), norm_out_sign_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 437:38]
+    node _GEN_82 = mux(io_in_en, sign_out_3, norm_out_sign_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 437:{38,38,38}]
+    reg norm_out_sign : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), norm_out_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 437:38]
+    node _GEN_83 = mux(io_in_en, norm_out_sign_r, norm_out_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 437:{38,38,38}]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_84 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_85 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_86 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_87 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_88 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_89 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_90 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_91 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_92 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_93 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_94 = mux(io_in_en, io_out_valid_r_9, io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_95 = mux(io_in_en, io_out_valid_r_10, io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    reg io_out_valid_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:34]
+    node _GEN_96 = mux(io_in_en, io_out_valid_r_11, io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:{34,34,34}]
+    node _io_out_s_T = cat(norm_out_sign, norm_out_exp) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 440:31]
+    node _io_out_s_T_1 = cat(_io_out_s_T, norm_out_frac) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 440:47]
+    io_out_s <= _io_out_s_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 440:14]
+    io_out_valid <= io_out_valid_r_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 439:18]
+    in_a <= _GEN_0
+    in_b <= _GEN_1
+    exp_sr_0 <= _GEN_6
+    exp_sr_1 <= _GEN_7
+    whole_frac_sr_0 <= _GEN_8
+    whole_frac_sr_1 <= _GEN_9
+    sign_sr_0 <= _GEN_10
+    sign_sr_1 <= _GEN_11
+    exp_subtractor.clock <= clock
+    exp_subtractor.reset <= reset
+    exp_subtractor.io_in_a <= exp_sr_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 363:28]
+    exp_subtractor.io_in_b <= exp_sr_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 364:28]
+    exp_subtractor.io_in_c <= UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 365:28]
+    exp_sub_out_c_r <= _GEN_12
+    exp_sub_out_c <= _GEN_13
+    exp_sub_out_s_r <= _GEN_14
+    exp_sub_out_s <= _GEN_15
+    exp_sr_2_r_0 <= _GEN_16
+    exp_sr_2_r_1 <= _GEN_17
+    exp_sr_2_0 <= _GEN_18
+    exp_sr_2_1 <= _GEN_19
+    whole_frac_sr_2_r_0 <= _GEN_20
+    whole_frac_sr_2_r_1 <= _GEN_21
+    whole_frac_sr_2_0 <= _GEN_22
+    whole_frac_sr_2_1 <= _GEN_23
+    sign_sr_2_r_0 <= _GEN_24
+    sign_sr_2_r_1 <= _GEN_25
+    sign_sr_2_0 <= _GEN_26
+    sign_sr_2_1 <= _GEN_27
+    eqexp_arrange <= _GEN_28
+    exp_sr_3_0 <= _GEN_29
+    exp_sr_3_1 <= _GEN_30
+    whole_frac_sr_3_0 <= _GEN_31
+    whole_frac_sr_3_1 <= _GEN_32
+    sign_sr_3_0 <= _GEN_33
+    sign_sr_3_1 <= _GEN_34
+    exp_sub_out_c_2 <= _GEN_35
+    exp_sub_out_s_2 <= _GEN_36
+    redundant_op <= _GEN_37
+    fracadd_in_a <= _GEN_40
+    fracadd_in_b <= _GEN_43
+    ref_exp <= _GEN_44
+    ref_sign <= _GEN_47
+    diff_sign <= _GEN_48
+    full_adder.clock <= clock
+    full_adder.reset <= reset
+    full_adder.io_in_a <= fracadd_in_a @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 390:21]
+    full_adder.io_in_b <= _T_16 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 391:21]
+    full_adder.io_in_c <= UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 392:21]
+    frac_adder_out_c_r <= _GEN_49
+    frac_adder_out_c <= _GEN_50
+    frac_adder_out_s_r <= _GEN_51
+    frac_adder_out_s <= _GEN_52
+    diff_sign_2_r <= _GEN_53
+    diff_sign_2 <= _GEN_54
+    redundant_op_2_r <= _GEN_55
+    redundant_op_2 <= _GEN_56
+    ref_sign_2_r <= _GEN_57
+    ref_sign_2 <= _GEN_58
+    ref_exp_2_r <= _GEN_59
+    ref_exp_2 <= _GEN_60
+    sign_out <= _GEN_61
+    fracadd_outs <= _GEN_62
+    fracadd_outc <= _GEN_63
+    diff_sign_3 <= _GEN_64
+    ref_exp_3 <= _GEN_65
+    LZC32_2.clock <= clock
+    LZC32_2.reset <= reset
+    LZC32_2.io_in_d <= _T_18 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 408:19]
+    leadzeroindex <= _GEN_66
+    ref_exp_4 <= _GEN_67
+    fracadd_outs_2 <= _GEN_68
+    diff_sign_4 <= _GEN_69
+    fracadd_outc_2 <= _GEN_70
+    sign_out_2 <= _GEN_71
+    diff_sign_5 <= _GEN_72
+    innermux_frac_true <= _GEN_73
+    innermux_frac_false <= _GEN_74
+    innermux_exp_true <= _GEN_75
+    innermux_exp_false <= _GEN_76
+    sign_out_3 <= _GEN_77
+    norm_out_frac_r <= _GEN_78
+    norm_out_frac_r_1 <= _GEN_79
+    norm_out_exp_r <= _GEN_80
+    norm_out_exp <= _GEN_81
+    norm_out_sign_r <= _GEN_82
+    norm_out_sign <= _GEN_83
+    io_out_valid_r <= _GEN_84
+    io_out_valid_r_1 <= _GEN_85
+    io_out_valid_r_2 <= _GEN_86
+    io_out_valid_r_3 <= _GEN_87
+    io_out_valid_r_4 <= _GEN_88
+    io_out_valid_r_5 <= _GEN_89
+    io_out_valid_r_6 <= _GEN_90
+    io_out_valid_r_7 <= _GEN_91
+    io_out_valid_r_8 <= _GEN_92
+    io_out_valid_r_9 <= _GEN_93
+    io_out_valid_r_10 <= _GEN_94
+    io_out_valid_r_11 <= _GEN_95
+    io_out_valid_r_12 <= _GEN_96
+
+  module complex_conjugate_mult : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 29:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 29:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 29:7]
+    input io_complexA : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    input io_complexB : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    input io_counter_rest : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    output io_out_s : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    output io_out_real : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+    output io_out_imag : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 30:14]
+
+    inst FP_mult_inst_0 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 66:40]
+    inst FP_mult_inst_1 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 66:40]
+    inst FP_mult_inst_2 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 66:40]
+    inst FP_mult_inst_3 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 66:40]
+    inst FP_adder_Inst_0 of FP_add_32_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 74:41]
+    inst FP_adder_Inst_1 of FP_add_32_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 74:41]
+    reg counter : UInt<16>, clock with :
+      reset => (UInt<1>("h0"), counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 49:24]
+    node _counter_T = add(counter, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 59:38]
+    node _counter_T_1 = tail(_counter_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 59:38]
+    node _counter_T_2 = mux(io_in_en, _counter_T_1, counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 59:19]
+    node _GEN_0 = mux(io_counter_rest, UInt<1>("h0"), _counter_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 56:25 57:13 59:13]
+    node _FP_mult_inst_0_io_in_a_T = bits(io_complexA, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 82:41]
+    node _FP_mult_inst_0_io_in_b_T = bits(io_complexB, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 83:41]
+    node _FP_mult_inst_1_io_in_a_T = bits(io_complexA, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 84:41]
+    node _FP_mult_inst_1_io_in_b_T = bits(io_complexB, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 85:41]
+    node _FP_mult_inst_2_io_in_a_T = bits(io_complexA, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 86:41]
+    node _FP_mult_inst_2_io_in_b_T = bits(io_complexB, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 87:41]
+    node _FP_mult_inst_3_io_in_a_T = bits(io_complexA, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 88:41]
+    node _FP_mult_inst_3_io_in_b_T = bits(io_complexB, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 89:41]
+    node _FP_adder_Inst_0_io_in_a_T = mux(FP_adder_Inst_0.io_in_en, FP_mult_inst_0.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 91:34]
+    node _FP_adder_Inst_0_io_in_b_T = mux(FP_adder_Inst_0.io_in_en, FP_mult_inst_1.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 92:34]
+    node _FP_adder_Inst_1_io_in_a_T = xor(FP_mult_inst_2.io_out_s, UInt<32>("h80000000")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 94:87]
+    node _FP_adder_Inst_1_io_in_a_T_1 = mux(FP_adder_Inst_1.io_in_en, _FP_adder_Inst_1_io_in_a_T, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 94:34]
+    node _FP_adder_Inst_1_io_in_b_T = mux(FP_adder_Inst_1.io_in_en, FP_mult_inst_3.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 95:34]
+    node _GEN_1 = mux(io_in_en, io_in_en, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 70:18 98:20 99:32]
+    node _GEN_2 = mux(io_in_en, io_in_valid, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 98:20 100:35 71:21]
+    node _T = geq(counter, UInt<4>("ha")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:30]
+    node _T_1 = and(io_in_en, _T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:19]
+    node _GEN_3 = mux(_T_1, io_in_en, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:44 106:33 78:18]
+    node _GEN_4 = mux(_T_1, io_in_valid, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:44 107:36 79:21]
+    node _T_2 = geq(counter, UInt<4>("ha")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:30]
+    node _T_3 = and(io_in_en, _T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:19]
+    node _GEN_5 = mux(_T_3, io_in_en, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:44 106:33 78:18]
+    node _GEN_6 = mux(_T_3, io_in_valid, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 105:44 107:36 79:21]
+    node _io_out_s_T = cat(FP_adder_Inst_0.io_out_s, FP_adder_Inst_1.io_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 111:18]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_7 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_8 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_9 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_10 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_11 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_12 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_13 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_14 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_15 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_16 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_17 = mux(io_in_en, io_out_valid_r_9, io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_18 = mux(io_in_en, io_out_valid_r_10, io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_19 = mux(io_in_en, io_out_valid_r_11, io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_13 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_20 = mux(io_in_en, io_out_valid_r_12, io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_14 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_21 = mux(io_in_en, io_out_valid_r_13, io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_15 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_22 = mux(io_in_en, io_out_valid_r_14, io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_16 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_23 = mux(io_in_en, io_out_valid_r_15, io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_17 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_24 = mux(io_in_en, io_out_valid_r_16, io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_18 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_25 = mux(io_in_en, io_out_valid_r_17, io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_19 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_26 = mux(io_in_en, io_out_valid_r_18, io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_20 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_27 = mux(io_in_en, io_out_valid_r_19, io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_21 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_28 = mux(io_in_en, io_out_valid_r_20, io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    reg io_out_valid_r_22 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:32]
+    node _GEN_29 = mux(io_in_en, io_out_valid_r_21, io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:{32,32,32}]
+    io_out_valid <= io_out_valid_r_22 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 112:16]
+    io_out_s <= _io_out_s_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 111:12]
+    io_out_real <= FP_adder_Inst_0.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 113:15]
+    io_out_imag <= FP_adder_Inst_1.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 114:15]
+    counter <= mux(reset, UInt<16>("h0"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 49:{24,24}]
+    FP_mult_inst_0.clock <= clock
+    FP_mult_inst_0.reset <= reset
+    FP_mult_inst_0.io_in_en <= _GEN_1
+    FP_mult_inst_0.io_in_valid <= _GEN_2
+    FP_mult_inst_0.io_in_a <= _FP_mult_inst_0_io_in_a_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 82:27]
+    FP_mult_inst_0.io_in_b <= _FP_mult_inst_0_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 83:27]
+    FP_mult_inst_1.clock <= clock
+    FP_mult_inst_1.reset <= reset
+    FP_mult_inst_1.io_in_en <= _GEN_1
+    FP_mult_inst_1.io_in_valid <= _GEN_2
+    FP_mult_inst_1.io_in_a <= _FP_mult_inst_1_io_in_a_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 84:27]
+    FP_mult_inst_1.io_in_b <= _FP_mult_inst_1_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 85:27]
+    FP_mult_inst_2.clock <= clock
+    FP_mult_inst_2.reset <= reset
+    FP_mult_inst_2.io_in_en <= _GEN_1
+    FP_mult_inst_2.io_in_valid <= _GEN_2
+    FP_mult_inst_2.io_in_a <= _FP_mult_inst_2_io_in_a_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 86:27]
+    FP_mult_inst_2.io_in_b <= _FP_mult_inst_2_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 87:27]
+    FP_mult_inst_3.clock <= clock
+    FP_mult_inst_3.reset <= reset
+    FP_mult_inst_3.io_in_en <= _GEN_1
+    FP_mult_inst_3.io_in_valid <= _GEN_2
+    FP_mult_inst_3.io_in_a <= _FP_mult_inst_3_io_in_a_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 88:27]
+    FP_mult_inst_3.io_in_b <= _FP_mult_inst_3_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 89:27]
+    FP_adder_Inst_0.clock <= clock
+    FP_adder_Inst_0.reset <= reset
+    FP_adder_Inst_0.io_in_en <= _GEN_3
+    FP_adder_Inst_0.io_in_valid <= _GEN_4
+    FP_adder_Inst_0.io_in_a <= _FP_adder_Inst_0_io_in_a_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 91:28]
+    FP_adder_Inst_0.io_in_b <= _FP_adder_Inst_0_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 92:28]
+    FP_adder_Inst_1.clock <= clock
+    FP_adder_Inst_1.reset <= reset
+    FP_adder_Inst_1.io_in_en <= _GEN_5
+    FP_adder_Inst_1.io_in_valid <= _GEN_6
+    FP_adder_Inst_1.io_in_a <= _FP_adder_Inst_1_io_in_a_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 94:28]
+    FP_adder_Inst_1.io_in_b <= _FP_adder_Inst_1_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 95:28]
+    io_out_valid_r <= _GEN_7
+    io_out_valid_r_1 <= _GEN_8
+    io_out_valid_r_2 <= _GEN_9
+    io_out_valid_r_3 <= _GEN_10
+    io_out_valid_r_4 <= _GEN_11
+    io_out_valid_r_5 <= _GEN_12
+    io_out_valid_r_6 <= _GEN_13
+    io_out_valid_r_7 <= _GEN_14
+    io_out_valid_r_8 <= _GEN_15
+    io_out_valid_r_9 <= _GEN_16
+    io_out_valid_r_10 <= _GEN_17
+    io_out_valid_r_11 <= _GEN_18
+    io_out_valid_r_12 <= _GEN_19
+    io_out_valid_r_13 <= _GEN_20
+    io_out_valid_r_14 <= _GEN_21
+    io_out_valid_r_15 <= _GEN_22
+    io_out_valid_r_16 <= _GEN_23
+    io_out_valid_r_17 <= _GEN_24
+    io_out_valid_r_18 <= _GEN_25
+    io_out_valid_r_19 <= _GEN_26
+    io_out_valid_r_20 <= _GEN_27
+    io_out_valid_r_21 <= _GEN_28
+    io_out_valid_r_22 <= _GEN_29
+
+  module complex_adder : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 234:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 234:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 234:7]
+    input io_complexA : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+    input io_complexB : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+    output io_out_s : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+    output io_out_real : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+    output io_out_imag : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 235:14]
+
+    inst FP_adder_Inst_0 of FP_add_32_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 248:41]
+    inst FP_adder_Inst_1 of FP_add_32_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 248:41]
+    node _FP_adder_Inst_0_io_in_a_T = bits(io_complexA, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 256:42]
+    node _FP_adder_Inst_0_io_in_b_T = bits(io_complexB, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 257:42]
+    node _FP_adder_Inst_1_io_in_a_T = bits(io_complexA, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 258:42]
+    node _FP_adder_Inst_1_io_in_b_T = bits(io_complexB, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 259:42]
+    node _GEN_0 = mux(io_in_en, io_in_en, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 252:18 261:19 262:31]
+    node _GEN_1 = mux(io_in_en, io_in_valid, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 261:19 253:21 264:34]
+    node _io_out_s_T = cat(FP_adder_Inst_0.io_out_s, FP_adder_Inst_1.io_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 268:18]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_2 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_3 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_4 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_5 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_6 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_7 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_8 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_9 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_10 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_11 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_12 = mux(io_in_en, io_out_valid_r_9, io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_13 = mux(io_in_en, io_out_valid_r_10, io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    reg io_out_valid_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:32]
+    node _GEN_14 = mux(io_in_en, io_out_valid_r_11, io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:{32,32,32}]
+    io_out_valid <= io_out_valid_r_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 271:16]
+    io_out_s <= _io_out_s_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 268:12]
+    io_out_real <= FP_adder_Inst_0.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 269:15]
+    io_out_imag <= FP_adder_Inst_1.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 270:15]
+    FP_adder_Inst_0.clock <= clock
+    FP_adder_Inst_0.reset <= reset
+    FP_adder_Inst_0.io_in_en <= _GEN_0
+    FP_adder_Inst_0.io_in_valid <= _GEN_1
+    FP_adder_Inst_0.io_in_a <= _FP_adder_Inst_0_io_in_a_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 256:28]
+    FP_adder_Inst_0.io_in_b <= _FP_adder_Inst_0_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 257:28]
+    FP_adder_Inst_1.clock <= clock
+    FP_adder_Inst_1.reset <= reset
+    FP_adder_Inst_1.io_in_en <= _GEN_0
+    FP_adder_Inst_1.io_in_valid <= _GEN_1
+    FP_adder_Inst_1.io_in_a <= _FP_adder_Inst_1_io_in_a_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 258:28]
+    FP_adder_Inst_1.io_in_b <= _FP_adder_Inst_1_io_in_b_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 259:28]
+    io_out_valid_r <= _GEN_2
+    io_out_valid_r_1 <= _GEN_3
+    io_out_valid_r_2 <= _GEN_4
+    io_out_valid_r_3 <= _GEN_5
+    io_out_valid_r_4 <= _GEN_6
+    io_out_valid_r_5 <= _GEN_7
+    io_out_valid_r_6 <= _GEN_8
+    io_out_valid_r_7 <= _GEN_9
+    io_out_valid_r_8 <= _GEN_10
+    io_out_valid_r_9 <= _GEN_11
+    io_out_valid_r_10 <= _GEN_12
+    io_out_valid_r_11 <= _GEN_13
+    io_out_valid_r_12 <= _GEN_14
+
+  module complex_dot_streaming : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 326:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 326:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 326:7]
+    input io_vec_a_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    input io_vec_a_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    input io_vec_b_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    input io_vec_b_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    input io_counter_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    output io_out_s : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    output io_out_real : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+    output io_out_imag : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 328:14]
+
+    inst MultInst of complex_conjugate_mult @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 345:26]
+    inst MultInst_1 of complex_conjugate_mult @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 345:26]
+    inst adderInst of complex_adder @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 360:31]
+    node adder_Wire_0 = adderInst.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 356:26 365:23]
+    node _io_out_s_T = mux(io_in_en, adder_Wire_0, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 374:18]
+    node _io_out_real_T = bits(adder_Wire_0, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 375:35]
+    node _io_out_imag_T = bits(adder_Wire_0, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 376:35]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_0 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_1 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_2 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_3 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_4 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_5 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_6 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_7 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_8 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_9 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_10 = mux(io_in_en, io_out_valid_r_9, io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_11 = mux(io_in_en, io_out_valid_r_10, io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_12 = mux(io_in_en, io_out_valid_r_11, io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_13 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_13 = mux(io_in_en, io_out_valid_r_12, io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_14 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_14 = mux(io_in_en, io_out_valid_r_13, io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_15 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_15 = mux(io_in_en, io_out_valid_r_14, io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_16 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_16 = mux(io_in_en, io_out_valid_r_15, io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_17 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_17 = mux(io_in_en, io_out_valid_r_16, io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_18 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_18 = mux(io_in_en, io_out_valid_r_17, io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_19 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_19 = mux(io_in_en, io_out_valid_r_18, io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_20 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_20 = mux(io_in_en, io_out_valid_r_19, io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_21 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_21 = mux(io_in_en, io_out_valid_r_20, io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_22 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_22 = mux(io_in_en, io_out_valid_r_21, io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_23 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_23 = mux(io_in_en, io_out_valid_r_22, io_out_valid_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_24 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_24 = mux(io_in_en, io_out_valid_r_23, io_out_valid_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_25 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_25 = mux(io_in_en, io_out_valid_r_24, io_out_valid_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_26 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_26 = mux(io_in_en, io_out_valid_r_25, io_out_valid_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_27 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_27 = mux(io_in_en, io_out_valid_r_26, io_out_valid_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_28 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_28 = mux(io_in_en, io_out_valid_r_27, io_out_valid_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_29 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_29 = mux(io_in_en, io_out_valid_r_28, io_out_valid_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_30 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_30 = mux(io_in_en, io_out_valid_r_29, io_out_valid_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_31 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_31 = mux(io_in_en, io_out_valid_r_30, io_out_valid_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_32 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_32 = mux(io_in_en, io_out_valid_r_31, io_out_valid_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_33 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_33 = mux(io_in_en, io_out_valid_r_32, io_out_valid_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_34 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_34 = mux(io_in_en, io_out_valid_r_33, io_out_valid_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    reg io_out_valid_r_35 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:32]
+    node _GEN_35 = mux(io_in_en, io_out_valid_r_34, io_out_valid_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:{32,32,32}]
+    node Mult_Wire_0 = MultInst.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 343:23 351:18]
+    node Mult_Wire_1 = MultInst_1.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 343:23 351:18]
+    io_out_valid <= io_out_valid_r_35 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 377:16]
+    io_out_s <= _io_out_s_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 374:12]
+    io_out_real <= _io_out_real_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 375:15]
+    io_out_imag <= _io_out_imag_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 376:15]
+    MultInst.clock <= clock
+    MultInst.reset <= reset
+    MultInst.io_complexA <= io_vec_a_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 346:26]
+    MultInst.io_complexB <= io_vec_b_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 347:26]
+    MultInst.io_in_en <= io_in_en @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 348:23]
+    MultInst.io_in_valid <= io_in_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 349:26]
+    MultInst.io_counter_rest <= io_counter_reset @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 350:30]
+    MultInst_1.clock <= clock
+    MultInst_1.reset <= reset
+    MultInst_1.io_complexA <= io_vec_a_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 346:26]
+    MultInst_1.io_complexB <= io_vec_b_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 347:26]
+    MultInst_1.io_in_en <= io_in_en @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 348:23]
+    MultInst_1.io_in_valid <= io_in_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 349:26]
+    MultInst_1.io_counter_rest <= io_counter_reset @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 350:30]
+    adderInst.clock <= clock
+    adderInst.reset <= reset
+    adderInst.io_complexA <= Mult_Wire_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 361:31]
+    adderInst.io_complexB <= Mult_Wire_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 362:31]
+    adderInst.io_in_en <= io_in_en @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 363:28]
+    adderInst.io_in_valid <= io_in_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 364:31]
+    io_out_valid_r <= _GEN_0
+    io_out_valid_r_1 <= _GEN_1
+    io_out_valid_r_2 <= _GEN_2
+    io_out_valid_r_3 <= _GEN_3
+    io_out_valid_r_4 <= _GEN_4
+    io_out_valid_r_5 <= _GEN_5
+    io_out_valid_r_6 <= _GEN_6
+    io_out_valid_r_7 <= _GEN_7
+    io_out_valid_r_8 <= _GEN_8
+    io_out_valid_r_9 <= _GEN_9
+    io_out_valid_r_10 <= _GEN_10
+    io_out_valid_r_11 <= _GEN_11
+    io_out_valid_r_12 <= _GEN_12
+    io_out_valid_r_13 <= _GEN_13
+    io_out_valid_r_14 <= _GEN_14
+    io_out_valid_r_15 <= _GEN_15
+    io_out_valid_r_16 <= _GEN_16
+    io_out_valid_r_17 <= _GEN_17
+    io_out_valid_r_18 <= _GEN_18
+    io_out_valid_r_19 <= _GEN_19
+    io_out_valid_r_20 <= _GEN_20
+    io_out_valid_r_21 <= _GEN_21
+    io_out_valid_r_22 <= _GEN_22
+    io_out_valid_r_23 <= _GEN_23
+    io_out_valid_r_24 <= _GEN_24
+    io_out_valid_r_25 <= _GEN_25
+    io_out_valid_r_26 <= _GEN_26
+    io_out_valid_r_27 <= _GEN_27
+    io_out_valid_r_28 <= _GEN_28
+    io_out_valid_r_29 <= _GEN_29
+    io_out_valid_r_30 <= _GEN_30
+    io_out_valid_r_31 <= _GEN_31
+    io_out_valid_r_32 <= _GEN_32
+    io_out_valid_r_33 <= _GEN_33
+    io_out_valid_r_34 <= _GEN_34
+    io_out_valid_r_35 <= _GEN_35
+
+  module demux1 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 7:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 7:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 7:7]
+    input io_input : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 8:14]
+    input io_sel : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 8:14]
+    output io_outputs_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 8:14]
+    output io_outputs_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 8:14]
+
+    node _GEN_0 = mux(io_sel, io_input, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 18:16 19:19 23:19]
+    node _GEN_1 = mux(io_sel, UInt<1>("h0"), io_input) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 18:16 20:19 22:19]
+    io_outputs_0 <= _GEN_1
+    io_outputs_1 <= _GEN_0
+
+  module complex_acc : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 274:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 274:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 274:7]
+    input io_input : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+    input io_counter_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+    output io_output : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+    output io_out_real : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+    output io_out_imag : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 275:14]
+
+    inst demux1 of demux1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 295:22]
+    inst adder of complex_adder @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 299:21]
+    reg counter : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 287:24]
+    node _counter_T = add(counter, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 291:24]
+    node _counter_T_1 = tail(_counter_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 291:24]
+    node _GEN_0 = mux(io_in_en, _counter_T_1, counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 290:24 291:13 287:24]
+    node _GEN_1 = mux(io_counter_reset, UInt<1>("h0"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 288:27 289:13]
+    node _demux1_io_sel_T = shr(counter, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 297:29]
+    node _demux1_io_sel_T_1 = and(_demux1_io_sel_T, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 297:41]
+    reg adder_io_in_en_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), adder_io_in_en_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 300:34]
+    node _GEN_2 = mux(UInt<1>("h1"), io_in_en, adder_io_in_en_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 300:{34,34,34}]
+    reg adder_io_complexA_r : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), adder_io_complexA_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 301:37]
+    node _GEN_3 = mux(UInt<1>("h1"), demux1.io_outputs_0, adder_io_complexA_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 301:{37,37,37}]
+    node _T = neq(adder.io_complexA, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 304:27]
+    node _T_1 = neq(adder.io_complexB, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 304:56]
+    node _T_2 = and(_T, _T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 304:35]
+    node _GEN_4 = mux(_T_2, io_in_valid, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 303:21 304:65 305:23]
+    io_output <= adder.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 309:13]
+    io_out_real <= adder.io_out_real @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 310:15]
+    io_out_imag <= adder.io_out_imag @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 311:15]
+    io_out_valid <= adder.io_out_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 312:16]
+    counter <= mux(reset, UInt<32>("h0"), _GEN_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 287:{24,24}]
+    demux1.clock <= clock
+    demux1.reset <= reset
+    demux1.io_input <= io_input @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 296:19]
+    demux1.io_sel <= bits(_demux1_io_sel_T_1, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 297:17]
+    adder.clock <= clock
+    adder.reset <= reset
+    adder.io_complexA <= adder_io_complexA_r @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 301:21]
+    adder.io_complexB <= demux1.io_outputs_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 302:20]
+    adder.io_in_en <= adder_io_in_en_r @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 300:18]
+    adder.io_in_valid <= _GEN_4
+    adder_io_in_en_r <= _GEN_2
+    adder_io_complexA_r <= _GEN_3
+
+  module cmplx_dot_iterative_v2 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 380:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 380:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 380:7]
+    input io_vec_a_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    input io_vec_a_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    input io_vec_b_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    input io_vec_b_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    input io_counter_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    output io_out_real : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    output io_out_imag : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+    output io_out_s : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 381:14]
+
+    inst complex_dot of complex_dot_streaming @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 413:27]
+    inst d2aInst_0 of complex_acc @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 421:21]
+    reg counter : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 399:24]
+    node _counter_T = add(counter, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 403:24]
+    node _counter_T_1 = tail(_counter_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 403:24]
+    node _GEN_0 = mux(io_in_en, _counter_T_1, counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 402:24 403:13 399:24]
+    node _GEN_1 = mux(io_counter_reset, UInt<1>("h0"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 400:27 401:13]
+    reg index : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), index) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 409:22]
+    node _batch_index_T = mul(index, UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 430:29]
+    node _batch_index_T_1 = add(_batch_index_T, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 430:35]
+    node batch_index = tail(_batch_index_T_1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 430:35]
+    node _VecA_batch_0_T = bits(batch_index, 0, 0)
+    node _GEN_2 = validif(eq(UInt<1>("h0"), _VecA_batch_0_T), io_vec_a_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 431:{19,19}]
+    node _GEN_3 = mux(eq(UInt<1>("h1"), _VecA_batch_0_T), io_vec_a_1, _GEN_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 431:{19,19}]
+    node _VecB_batch_0_T = bits(batch_index, 0, 0)
+    node _GEN_4 = validif(eq(UInt<1>("h0"), _VecB_batch_0_T), io_vec_b_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 432:{19,19}]
+    node _GEN_5 = mux(eq(UInt<1>("h1"), _VecB_batch_0_T), io_vec_b_1, _GEN_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 432:{19,19}]
+    node _batch_index_T_2 = mul(index, UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 430:29]
+    node _batch_index_T_3 = add(_batch_index_T_2, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 430:35]
+    node batch_index_1 = tail(_batch_index_T_3, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 430:35]
+    node _VecA_batch_1_T = bits(batch_index_1, 0, 0)
+    node _GEN_6 = validif(eq(UInt<1>("h0"), _VecA_batch_1_T), io_vec_a_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 431:{19,19}]
+    node _GEN_7 = mux(eq(UInt<1>("h1"), _VecA_batch_1_T), io_vec_a_1, _GEN_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 431:{19,19}]
+    node _VecB_batch_1_T = bits(batch_index_1, 0, 0)
+    node _GEN_8 = validif(eq(UInt<1>("h0"), _VecB_batch_1_T), io_vec_b_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 432:{19,19}]
+    node _GEN_9 = mux(eq(UInt<1>("h1"), _VecB_batch_1_T), io_vec_b_1, _GEN_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 432:{19,19}]
+    node _T = add(index, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 438:14]
+    node _T_1 = tail(_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 438:14]
+    node _T_2 = eq(_T_1, UInt<2>("h2")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 438:20]
+    node _index_T = add(index, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 441:20]
+    node _index_T_1 = tail(_index_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 441:20]
+    node _GEN_10 = mux(_T_2, UInt<1>("h0"), _index_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 438:39 439:11 441:11]
+    node _GEN_11 = mux(io_in_en, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 444:18 417:24 445:26]
+    node _GEN_12 = mux(io_in_en, io_counter_reset, io_counter_reset) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 444:18 416:32 447:34]
+    node _T_3 = geq(counter, UInt<6>("h24")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 452:18]
+    node _GEN_13 = mux(_T_3, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 424:18 452:83 453:27]
+    node _GEN_14 = mux(_T_3, io_counter_reset, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 423:26 452:83 455:35]
+    node _io_out_real_T = bits(d2aInst_0.io_output, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 466:48]
+    node _io_out_imag_T = bits(d2aInst_0.io_output, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 467:48]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_15 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_16 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_17 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_18 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_19 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_20 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_21 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_22 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_23 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_24 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_25 = mux(io_in_en, io_out_valid_r_9, io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_26 = mux(io_in_en, io_out_valid_r_10, io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_27 = mux(io_in_en, io_out_valid_r_11, io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_13 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_28 = mux(io_in_en, io_out_valid_r_12, io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_14 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_29 = mux(io_in_en, io_out_valid_r_13, io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_15 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_30 = mux(io_in_en, io_out_valid_r_14, io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_16 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_31 = mux(io_in_en, io_out_valid_r_15, io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_17 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_32 = mux(io_in_en, io_out_valid_r_16, io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_18 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_33 = mux(io_in_en, io_out_valid_r_17, io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_19 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_34 = mux(io_in_en, io_out_valid_r_18, io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_20 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_35 = mux(io_in_en, io_out_valid_r_19, io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_21 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_36 = mux(io_in_en, io_out_valid_r_20, io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_22 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_37 = mux(io_in_en, io_out_valid_r_21, io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_23 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_38 = mux(io_in_en, io_out_valid_r_22, io_out_valid_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_24 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_39 = mux(io_in_en, io_out_valid_r_23, io_out_valid_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_25 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_40 = mux(io_in_en, io_out_valid_r_24, io_out_valid_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_26 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_41 = mux(io_in_en, io_out_valid_r_25, io_out_valid_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_27 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_42 = mux(io_in_en, io_out_valid_r_26, io_out_valid_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_28 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_43 = mux(io_in_en, io_out_valid_r_27, io_out_valid_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_29 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_44 = mux(io_in_en, io_out_valid_r_28, io_out_valid_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_30 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_45 = mux(io_in_en, io_out_valid_r_29, io_out_valid_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_31 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_46 = mux(io_in_en, io_out_valid_r_30, io_out_valid_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_32 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_47 = mux(io_in_en, io_out_valid_r_31, io_out_valid_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_33 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_48 = mux(io_in_en, io_out_valid_r_32, io_out_valid_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_34 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_49 = mux(io_in_en, io_out_valid_r_33, io_out_valid_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_35 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_50 = mux(io_in_en, io_out_valid_r_34, io_out_valid_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_36 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_51 = mux(io_in_en, io_out_valid_r_35, io_out_valid_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_37 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_52 = mux(io_in_en, io_out_valid_r_36, io_out_valid_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_38 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_53 = mux(io_in_en, io_out_valid_r_37, io_out_valid_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_39 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_54 = mux(io_in_en, io_out_valid_r_38, io_out_valid_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_40 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_55 = mux(io_in_en, io_out_valid_r_39, io_out_valid_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_41 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_56 = mux(io_in_en, io_out_valid_r_40, io_out_valid_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_42 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_57 = mux(io_in_en, io_out_valid_r_41, io_out_valid_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_43 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_58 = mux(io_in_en, io_out_valid_r_42, io_out_valid_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_44 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_59 = mux(io_in_en, io_out_valid_r_43, io_out_valid_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_45 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_60 = mux(io_in_en, io_out_valid_r_44, io_out_valid_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_46 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_61 = mux(io_in_en, io_out_valid_r_45, io_out_valid_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_47 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_62 = mux(io_in_en, io_out_valid_r_46, io_out_valid_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_48 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_63 = mux(io_in_en, io_out_valid_r_47, io_out_valid_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    reg io_out_valid_r_49 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:32]
+    node _GEN_64 = mux(io_in_en, io_out_valid_r_48, io_out_valid_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:{32,32,32}]
+    node _io_vec_a_VecA_batch_0_T = _GEN_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 431:19]
+    node VecA_batch_0 = _io_vec_a_VecA_batch_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 410:24 431:19]
+    node _io_vec_a_VecA_batch_1_T = _GEN_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 431:19]
+    node VecA_batch_1 = _io_vec_a_VecA_batch_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 410:24 431:19]
+    node _io_vec_b_VecB_batch_0_T = _GEN_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 432:19]
+    node VecB_batch_0 = _io_vec_b_VecB_batch_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 411:24 432:19]
+    node _io_vec_b_VecB_batch_1_T = _GEN_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 432:19]
+    node VecB_batch_1 = _io_vec_b_VecB_batch_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 411:24 432:19]
+    node _WIRE__0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 414:{34,34}]
+    node _WIRE__1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 414:{34,34}]
+    node _WIRE_1_0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 415:{34,34}]
+    node _WIRE_1_1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 415:{34,34}]
+    io_out_valid <= io_out_valid_r_49 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 468:16]
+    io_out_real <= _io_out_real_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 466:15]
+    io_out_imag <= _io_out_imag_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 467:15]
+    io_out_s <= d2aInst_0.io_output @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 465:12]
+    counter <= mux(reset, UInt<32>("h0"), _GEN_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 399:{24,24}]
+    index <= mux(reset, UInt<1>("h0"), _GEN_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 409:{22,22}]
+    complex_dot.clock <= clock
+    complex_dot.reset <= reset
+    complex_dot.io_vec_a_0 <= VecA_batch_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 435:24]
+    complex_dot.io_vec_a_1 <= VecA_batch_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 435:24]
+    complex_dot.io_vec_b_0 <= VecB_batch_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 436:24]
+    complex_dot.io_vec_b_1 <= VecB_batch_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 436:24]
+    complex_dot.io_in_en <= _GEN_11
+    complex_dot.io_in_valid <= _GEN_11
+    complex_dot.io_counter_reset <= _GEN_12
+    d2aInst_0.clock <= clock
+    d2aInst_0.reset <= reset
+    d2aInst_0.io_input <= complex_dot.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/Complex_FPU/complex.scala 459:27]
+    d2aInst_0.io_in_en <= _GEN_13
+    d2aInst_0.io_counter_reset <= _GEN_14
+    d2aInst_0.io_in_valid <= _GEN_13
+    io_out_valid_r <= _GEN_15
+    io_out_valid_r_1 <= _GEN_16
+    io_out_valid_r_2 <= _GEN_17
+    io_out_valid_r_3 <= _GEN_18
+    io_out_valid_r_4 <= _GEN_19
+    io_out_valid_r_5 <= _GEN_20
+    io_out_valid_r_6 <= _GEN_21
+    io_out_valid_r_7 <= _GEN_22
+    io_out_valid_r_8 <= _GEN_23
+    io_out_valid_r_9 <= _GEN_24
+    io_out_valid_r_10 <= _GEN_25
+    io_out_valid_r_11 <= _GEN_26
+    io_out_valid_r_12 <= _GEN_27
+    io_out_valid_r_13 <= _GEN_28
+    io_out_valid_r_14 <= _GEN_29
+    io_out_valid_r_15 <= _GEN_30
+    io_out_valid_r_16 <= _GEN_31
+    io_out_valid_r_17 <= _GEN_32
+    io_out_valid_r_18 <= _GEN_33
+    io_out_valid_r_19 <= _GEN_34
+    io_out_valid_r_20 <= _GEN_35
+    io_out_valid_r_21 <= _GEN_36
+    io_out_valid_r_22 <= _GEN_37
+    io_out_valid_r_23 <= _GEN_38
+    io_out_valid_r_24 <= _GEN_39
+    io_out_valid_r_25 <= _GEN_40
+    io_out_valid_r_26 <= _GEN_41
+    io_out_valid_r_27 <= _GEN_42
+    io_out_valid_r_28 <= _GEN_43
+    io_out_valid_r_29 <= _GEN_44
+    io_out_valid_r_30 <= _GEN_45
+    io_out_valid_r_31 <= _GEN_46
+    io_out_valid_r_32 <= _GEN_47
+    io_out_valid_r_33 <= _GEN_48
+    io_out_valid_r_34 <= _GEN_49
+    io_out_valid_r_35 <= _GEN_50
+    io_out_valid_r_36 <= _GEN_51
+    io_out_valid_r_37 <= _GEN_52
+    io_out_valid_r_38 <= _GEN_53
+    io_out_valid_r_39 <= _GEN_54
+    io_out_valid_r_40 <= _GEN_55
+    io_out_valid_r_41 <= _GEN_56
+    io_out_valid_r_42 <= _GEN_57
+    io_out_valid_r_43 <= _GEN_58
+    io_out_valid_r_44 <= _GEN_59
+    io_out_valid_r_45 <= _GEN_60
+    io_out_valid_r_46 <= _GEN_61
+    io_out_valid_r_47 <= _GEN_62
+    io_out_valid_r_48 <= _GEN_63
+    io_out_valid_r_49 <= _GEN_64
+
+  module frac_sqrt : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 185:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 185:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 185:9]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 186:16]
+    input io_in_a : UInt<25> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 186:16]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 186:16]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 186:16]
+    output io_out_s : UInt<23> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 186:16]
+
+    reg P_0 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_1 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_2 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_3 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_4 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_5 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_6 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_7 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_8 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_9 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_10 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_11 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_12 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg P_13 : UInt<47>, clock with :
+      reset => (UInt<1>("h0"), P_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:20]
+    reg X_0 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_1 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_2 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_3 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_4 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_5 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_6 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_7 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_8 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_9 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_10 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_11 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_12 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    reg X_13 : UInt<48>, clock with :
+      reset => (UInt<1>("h0"), X_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:20]
+    node one = cat(UInt<1>("h1"), UInt<46>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 195:24]
+    reg results_0 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_1 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_2 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_3 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_4 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_5 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_6 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_7 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_8 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_9 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_10 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_11 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_12 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_13 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    reg results_14 : UInt<23>, clock with :
+      reset => (UInt<1>("h0"), results_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:26]
+    node _shifted_sqrd_ones_0_T = shr(one, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_1_T = shr(one, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_2_T = shr(one, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_3_T = shr(one, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_4_T = shr(one, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_5_T = shr(one, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_6_T = shr(one, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_7_T = shr(one, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_8_T = shr(one, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_9_T = shr(one, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_10_T = shr(one, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_11_T = shr(one, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_12_T = shr(one, 26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_13_T = shr(one, 28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_sqrd_ones_14_T = shr(one, 30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 199:61]
+    node _shifted_ones_0_T = shr(one, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_1_T = shr(one, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_2_T = shr(one, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_3_T = shr(one, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_4_T = shr(one, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_5_T = shr(one, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_6_T = shr(one, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_7_T = shr(one, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_8_T = shr(one, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_9_T = shr(one, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_10_T = shr(one, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_11_T = shr(one, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_12_T = shr(one, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_13_T = shr(one, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ones_14_T = shr(one, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 201:56]
+    node _shifted_ps_0_T = shr(P_0, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_1_T = shr(P_1, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_2_T = shr(P_2, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_3_T = shr(P_3, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_4_T = shr(P_4, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_5_T = shr(P_5, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_6_T = shr(P_6, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_7_T = shr(P_7, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_8_T = shr(P_8, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_9_T = shr(P_9, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_10_T = shr(P_10, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_11_T = shr(P_11, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_12_T = shr(P_12, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    node _shifted_ps_13_T = shr(P_13, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 203:57]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_0 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_1 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_2 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_3 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_4 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_5 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_6 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_7 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_8 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_9 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_10 = mux(io_in_en, io_out_valid_r_9, io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_11 = mux(io_in_en, io_out_valid_r_10, io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_12 = mux(io_in_en, io_out_valid_r_11, io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_13 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_13 = mux(io_in_en, io_out_valid_r_12, io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    reg io_out_valid_r_14 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:34]
+    node _GEN_14 = mux(io_in_en, io_out_valid_r_13, io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:{34,34,34}]
+    node _in_T = cat(io_in_a, UInt<23>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 208:23]
+    node _in_T_1 = sub(_in_T, one) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 208:37]
+    node in = tail(_in_T_1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 208:37]
+    node shifted_sqrd_ones_0 = pad(_shifted_sqrd_ones_0_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one = bits(shifted_sqrd_ones_0, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 213:49]
+    node y = add(shifted_one, one) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 214:31]
+    node yleqx = leq(y, in) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 215:25]
+    node shifted_ones_0 = pad(_shifted_ones_0_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_0_T = add(shifted_ones_0, one) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 216:46]
+    node _P_0_T_1 = tail(_P_0_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 216:46]
+    node _P_0_T_2 = mux(yleqx, _P_0_T_1, one) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 216:22]
+    node _X_0_T = sub(in, y) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 217:33]
+    node _X_0_T_1 = tail(_X_0_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 217:33]
+    node _X_0_T_2 = mux(yleqx, _X_0_T_1, in) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 217:22]
+    node temp_res_0 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 204:17]
+    node _t_T = bits(temp_res_0, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_1 = bits(temp_res_0, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_2 = bits(temp_res_0, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_3 = bits(temp_res_0, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_4 = bits(temp_res_0, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_5 = bits(temp_res_0, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_6 = bits(temp_res_0, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_7 = bits(temp_res_0, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_8 = bits(temp_res_0, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_9 = bits(temp_res_0, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_10 = bits(temp_res_0, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_11 = bits(temp_res_0, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_12 = bits(temp_res_0, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_13 = bits(temp_res_0, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_14 = bits(temp_res_0, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_15 = bits(temp_res_0, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_16 = bits(temp_res_0, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_17 = bits(temp_res_0, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_18 = bits(temp_res_0, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_19 = bits(temp_res_0, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_20 = bits(temp_res_0, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_21 = bits(temp_res_0, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node _t_T_22 = bits(temp_res_0, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:39]
+    node t__1 = _t_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node t__0 = _t_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_lo_lo_lo = cat(t__1, t__0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__4 = _t_T_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node t__3 = _t_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_lo_lo_hi_hi = cat(t__4, t__3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__2 = _t_T_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_lo_lo_hi = cat(results_0_lo_lo_hi_hi, t__2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node results_0_lo_lo = cat(results_0_lo_lo_hi, results_0_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__7 = _t_T_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node t__6 = _t_T_6 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_lo_hi_lo_hi = cat(t__7, t__6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__5 = _t_T_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_lo_hi_lo = cat(results_0_lo_hi_lo_hi, t__5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__10 = _t_T_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node t__9 = _t_T_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_lo_hi_hi_hi = cat(t__10, t__9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__8 = _t_T_8 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_lo_hi_hi = cat(results_0_lo_hi_hi_hi, t__8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node results_0_lo_hi = cat(results_0_lo_hi_hi, results_0_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node results_0_lo = cat(results_0_lo_hi, results_0_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__13 = _t_T_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node t__12 = _t_T_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_lo_lo_hi = cat(t__13, t__12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__11 = _t_T_11 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_lo_lo = cat(results_0_hi_lo_lo_hi, t__11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__16 = _t_T_16 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node t__15 = _t_T_15 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_lo_hi_hi = cat(t__16, t__15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__14 = _t_T_14 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_lo_hi = cat(results_0_hi_lo_hi_hi, t__14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node results_0_hi_lo = cat(results_0_hi_lo_hi, results_0_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__19 = _t_T_19 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node t__18 = _t_T_18 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_hi_lo_hi = cat(t__19, t__18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__17 = _t_T_17 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_hi_lo = cat(results_0_hi_hi_lo_hi, t__17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__22 = yleqx @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:26 219:19]
+    node t__21 = _t_T_21 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_hi_hi_hi = cat(t__22, t__21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node t__20 = _t_T_20 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 218:{26,26}]
+    node results_0_hi_hi_hi = cat(results_0_hi_hi_hi_hi, t__20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node results_0_hi_hi = cat(results_0_hi_hi_hi, results_0_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node results_0_hi = cat(results_0_hi_hi, results_0_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node _results_0_T = cat(results_0_hi, results_0_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 220:27]
+    node shifted_sqrd_ones_1 = pad(_shifted_sqrd_ones_1_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_1 = bits(shifted_sqrd_ones_1, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_0 = pad(_shifted_ps_0_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_1 = add(shifted_ps_0, shifted_one_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_1 = leq(y_1, X_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_1 = pad(_shifted_ones_1_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_1_T = add(shifted_ones_1, P_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_1_T_1 = tail(_P_1_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_1_T_2 = mux(yleqx_1, _P_1_T_1, P_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_1_T = sub(X_0, y_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_1_T_1 = tail(_X_1_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_1_T_2 = mux(yleqx_1, _X_1_T_1, X_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_1 = results_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_23 = bits(temp_res_1, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_24 = bits(temp_res_1, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_25 = bits(temp_res_1, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_26 = bits(temp_res_1, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_27 = bits(temp_res_1, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_28 = bits(temp_res_1, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_29 = bits(temp_res_1, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_30 = bits(temp_res_1, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_31 = bits(temp_res_1, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_32 = bits(temp_res_1, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_33 = bits(temp_res_1, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_34 = bits(temp_res_1, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_35 = bits(temp_res_1, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_36 = bits(temp_res_1, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_37 = bits(temp_res_1, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_38 = bits(temp_res_1, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_39 = bits(temp_res_1, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_40 = bits(temp_res_1, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_41 = bits(temp_res_1, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_42 = bits(temp_res_1, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_43 = bits(temp_res_1, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_44 = bits(temp_res_1, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_45 = bits(temp_res_1, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_1_1 = _t_T_24 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_0 = _t_T_23 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_lo_lo_lo = cat(t_1_1, t_1_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_4 = _t_T_27 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_3 = _t_T_26 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_lo_lo_hi_hi = cat(t_1_4, t_1_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_2 = _t_T_25 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_lo_lo_hi = cat(results_1_lo_lo_hi_hi, t_1_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_1_lo_lo = cat(results_1_lo_lo_hi, results_1_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_7 = _t_T_30 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_6 = _t_T_29 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_lo_hi_lo_hi = cat(t_1_7, t_1_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_5 = _t_T_28 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_lo_hi_lo = cat(results_1_lo_hi_lo_hi, t_1_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_10 = _t_T_33 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_9 = _t_T_32 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_lo_hi_hi_hi = cat(t_1_10, t_1_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_8 = _t_T_31 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_lo_hi_hi = cat(results_1_lo_hi_hi_hi, t_1_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_1_lo_hi = cat(results_1_lo_hi_hi, results_1_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_1_lo = cat(results_1_lo_hi, results_1_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_13 = _t_T_36 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_12 = _t_T_35 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_hi_lo_lo_hi = cat(t_1_13, t_1_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_11 = _t_T_34 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_hi_lo_lo = cat(results_1_hi_lo_lo_hi, t_1_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_16 = _t_T_39 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_15 = _t_T_38 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_hi_lo_hi_hi = cat(t_1_16, t_1_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_14 = _t_T_37 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_hi_lo_hi = cat(results_1_hi_lo_hi_hi, t_1_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_1_hi_lo = cat(results_1_hi_lo_hi, results_1_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_19 = _t_T_42 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_18 = _t_T_41 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_hi_hi_lo_hi = cat(t_1_19, t_1_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_17 = _t_T_40 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_hi_hi_lo = cat(results_1_hi_hi_lo_hi, t_1_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_22 = _t_T_45 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_1_21 = yleqx_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_1_hi_hi_hi_hi = cat(t_1_22, t_1_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_1_20 = _t_T_43 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_1_hi_hi_hi = cat(results_1_hi_hi_hi_hi, t_1_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_1_hi_hi = cat(results_1_hi_hi_hi, results_1_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_1_hi = cat(results_1_hi_hi, results_1_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_1_T = cat(results_1_hi, results_1_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_2 = pad(_shifted_sqrd_ones_2_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_2 = bits(shifted_sqrd_ones_2, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_1 = pad(_shifted_ps_1_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_2 = add(shifted_ps_1, shifted_one_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_2 = leq(y_2, X_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_2 = pad(_shifted_ones_2_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_2_T = add(shifted_ones_2, P_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_2_T_1 = tail(_P_2_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_2_T_2 = mux(yleqx_2, _P_2_T_1, P_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_2_T = sub(X_1, y_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_2_T_1 = tail(_X_2_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_2_T_2 = mux(yleqx_2, _X_2_T_1, X_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_2 = results_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_46 = bits(temp_res_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_47 = bits(temp_res_2, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_48 = bits(temp_res_2, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_49 = bits(temp_res_2, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_50 = bits(temp_res_2, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_51 = bits(temp_res_2, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_52 = bits(temp_res_2, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_53 = bits(temp_res_2, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_54 = bits(temp_res_2, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_55 = bits(temp_res_2, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_56 = bits(temp_res_2, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_57 = bits(temp_res_2, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_58 = bits(temp_res_2, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_59 = bits(temp_res_2, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_60 = bits(temp_res_2, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_61 = bits(temp_res_2, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_62 = bits(temp_res_2, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_63 = bits(temp_res_2, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_64 = bits(temp_res_2, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_65 = bits(temp_res_2, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_66 = bits(temp_res_2, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_67 = bits(temp_res_2, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_68 = bits(temp_res_2, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_2_1 = _t_T_47 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_0 = _t_T_46 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_lo_lo_lo = cat(t_2_1, t_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_4 = _t_T_50 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_3 = _t_T_49 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_lo_lo_hi_hi = cat(t_2_4, t_2_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_2 = _t_T_48 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_lo_lo_hi = cat(results_2_lo_lo_hi_hi, t_2_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_2_lo_lo = cat(results_2_lo_lo_hi, results_2_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_7 = _t_T_53 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_6 = _t_T_52 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_lo_hi_lo_hi = cat(t_2_7, t_2_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_5 = _t_T_51 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_lo_hi_lo = cat(results_2_lo_hi_lo_hi, t_2_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_10 = _t_T_56 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_9 = _t_T_55 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_lo_hi_hi_hi = cat(t_2_10, t_2_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_8 = _t_T_54 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_lo_hi_hi = cat(results_2_lo_hi_hi_hi, t_2_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_2_lo_hi = cat(results_2_lo_hi_hi, results_2_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_2_lo = cat(results_2_lo_hi, results_2_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_13 = _t_T_59 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_12 = _t_T_58 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_hi_lo_lo_hi = cat(t_2_13, t_2_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_11 = _t_T_57 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_hi_lo_lo = cat(results_2_hi_lo_lo_hi, t_2_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_16 = _t_T_62 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_15 = _t_T_61 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_hi_lo_hi_hi = cat(t_2_16, t_2_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_14 = _t_T_60 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_hi_lo_hi = cat(results_2_hi_lo_hi_hi, t_2_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_2_hi_lo = cat(results_2_hi_lo_hi, results_2_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_19 = _t_T_65 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_18 = _t_T_64 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_hi_hi_lo_hi = cat(t_2_19, t_2_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_17 = _t_T_63 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_hi_hi_lo = cat(results_2_hi_hi_lo_hi, t_2_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_22 = _t_T_68 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_2_21 = _t_T_67 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_2_hi_hi_hi_hi = cat(t_2_22, t_2_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_2_20 = yleqx_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_2_hi_hi_hi = cat(results_2_hi_hi_hi_hi, t_2_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_2_hi_hi = cat(results_2_hi_hi_hi, results_2_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_2_hi = cat(results_2_hi_hi, results_2_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_2_T = cat(results_2_hi, results_2_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_3 = pad(_shifted_sqrd_ones_3_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_3 = bits(shifted_sqrd_ones_3, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_2 = pad(_shifted_ps_2_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_3 = add(shifted_ps_2, shifted_one_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_3 = leq(y_3, X_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_3 = pad(_shifted_ones_3_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_3_T = add(shifted_ones_3, P_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_3_T_1 = tail(_P_3_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_3_T_2 = mux(yleqx_3, _P_3_T_1, P_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_3_T = sub(X_2, y_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_3_T_1 = tail(_X_3_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_3_T_2 = mux(yleqx_3, _X_3_T_1, X_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_3 = results_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_69 = bits(temp_res_3, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_70 = bits(temp_res_3, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_71 = bits(temp_res_3, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_72 = bits(temp_res_3, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_73 = bits(temp_res_3, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_74 = bits(temp_res_3, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_75 = bits(temp_res_3, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_76 = bits(temp_res_3, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_77 = bits(temp_res_3, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_78 = bits(temp_res_3, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_79 = bits(temp_res_3, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_80 = bits(temp_res_3, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_81 = bits(temp_res_3, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_82 = bits(temp_res_3, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_83 = bits(temp_res_3, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_84 = bits(temp_res_3, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_85 = bits(temp_res_3, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_86 = bits(temp_res_3, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_87 = bits(temp_res_3, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_88 = bits(temp_res_3, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_89 = bits(temp_res_3, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_90 = bits(temp_res_3, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_91 = bits(temp_res_3, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_3_1 = _t_T_70 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_3_0 = _t_T_69 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_lo_lo_lo = cat(t_3_1, t_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_4 = _t_T_73 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_3_3 = _t_T_72 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_lo_lo_hi_hi = cat(t_3_4, t_3_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_2 = _t_T_71 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_lo_lo_hi = cat(results_3_lo_lo_hi_hi, t_3_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_3_lo_lo = cat(results_3_lo_lo_hi, results_3_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_7 = _t_T_76 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_3_6 = _t_T_75 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_lo_hi_lo_hi = cat(t_3_7, t_3_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_5 = _t_T_74 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_lo_hi_lo = cat(results_3_lo_hi_lo_hi, t_3_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_10 = _t_T_79 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_3_9 = _t_T_78 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_lo_hi_hi_hi = cat(t_3_10, t_3_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_8 = _t_T_77 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_lo_hi_hi = cat(results_3_lo_hi_hi_hi, t_3_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_3_lo_hi = cat(results_3_lo_hi_hi, results_3_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_3_lo = cat(results_3_lo_hi, results_3_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_13 = _t_T_82 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_3_12 = _t_T_81 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_lo_lo_hi = cat(t_3_13, t_3_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_11 = _t_T_80 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_lo_lo = cat(results_3_hi_lo_lo_hi, t_3_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_16 = _t_T_85 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_3_15 = _t_T_84 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_lo_hi_hi = cat(t_3_16, t_3_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_14 = _t_T_83 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_lo_hi = cat(results_3_hi_lo_hi_hi, t_3_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_3_hi_lo = cat(results_3_hi_lo_hi, results_3_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_19 = yleqx_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node t_3_18 = _t_T_87 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_hi_lo_hi = cat(t_3_19, t_3_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_17 = _t_T_86 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_hi_lo = cat(results_3_hi_hi_lo_hi, t_3_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_22 = _t_T_91 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_3_21 = _t_T_90 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_hi_hi_hi = cat(t_3_22, t_3_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_3_20 = _t_T_89 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_3_hi_hi_hi = cat(results_3_hi_hi_hi_hi, t_3_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_3_hi_hi = cat(results_3_hi_hi_hi, results_3_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_3_hi = cat(results_3_hi_hi, results_3_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_3_T = cat(results_3_hi, results_3_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_4 = pad(_shifted_sqrd_ones_4_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_4 = bits(shifted_sqrd_ones_4, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_3 = pad(_shifted_ps_3_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_4 = add(shifted_ps_3, shifted_one_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_4 = leq(y_4, X_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_4 = pad(_shifted_ones_4_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_4_T = add(shifted_ones_4, P_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_4_T_1 = tail(_P_4_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_4_T_2 = mux(yleqx_4, _P_4_T_1, P_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_4_T = sub(X_3, y_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_4_T_1 = tail(_X_4_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_4_T_2 = mux(yleqx_4, _X_4_T_1, X_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_4 = results_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_92 = bits(temp_res_4, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_93 = bits(temp_res_4, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_94 = bits(temp_res_4, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_95 = bits(temp_res_4, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_96 = bits(temp_res_4, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_97 = bits(temp_res_4, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_98 = bits(temp_res_4, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_99 = bits(temp_res_4, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_100 = bits(temp_res_4, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_101 = bits(temp_res_4, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_102 = bits(temp_res_4, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_103 = bits(temp_res_4, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_104 = bits(temp_res_4, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_105 = bits(temp_res_4, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_106 = bits(temp_res_4, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_107 = bits(temp_res_4, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_108 = bits(temp_res_4, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_109 = bits(temp_res_4, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_110 = bits(temp_res_4, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_111 = bits(temp_res_4, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_112 = bits(temp_res_4, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_113 = bits(temp_res_4, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_114 = bits(temp_res_4, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_4_1 = _t_T_93 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_0 = _t_T_92 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_lo_lo_lo = cat(t_4_1, t_4_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_4 = _t_T_96 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_3 = _t_T_95 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_lo_lo_hi_hi = cat(t_4_4, t_4_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_2 = _t_T_94 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_lo_lo_hi = cat(results_4_lo_lo_hi_hi, t_4_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_4_lo_lo = cat(results_4_lo_lo_hi, results_4_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_7 = _t_T_99 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_6 = _t_T_98 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_lo_hi_lo_hi = cat(t_4_7, t_4_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_5 = _t_T_97 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_lo_hi_lo = cat(results_4_lo_hi_lo_hi, t_4_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_10 = _t_T_102 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_9 = _t_T_101 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_lo_hi_hi_hi = cat(t_4_10, t_4_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_8 = _t_T_100 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_lo_hi_hi = cat(results_4_lo_hi_hi_hi, t_4_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_4_lo_hi = cat(results_4_lo_hi_hi, results_4_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_4_lo = cat(results_4_lo_hi, results_4_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_13 = _t_T_105 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_12 = _t_T_104 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_hi_lo_lo_hi = cat(t_4_13, t_4_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_11 = _t_T_103 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_hi_lo_lo = cat(results_4_hi_lo_lo_hi, t_4_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_16 = _t_T_108 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_15 = _t_T_107 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_hi_lo_hi_hi = cat(t_4_16, t_4_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_14 = _t_T_106 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_hi_lo_hi = cat(results_4_hi_lo_hi_hi, t_4_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_4_hi_lo = cat(results_4_hi_lo_hi, results_4_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_19 = _t_T_111 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_18 = yleqx_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_4_hi_hi_lo_hi = cat(t_4_19, t_4_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_17 = _t_T_109 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_hi_hi_lo = cat(results_4_hi_hi_lo_hi, t_4_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_22 = _t_T_114 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_4_21 = _t_T_113 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_hi_hi_hi_hi = cat(t_4_22, t_4_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_4_20 = _t_T_112 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_4_hi_hi_hi = cat(results_4_hi_hi_hi_hi, t_4_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_4_hi_hi = cat(results_4_hi_hi_hi, results_4_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_4_hi = cat(results_4_hi_hi, results_4_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_4_T = cat(results_4_hi, results_4_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_5 = pad(_shifted_sqrd_ones_5_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_5 = bits(shifted_sqrd_ones_5, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_4 = pad(_shifted_ps_4_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_5 = add(shifted_ps_4, shifted_one_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_5 = leq(y_5, X_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_5 = pad(_shifted_ones_5_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_5_T = add(shifted_ones_5, P_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_5_T_1 = tail(_P_5_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_5_T_2 = mux(yleqx_5, _P_5_T_1, P_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_5_T = sub(X_4, y_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_5_T_1 = tail(_X_5_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_5_T_2 = mux(yleqx_5, _X_5_T_1, X_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_5 = results_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_115 = bits(temp_res_5, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_116 = bits(temp_res_5, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_117 = bits(temp_res_5, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_118 = bits(temp_res_5, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_119 = bits(temp_res_5, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_120 = bits(temp_res_5, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_121 = bits(temp_res_5, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_122 = bits(temp_res_5, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_123 = bits(temp_res_5, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_124 = bits(temp_res_5, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_125 = bits(temp_res_5, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_126 = bits(temp_res_5, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_127 = bits(temp_res_5, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_128 = bits(temp_res_5, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_129 = bits(temp_res_5, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_130 = bits(temp_res_5, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_131 = bits(temp_res_5, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_132 = bits(temp_res_5, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_133 = bits(temp_res_5, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_134 = bits(temp_res_5, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_135 = bits(temp_res_5, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_136 = bits(temp_res_5, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_137 = bits(temp_res_5, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_5_1 = _t_T_116 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_0 = _t_T_115 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_lo_lo_lo = cat(t_5_1, t_5_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_4 = _t_T_119 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_3 = _t_T_118 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_lo_lo_hi_hi = cat(t_5_4, t_5_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_2 = _t_T_117 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_lo_lo_hi = cat(results_5_lo_lo_hi_hi, t_5_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_5_lo_lo = cat(results_5_lo_lo_hi, results_5_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_7 = _t_T_122 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_6 = _t_T_121 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_lo_hi_lo_hi = cat(t_5_7, t_5_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_5 = _t_T_120 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_lo_hi_lo = cat(results_5_lo_hi_lo_hi, t_5_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_10 = _t_T_125 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_9 = _t_T_124 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_lo_hi_hi_hi = cat(t_5_10, t_5_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_8 = _t_T_123 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_lo_hi_hi = cat(results_5_lo_hi_hi_hi, t_5_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_5_lo_hi = cat(results_5_lo_hi_hi, results_5_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_5_lo = cat(results_5_lo_hi, results_5_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_13 = _t_T_128 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_12 = _t_T_127 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_hi_lo_lo_hi = cat(t_5_13, t_5_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_11 = _t_T_126 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_hi_lo_lo = cat(results_5_hi_lo_lo_hi, t_5_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_16 = _t_T_131 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_15 = _t_T_130 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_hi_lo_hi_hi = cat(t_5_16, t_5_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_14 = _t_T_129 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_hi_lo_hi = cat(results_5_hi_lo_hi_hi, t_5_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_5_hi_lo = cat(results_5_hi_lo_hi, results_5_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_19 = _t_T_134 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_18 = _t_T_133 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_hi_hi_lo_hi = cat(t_5_19, t_5_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_17 = yleqx_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_5_hi_hi_lo = cat(results_5_hi_hi_lo_hi, t_5_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_22 = _t_T_137 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_5_21 = _t_T_136 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_hi_hi_hi_hi = cat(t_5_22, t_5_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_5_20 = _t_T_135 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_5_hi_hi_hi = cat(results_5_hi_hi_hi_hi, t_5_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_5_hi_hi = cat(results_5_hi_hi_hi, results_5_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_5_hi = cat(results_5_hi_hi, results_5_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_5_T = cat(results_5_hi, results_5_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_6 = pad(_shifted_sqrd_ones_6_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_6 = bits(shifted_sqrd_ones_6, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_5 = pad(_shifted_ps_5_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_6 = add(shifted_ps_5, shifted_one_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_6 = leq(y_6, X_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_6 = pad(_shifted_ones_6_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_6_T = add(shifted_ones_6, P_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_6_T_1 = tail(_P_6_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_6_T_2 = mux(yleqx_6, _P_6_T_1, P_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_6_T = sub(X_5, y_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_6_T_1 = tail(_X_6_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_6_T_2 = mux(yleqx_6, _X_6_T_1, X_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_6 = results_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_138 = bits(temp_res_6, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_139 = bits(temp_res_6, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_140 = bits(temp_res_6, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_141 = bits(temp_res_6, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_142 = bits(temp_res_6, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_143 = bits(temp_res_6, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_144 = bits(temp_res_6, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_145 = bits(temp_res_6, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_146 = bits(temp_res_6, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_147 = bits(temp_res_6, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_148 = bits(temp_res_6, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_149 = bits(temp_res_6, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_150 = bits(temp_res_6, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_151 = bits(temp_res_6, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_152 = bits(temp_res_6, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_153 = bits(temp_res_6, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_154 = bits(temp_res_6, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_155 = bits(temp_res_6, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_156 = bits(temp_res_6, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_157 = bits(temp_res_6, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_158 = bits(temp_res_6, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_159 = bits(temp_res_6, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_160 = bits(temp_res_6, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_6_1 = _t_T_139 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_6_0 = _t_T_138 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_lo_lo_lo = cat(t_6_1, t_6_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_4 = _t_T_142 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_6_3 = _t_T_141 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_lo_lo_hi_hi = cat(t_6_4, t_6_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_2 = _t_T_140 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_lo_lo_hi = cat(results_6_lo_lo_hi_hi, t_6_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_6_lo_lo = cat(results_6_lo_lo_hi, results_6_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_7 = _t_T_145 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_6_6 = _t_T_144 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_lo_hi_lo_hi = cat(t_6_7, t_6_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_5 = _t_T_143 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_lo_hi_lo = cat(results_6_lo_hi_lo_hi, t_6_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_10 = _t_T_148 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_6_9 = _t_T_147 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_lo_hi_hi_hi = cat(t_6_10, t_6_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_8 = _t_T_146 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_lo_hi_hi = cat(results_6_lo_hi_hi_hi, t_6_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_6_lo_hi = cat(results_6_lo_hi_hi, results_6_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_6_lo = cat(results_6_lo_hi, results_6_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_13 = _t_T_151 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_6_12 = _t_T_150 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_lo_lo_hi = cat(t_6_13, t_6_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_11 = _t_T_149 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_lo_lo = cat(results_6_hi_lo_lo_hi, t_6_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_16 = yleqx_6 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node t_6_15 = _t_T_153 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_lo_hi_hi = cat(t_6_16, t_6_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_14 = _t_T_152 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_lo_hi = cat(results_6_hi_lo_hi_hi, t_6_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_6_hi_lo = cat(results_6_hi_lo_hi, results_6_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_19 = _t_T_157 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_6_18 = _t_T_156 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_hi_lo_hi = cat(t_6_19, t_6_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_17 = _t_T_155 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_hi_lo = cat(results_6_hi_hi_lo_hi, t_6_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_22 = _t_T_160 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_6_21 = _t_T_159 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_hi_hi_hi = cat(t_6_22, t_6_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_6_20 = _t_T_158 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_6_hi_hi_hi = cat(results_6_hi_hi_hi_hi, t_6_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_6_hi_hi = cat(results_6_hi_hi_hi, results_6_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_6_hi = cat(results_6_hi_hi, results_6_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_6_T = cat(results_6_hi, results_6_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_7 = pad(_shifted_sqrd_ones_7_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_7 = bits(shifted_sqrd_ones_7, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_6 = pad(_shifted_ps_6_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_7 = add(shifted_ps_6, shifted_one_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_7 = leq(y_7, X_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_7 = pad(_shifted_ones_7_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_7_T = add(shifted_ones_7, P_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_7_T_1 = tail(_P_7_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_7_T_2 = mux(yleqx_7, _P_7_T_1, P_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_7_T = sub(X_6, y_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_7_T_1 = tail(_X_7_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_7_T_2 = mux(yleqx_7, _X_7_T_1, X_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_7 = results_6 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_161 = bits(temp_res_7, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_162 = bits(temp_res_7, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_163 = bits(temp_res_7, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_164 = bits(temp_res_7, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_165 = bits(temp_res_7, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_166 = bits(temp_res_7, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_167 = bits(temp_res_7, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_168 = bits(temp_res_7, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_169 = bits(temp_res_7, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_170 = bits(temp_res_7, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_171 = bits(temp_res_7, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_172 = bits(temp_res_7, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_173 = bits(temp_res_7, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_174 = bits(temp_res_7, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_175 = bits(temp_res_7, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_176 = bits(temp_res_7, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_177 = bits(temp_res_7, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_178 = bits(temp_res_7, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_179 = bits(temp_res_7, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_180 = bits(temp_res_7, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_181 = bits(temp_res_7, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_182 = bits(temp_res_7, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_183 = bits(temp_res_7, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_7_1 = _t_T_162 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_0 = _t_T_161 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_lo_lo_lo = cat(t_7_1, t_7_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_4 = _t_T_165 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_3 = _t_T_164 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_lo_lo_hi_hi = cat(t_7_4, t_7_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_2 = _t_T_163 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_lo_lo_hi = cat(results_7_lo_lo_hi_hi, t_7_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_7_lo_lo = cat(results_7_lo_lo_hi, results_7_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_7 = _t_T_168 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_6 = _t_T_167 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_lo_hi_lo_hi = cat(t_7_7, t_7_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_5 = _t_T_166 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_lo_hi_lo = cat(results_7_lo_hi_lo_hi, t_7_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_10 = _t_T_171 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_9 = _t_T_170 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_lo_hi_hi_hi = cat(t_7_10, t_7_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_8 = _t_T_169 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_lo_hi_hi = cat(results_7_lo_hi_hi_hi, t_7_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_7_lo_hi = cat(results_7_lo_hi_hi, results_7_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_7_lo = cat(results_7_lo_hi, results_7_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_13 = _t_T_174 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_12 = _t_T_173 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_hi_lo_lo_hi = cat(t_7_13, t_7_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_11 = _t_T_172 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_hi_lo_lo = cat(results_7_hi_lo_lo_hi, t_7_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_16 = _t_T_177 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_15 = yleqx_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_7_hi_lo_hi_hi = cat(t_7_16, t_7_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_14 = _t_T_175 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_hi_lo_hi = cat(results_7_hi_lo_hi_hi, t_7_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_7_hi_lo = cat(results_7_hi_lo_hi, results_7_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_19 = _t_T_180 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_18 = _t_T_179 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_hi_hi_lo_hi = cat(t_7_19, t_7_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_17 = _t_T_178 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_hi_hi_lo = cat(results_7_hi_hi_lo_hi, t_7_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_22 = _t_T_183 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_7_21 = _t_T_182 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_hi_hi_hi_hi = cat(t_7_22, t_7_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_7_20 = _t_T_181 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_7_hi_hi_hi = cat(results_7_hi_hi_hi_hi, t_7_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_7_hi_hi = cat(results_7_hi_hi_hi, results_7_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_7_hi = cat(results_7_hi_hi, results_7_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_7_T = cat(results_7_hi, results_7_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_8 = pad(_shifted_sqrd_ones_8_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_8 = bits(shifted_sqrd_ones_8, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_7 = pad(_shifted_ps_7_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_8 = add(shifted_ps_7, shifted_one_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_8 = leq(y_8, X_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_8 = pad(_shifted_ones_8_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_8_T = add(shifted_ones_8, P_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_8_T_1 = tail(_P_8_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_8_T_2 = mux(yleqx_8, _P_8_T_1, P_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_8_T = sub(X_7, y_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_8_T_1 = tail(_X_8_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_8_T_2 = mux(yleqx_8, _X_8_T_1, X_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_8 = results_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_184 = bits(temp_res_8, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_185 = bits(temp_res_8, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_186 = bits(temp_res_8, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_187 = bits(temp_res_8, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_188 = bits(temp_res_8, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_189 = bits(temp_res_8, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_190 = bits(temp_res_8, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_191 = bits(temp_res_8, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_192 = bits(temp_res_8, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_193 = bits(temp_res_8, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_194 = bits(temp_res_8, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_195 = bits(temp_res_8, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_196 = bits(temp_res_8, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_197 = bits(temp_res_8, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_198 = bits(temp_res_8, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_199 = bits(temp_res_8, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_200 = bits(temp_res_8, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_201 = bits(temp_res_8, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_202 = bits(temp_res_8, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_203 = bits(temp_res_8, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_204 = bits(temp_res_8, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_205 = bits(temp_res_8, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_206 = bits(temp_res_8, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_8_1 = _t_T_185 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_0 = _t_T_184 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_lo_lo_lo = cat(t_8_1, t_8_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_4 = _t_T_188 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_3 = _t_T_187 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_lo_lo_hi_hi = cat(t_8_4, t_8_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_2 = _t_T_186 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_lo_lo_hi = cat(results_8_lo_lo_hi_hi, t_8_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_8_lo_lo = cat(results_8_lo_lo_hi, results_8_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_7 = _t_T_191 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_6 = _t_T_190 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_lo_hi_lo_hi = cat(t_8_7, t_8_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_5 = _t_T_189 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_lo_hi_lo = cat(results_8_lo_hi_lo_hi, t_8_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_10 = _t_T_194 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_9 = _t_T_193 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_lo_hi_hi_hi = cat(t_8_10, t_8_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_8 = _t_T_192 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_lo_hi_hi = cat(results_8_lo_hi_hi_hi, t_8_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_8_lo_hi = cat(results_8_lo_hi_hi, results_8_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_8_lo = cat(results_8_lo_hi, results_8_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_13 = _t_T_197 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_12 = _t_T_196 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_hi_lo_lo_hi = cat(t_8_13, t_8_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_11 = _t_T_195 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_hi_lo_lo = cat(results_8_hi_lo_lo_hi, t_8_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_16 = _t_T_200 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_15 = _t_T_199 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_hi_lo_hi_hi = cat(t_8_16, t_8_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_14 = yleqx_8 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_8_hi_lo_hi = cat(results_8_hi_lo_hi_hi, t_8_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_8_hi_lo = cat(results_8_hi_lo_hi, results_8_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_19 = _t_T_203 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_18 = _t_T_202 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_hi_hi_lo_hi = cat(t_8_19, t_8_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_17 = _t_T_201 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_hi_hi_lo = cat(results_8_hi_hi_lo_hi, t_8_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_22 = _t_T_206 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_8_21 = _t_T_205 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_hi_hi_hi_hi = cat(t_8_22, t_8_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_8_20 = _t_T_204 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_8_hi_hi_hi = cat(results_8_hi_hi_hi_hi, t_8_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_8_hi_hi = cat(results_8_hi_hi_hi, results_8_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_8_hi = cat(results_8_hi_hi, results_8_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_8_T = cat(results_8_hi, results_8_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_9 = pad(_shifted_sqrd_ones_9_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_9 = bits(shifted_sqrd_ones_9, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_8 = pad(_shifted_ps_8_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_9 = add(shifted_ps_8, shifted_one_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_9 = leq(y_9, X_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_9 = pad(_shifted_ones_9_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_9_T = add(shifted_ones_9, P_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_9_T_1 = tail(_P_9_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_9_T_2 = mux(yleqx_9, _P_9_T_1, P_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_9_T = sub(X_8, y_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_9_T_1 = tail(_X_9_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_9_T_2 = mux(yleqx_9, _X_9_T_1, X_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_9 = results_8 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_207 = bits(temp_res_9, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_208 = bits(temp_res_9, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_209 = bits(temp_res_9, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_210 = bits(temp_res_9, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_211 = bits(temp_res_9, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_212 = bits(temp_res_9, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_213 = bits(temp_res_9, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_214 = bits(temp_res_9, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_215 = bits(temp_res_9, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_216 = bits(temp_res_9, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_217 = bits(temp_res_9, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_218 = bits(temp_res_9, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_219 = bits(temp_res_9, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_220 = bits(temp_res_9, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_221 = bits(temp_res_9, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_222 = bits(temp_res_9, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_223 = bits(temp_res_9, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_224 = bits(temp_res_9, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_225 = bits(temp_res_9, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_226 = bits(temp_res_9, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_227 = bits(temp_res_9, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_228 = bits(temp_res_9, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_229 = bits(temp_res_9, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_9_1 = _t_T_208 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_9_0 = _t_T_207 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_lo_lo_lo = cat(t_9_1, t_9_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_4 = _t_T_211 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_9_3 = _t_T_210 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_lo_lo_hi_hi = cat(t_9_4, t_9_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_2 = _t_T_209 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_lo_lo_hi = cat(results_9_lo_lo_hi_hi, t_9_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_9_lo_lo = cat(results_9_lo_lo_hi, results_9_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_7 = _t_T_214 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_9_6 = _t_T_213 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_lo_hi_lo_hi = cat(t_9_7, t_9_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_5 = _t_T_212 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_lo_hi_lo = cat(results_9_lo_hi_lo_hi, t_9_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_10 = _t_T_217 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_9_9 = _t_T_216 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_lo_hi_hi_hi = cat(t_9_10, t_9_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_8 = _t_T_215 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_lo_hi_hi = cat(results_9_lo_hi_hi_hi, t_9_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_9_lo_hi = cat(results_9_lo_hi_hi, results_9_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_9_lo = cat(results_9_lo_hi, results_9_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_13 = yleqx_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node t_9_12 = _t_T_219 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_lo_lo_hi = cat(t_9_13, t_9_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_11 = _t_T_218 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_lo_lo = cat(results_9_hi_lo_lo_hi, t_9_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_16 = _t_T_223 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_9_15 = _t_T_222 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_lo_hi_hi = cat(t_9_16, t_9_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_14 = _t_T_221 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_lo_hi = cat(results_9_hi_lo_hi_hi, t_9_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_9_hi_lo = cat(results_9_hi_lo_hi, results_9_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_19 = _t_T_226 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_9_18 = _t_T_225 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_hi_lo_hi = cat(t_9_19, t_9_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_17 = _t_T_224 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_hi_lo = cat(results_9_hi_hi_lo_hi, t_9_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_22 = _t_T_229 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_9_21 = _t_T_228 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_hi_hi_hi = cat(t_9_22, t_9_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_9_20 = _t_T_227 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_9_hi_hi_hi = cat(results_9_hi_hi_hi_hi, t_9_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_9_hi_hi = cat(results_9_hi_hi_hi, results_9_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_9_hi = cat(results_9_hi_hi, results_9_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_9_T = cat(results_9_hi, results_9_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_10 = pad(_shifted_sqrd_ones_10_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_10 = bits(shifted_sqrd_ones_10, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_9 = pad(_shifted_ps_9_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_10 = add(shifted_ps_9, shifted_one_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_10 = leq(y_10, X_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_10 = pad(_shifted_ones_10_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_10_T = add(shifted_ones_10, P_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_10_T_1 = tail(_P_10_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_10_T_2 = mux(yleqx_10, _P_10_T_1, P_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_10_T = sub(X_9, y_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_10_T_1 = tail(_X_10_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_10_T_2 = mux(yleqx_10, _X_10_T_1, X_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_10 = results_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_230 = bits(temp_res_10, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_231 = bits(temp_res_10, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_232 = bits(temp_res_10, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_233 = bits(temp_res_10, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_234 = bits(temp_res_10, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_235 = bits(temp_res_10, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_236 = bits(temp_res_10, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_237 = bits(temp_res_10, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_238 = bits(temp_res_10, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_239 = bits(temp_res_10, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_240 = bits(temp_res_10, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_241 = bits(temp_res_10, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_242 = bits(temp_res_10, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_243 = bits(temp_res_10, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_244 = bits(temp_res_10, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_245 = bits(temp_res_10, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_246 = bits(temp_res_10, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_247 = bits(temp_res_10, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_248 = bits(temp_res_10, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_249 = bits(temp_res_10, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_250 = bits(temp_res_10, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_251 = bits(temp_res_10, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_252 = bits(temp_res_10, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_10_1 = _t_T_231 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_0 = _t_T_230 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_lo_lo_lo = cat(t_10_1, t_10_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_4 = _t_T_234 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_3 = _t_T_233 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_lo_lo_hi_hi = cat(t_10_4, t_10_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_2 = _t_T_232 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_lo_lo_hi = cat(results_10_lo_lo_hi_hi, t_10_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_10_lo_lo = cat(results_10_lo_lo_hi, results_10_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_7 = _t_T_237 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_6 = _t_T_236 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_lo_hi_lo_hi = cat(t_10_7, t_10_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_5 = _t_T_235 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_lo_hi_lo = cat(results_10_lo_hi_lo_hi, t_10_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_10 = _t_T_240 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_9 = _t_T_239 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_lo_hi_hi_hi = cat(t_10_10, t_10_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_8 = _t_T_238 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_lo_hi_hi = cat(results_10_lo_hi_hi_hi, t_10_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_10_lo_hi = cat(results_10_lo_hi_hi, results_10_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_10_lo = cat(results_10_lo_hi, results_10_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_13 = _t_T_243 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_12 = yleqx_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_10_hi_lo_lo_hi = cat(t_10_13, t_10_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_11 = _t_T_241 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_hi_lo_lo = cat(results_10_hi_lo_lo_hi, t_10_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_16 = _t_T_246 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_15 = _t_T_245 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_hi_lo_hi_hi = cat(t_10_16, t_10_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_14 = _t_T_244 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_hi_lo_hi = cat(results_10_hi_lo_hi_hi, t_10_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_10_hi_lo = cat(results_10_hi_lo_hi, results_10_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_19 = _t_T_249 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_18 = _t_T_248 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_hi_hi_lo_hi = cat(t_10_19, t_10_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_17 = _t_T_247 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_hi_hi_lo = cat(results_10_hi_hi_lo_hi, t_10_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_22 = _t_T_252 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_10_21 = _t_T_251 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_hi_hi_hi_hi = cat(t_10_22, t_10_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_10_20 = _t_T_250 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_10_hi_hi_hi = cat(results_10_hi_hi_hi_hi, t_10_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_10_hi_hi = cat(results_10_hi_hi_hi, results_10_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_10_hi = cat(results_10_hi_hi, results_10_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_10_T = cat(results_10_hi, results_10_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_11 = pad(_shifted_sqrd_ones_11_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_11 = bits(shifted_sqrd_ones_11, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_10 = pad(_shifted_ps_10_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_11 = add(shifted_ps_10, shifted_one_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_11 = leq(y_11, X_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_11 = pad(_shifted_ones_11_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_11_T = add(shifted_ones_11, P_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_11_T_1 = tail(_P_11_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_11_T_2 = mux(yleqx_11, _P_11_T_1, P_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_11_T = sub(X_10, y_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_11_T_1 = tail(_X_11_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_11_T_2 = mux(yleqx_11, _X_11_T_1, X_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_11 = results_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_253 = bits(temp_res_11, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_254 = bits(temp_res_11, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_255 = bits(temp_res_11, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_256 = bits(temp_res_11, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_257 = bits(temp_res_11, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_258 = bits(temp_res_11, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_259 = bits(temp_res_11, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_260 = bits(temp_res_11, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_261 = bits(temp_res_11, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_262 = bits(temp_res_11, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_263 = bits(temp_res_11, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_264 = bits(temp_res_11, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_265 = bits(temp_res_11, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_266 = bits(temp_res_11, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_267 = bits(temp_res_11, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_268 = bits(temp_res_11, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_269 = bits(temp_res_11, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_270 = bits(temp_res_11, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_271 = bits(temp_res_11, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_272 = bits(temp_res_11, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_273 = bits(temp_res_11, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_274 = bits(temp_res_11, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_275 = bits(temp_res_11, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_11_1 = _t_T_254 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_0 = _t_T_253 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_lo_lo_lo = cat(t_11_1, t_11_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_4 = _t_T_257 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_3 = _t_T_256 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_lo_lo_hi_hi = cat(t_11_4, t_11_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_2 = _t_T_255 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_lo_lo_hi = cat(results_11_lo_lo_hi_hi, t_11_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_11_lo_lo = cat(results_11_lo_lo_hi, results_11_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_7 = _t_T_260 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_6 = _t_T_259 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_lo_hi_lo_hi = cat(t_11_7, t_11_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_5 = _t_T_258 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_lo_hi_lo = cat(results_11_lo_hi_lo_hi, t_11_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_10 = _t_T_263 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_9 = _t_T_262 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_lo_hi_hi_hi = cat(t_11_10, t_11_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_8 = _t_T_261 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_lo_hi_hi = cat(results_11_lo_hi_hi_hi, t_11_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_11_lo_hi = cat(results_11_lo_hi_hi, results_11_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_11_lo = cat(results_11_lo_hi, results_11_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_13 = _t_T_266 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_12 = _t_T_265 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_hi_lo_lo_hi = cat(t_11_13, t_11_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_11 = yleqx_11 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_11_hi_lo_lo = cat(results_11_hi_lo_lo_hi, t_11_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_16 = _t_T_269 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_15 = _t_T_268 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_hi_lo_hi_hi = cat(t_11_16, t_11_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_14 = _t_T_267 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_hi_lo_hi = cat(results_11_hi_lo_hi_hi, t_11_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_11_hi_lo = cat(results_11_hi_lo_hi, results_11_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_19 = _t_T_272 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_18 = _t_T_271 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_hi_hi_lo_hi = cat(t_11_19, t_11_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_17 = _t_T_270 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_hi_hi_lo = cat(results_11_hi_hi_lo_hi, t_11_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_22 = _t_T_275 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_11_21 = _t_T_274 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_hi_hi_hi_hi = cat(t_11_22, t_11_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_11_20 = _t_T_273 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_11_hi_hi_hi = cat(results_11_hi_hi_hi_hi, t_11_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_11_hi_hi = cat(results_11_hi_hi_hi, results_11_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_11_hi = cat(results_11_hi_hi, results_11_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_11_T = cat(results_11_hi, results_11_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_12 = pad(_shifted_sqrd_ones_12_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_12 = bits(shifted_sqrd_ones_12, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_11 = pad(_shifted_ps_11_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_12 = add(shifted_ps_11, shifted_one_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_12 = leq(y_12, X_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_12 = pad(_shifted_ones_12_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_12_T = add(shifted_ones_12, P_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_12_T_1 = tail(_P_12_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_12_T_2 = mux(yleqx_12, _P_12_T_1, P_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_12_T = sub(X_11, y_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_12_T_1 = tail(_X_12_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_12_T_2 = mux(yleqx_12, _X_12_T_1, X_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_12 = results_11 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_276 = bits(temp_res_12, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_277 = bits(temp_res_12, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_278 = bits(temp_res_12, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_279 = bits(temp_res_12, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_280 = bits(temp_res_12, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_281 = bits(temp_res_12, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_282 = bits(temp_res_12, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_283 = bits(temp_res_12, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_284 = bits(temp_res_12, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_285 = bits(temp_res_12, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_286 = bits(temp_res_12, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_287 = bits(temp_res_12, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_288 = bits(temp_res_12, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_289 = bits(temp_res_12, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_290 = bits(temp_res_12, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_291 = bits(temp_res_12, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_292 = bits(temp_res_12, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_293 = bits(temp_res_12, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_294 = bits(temp_res_12, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_295 = bits(temp_res_12, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_296 = bits(temp_res_12, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_297 = bits(temp_res_12, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_298 = bits(temp_res_12, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_12_1 = _t_T_277 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_12_0 = _t_T_276 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_lo_lo_lo = cat(t_12_1, t_12_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_4 = _t_T_280 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_12_3 = _t_T_279 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_lo_lo_hi_hi = cat(t_12_4, t_12_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_2 = _t_T_278 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_lo_lo_hi = cat(results_12_lo_lo_hi_hi, t_12_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_12_lo_lo = cat(results_12_lo_lo_hi, results_12_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_7 = _t_T_283 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_12_6 = _t_T_282 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_lo_hi_lo_hi = cat(t_12_7, t_12_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_5 = _t_T_281 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_lo_hi_lo = cat(results_12_lo_hi_lo_hi, t_12_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_10 = yleqx_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node t_12_9 = _t_T_285 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_lo_hi_hi_hi = cat(t_12_10, t_12_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_8 = _t_T_284 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_lo_hi_hi = cat(results_12_lo_hi_hi_hi, t_12_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_12_lo_hi = cat(results_12_lo_hi_hi, results_12_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_12_lo = cat(results_12_lo_hi, results_12_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_13 = _t_T_289 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_12_12 = _t_T_288 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_lo_lo_hi = cat(t_12_13, t_12_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_11 = _t_T_287 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_lo_lo = cat(results_12_hi_lo_lo_hi, t_12_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_16 = _t_T_292 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_12_15 = _t_T_291 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_lo_hi_hi = cat(t_12_16, t_12_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_14 = _t_T_290 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_lo_hi = cat(results_12_hi_lo_hi_hi, t_12_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_12_hi_lo = cat(results_12_hi_lo_hi, results_12_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_19 = _t_T_295 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_12_18 = _t_T_294 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_hi_lo_hi = cat(t_12_19, t_12_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_17 = _t_T_293 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_hi_lo = cat(results_12_hi_hi_lo_hi, t_12_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_22 = _t_T_298 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_12_21 = _t_T_297 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_hi_hi_hi = cat(t_12_22, t_12_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_12_20 = _t_T_296 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_12_hi_hi_hi = cat(results_12_hi_hi_hi_hi, t_12_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_12_hi_hi = cat(results_12_hi_hi_hi, results_12_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_12_hi = cat(results_12_hi_hi, results_12_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_12_T = cat(results_12_hi, results_12_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_13 = pad(_shifted_sqrd_ones_13_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_13 = bits(shifted_sqrd_ones_13, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_12 = pad(_shifted_ps_12_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_13 = add(shifted_ps_12, shifted_one_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_13 = leq(y_13, X_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node shifted_ones_13 = pad(_shifted_ones_13_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    node _P_13_T = add(shifted_ones_13, P_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_13_T_1 = tail(_P_13_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:48]
+    node _P_13_T_2 = mux(yleqx_13, _P_13_T_1, P_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 227:24]
+    node _X_13_T = sub(X_12, y_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_13_T_1 = tail(_X_13_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:39]
+    node _X_13_T_2 = mux(yleqx_13, _X_13_T_1, X_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 228:24]
+    node temp_res_13 = results_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_299 = bits(temp_res_13, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_300 = bits(temp_res_13, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_301 = bits(temp_res_13, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_302 = bits(temp_res_13, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_303 = bits(temp_res_13, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_304 = bits(temp_res_13, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_305 = bits(temp_res_13, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_306 = bits(temp_res_13, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_307 = bits(temp_res_13, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_308 = bits(temp_res_13, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_309 = bits(temp_res_13, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_310 = bits(temp_res_13, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_311 = bits(temp_res_13, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_312 = bits(temp_res_13, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_313 = bits(temp_res_13, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_314 = bits(temp_res_13, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_315 = bits(temp_res_13, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_316 = bits(temp_res_13, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_317 = bits(temp_res_13, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_318 = bits(temp_res_13, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_319 = bits(temp_res_13, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_320 = bits(temp_res_13, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_321 = bits(temp_res_13, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_13_1 = _t_T_300 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_0 = _t_T_299 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_lo_lo_lo = cat(t_13_1, t_13_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_4 = _t_T_303 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_3 = _t_T_302 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_lo_lo_hi_hi = cat(t_13_4, t_13_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_2 = _t_T_301 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_lo_lo_hi = cat(results_13_lo_lo_hi_hi, t_13_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_13_lo_lo = cat(results_13_lo_lo_hi, results_13_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_7 = _t_T_306 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_6 = _t_T_305 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_lo_hi_lo_hi = cat(t_13_7, t_13_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_5 = _t_T_304 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_lo_hi_lo = cat(results_13_lo_hi_lo_hi, t_13_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_10 = _t_T_309 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_9 = yleqx_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_13_lo_hi_hi_hi = cat(t_13_10, t_13_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_8 = _t_T_307 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_lo_hi_hi = cat(results_13_lo_hi_hi_hi, t_13_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_13_lo_hi = cat(results_13_lo_hi_hi, results_13_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_13_lo = cat(results_13_lo_hi, results_13_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_13 = _t_T_312 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_12 = _t_T_311 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_lo_lo_hi = cat(t_13_13, t_13_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_11 = _t_T_310 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_lo_lo = cat(results_13_hi_lo_lo_hi, t_13_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_16 = _t_T_315 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_15 = _t_T_314 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_lo_hi_hi = cat(t_13_16, t_13_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_14 = _t_T_313 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_lo_hi = cat(results_13_hi_lo_hi_hi, t_13_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_13_hi_lo = cat(results_13_hi_lo_hi, results_13_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_19 = _t_T_318 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_18 = _t_T_317 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_hi_lo_hi = cat(t_13_19, t_13_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_17 = _t_T_316 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_hi_lo = cat(results_13_hi_hi_lo_hi, t_13_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_22 = _t_T_321 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_13_21 = _t_T_320 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_hi_hi_hi = cat(t_13_22, t_13_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_13_20 = _t_T_319 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_13_hi_hi_hi = cat(results_13_hi_hi_hi_hi, t_13_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_13_hi_hi = cat(results_13_hi_hi_hi, results_13_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_13_hi = cat(results_13_hi_hi, results_13_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_13_T = cat(results_13_hi, results_13_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node shifted_sqrd_ones_14 = pad(_shifted_sqrd_ones_14_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 198:33 199:53]
+    node shifted_one_14 = bits(shifted_sqrd_ones_14, 45, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 222:49]
+    node shifted_ps_13 = pad(_shifted_ps_13_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 202:26 203:45]
+    node y_14 = add(shifted_ps_13, shifted_one_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 224:29]
+    node yleqx_14 = leq(y_14, X_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 225:25]
+    node temp_res_14 = results_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 196:24 205:67]
+    node _t_T_322 = bits(temp_res_14, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_323 = bits(temp_res_14, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_324 = bits(temp_res_14, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_325 = bits(temp_res_14, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_326 = bits(temp_res_14, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_327 = bits(temp_res_14, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_328 = bits(temp_res_14, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_329 = bits(temp_res_14, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_330 = bits(temp_res_14, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_331 = bits(temp_res_14, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_332 = bits(temp_res_14, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_333 = bits(temp_res_14, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_334 = bits(temp_res_14, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_335 = bits(temp_res_14, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_336 = bits(temp_res_14, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_337 = bits(temp_res_14, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_338 = bits(temp_res_14, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_339 = bits(temp_res_14, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_340 = bits(temp_res_14, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_341 = bits(temp_res_14, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_342 = bits(temp_res_14, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_343 = bits(temp_res_14, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node _t_T_344 = bits(temp_res_14, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:39]
+    node t_14_1 = _t_T_323 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_0 = _t_T_322 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_lo_lo_lo = cat(t_14_1, t_14_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_4 = _t_T_326 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_3 = _t_T_325 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_lo_lo_hi_hi = cat(t_14_4, t_14_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_2 = _t_T_324 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_lo_lo_hi = cat(results_14_lo_lo_hi_hi, t_14_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_14_lo_lo = cat(results_14_lo_lo_hi, results_14_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_7 = _t_T_329 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_6 = _t_T_328 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_lo_hi_lo_hi = cat(t_14_7, t_14_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_5 = _t_T_327 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_lo_hi_lo = cat(results_14_lo_hi_lo_hi, t_14_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_10 = _t_T_332 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_9 = _t_T_331 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_lo_hi_hi_hi = cat(t_14_10, t_14_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_8 = yleqx_14 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:26 231:22]
+    node results_14_lo_hi_hi = cat(results_14_lo_hi_hi_hi, t_14_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_14_lo_hi = cat(results_14_lo_hi_hi, results_14_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_14_lo = cat(results_14_lo_hi, results_14_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_13 = _t_T_335 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_12 = _t_T_334 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_lo_lo_hi = cat(t_14_13, t_14_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_11 = _t_T_333 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_lo_lo = cat(results_14_hi_lo_lo_hi, t_14_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_16 = _t_T_338 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_15 = _t_T_337 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_lo_hi_hi = cat(t_14_16, t_14_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_14 = _t_T_336 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_lo_hi = cat(results_14_hi_lo_hi_hi, t_14_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_14_hi_lo = cat(results_14_hi_lo_hi, results_14_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_19 = _t_T_341 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_18 = _t_T_340 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_hi_lo_hi = cat(t_14_19, t_14_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_17 = _t_T_339 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_hi_lo = cat(results_14_hi_hi_lo_hi, t_14_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_22 = _t_T_344 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node t_14_21 = _t_T_343 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_hi_hi_hi = cat(t_14_22, t_14_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node t_14_20 = _t_T_342 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 230:{26,26}]
+    node results_14_hi_hi_hi = cat(results_14_hi_hi_hi_hi, t_14_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_14_hi_hi = cat(results_14_hi_hi_hi, results_14_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node results_14_hi = cat(results_14_hi_hi, results_14_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _results_14_T = cat(results_14_hi, results_14_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 232:27]
+    node _GEN_15 = mux(io_in_en, _P_0_T_2, P_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 216:16 193:20]
+    node _GEN_16 = mux(io_in_en, _X_0_T_2, X_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 217:16 194:20]
+    node _GEN_17 = mux(io_in_en, _results_0_T, results_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 220:22 197:26]
+    node _GEN_18 = mux(io_in_en, _P_1_T_2, P_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_19 = mux(io_in_en, _X_1_T_2, X_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_20 = mux(io_in_en, _results_1_T, results_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_21 = mux(io_in_en, _P_2_T_2, P_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_22 = mux(io_in_en, _X_2_T_2, X_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_23 = mux(io_in_en, _results_2_T, results_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_24 = mux(io_in_en, _P_3_T_2, P_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_25 = mux(io_in_en, _X_3_T_2, X_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_26 = mux(io_in_en, _results_3_T, results_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_27 = mux(io_in_en, _P_4_T_2, P_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_28 = mux(io_in_en, _X_4_T_2, X_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_29 = mux(io_in_en, _results_4_T, results_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_30 = mux(io_in_en, _P_5_T_2, P_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_31 = mux(io_in_en, _X_5_T_2, X_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_32 = mux(io_in_en, _results_5_T, results_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_33 = mux(io_in_en, _P_6_T_2, P_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_34 = mux(io_in_en, _X_6_T_2, X_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_35 = mux(io_in_en, _results_6_T, results_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_36 = mux(io_in_en, _P_7_T_2, P_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_37 = mux(io_in_en, _X_7_T_2, X_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_38 = mux(io_in_en, _results_7_T, results_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_39 = mux(io_in_en, _P_8_T_2, P_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_40 = mux(io_in_en, _X_8_T_2, X_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_41 = mux(io_in_en, _results_8_T, results_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_42 = mux(io_in_en, _P_9_T_2, P_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_43 = mux(io_in_en, _X_9_T_2, X_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_44 = mux(io_in_en, _results_9_T, results_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_45 = mux(io_in_en, _P_10_T_2, P_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_46 = mux(io_in_en, _X_10_T_2, X_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_47 = mux(io_in_en, _results_10_T, results_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_48 = mux(io_in_en, _P_11_T_2, P_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_49 = mux(io_in_en, _X_11_T_2, X_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_50 = mux(io_in_en, _results_11_T, results_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_51 = mux(io_in_en, _P_12_T_2, P_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_52 = mux(io_in_en, _X_12_T_2, X_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_53 = mux(io_in_en, _results_12_T, results_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_54 = mux(io_in_en, _P_13_T_2, P_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 227:18 193:20]
+    node _GEN_55 = mux(io_in_en, _X_13_T_2, X_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 228:18 194:20]
+    node _GEN_56 = mux(io_in_en, _results_13_T, results_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _GEN_57 = mux(io_in_en, _results_14_T, results_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 210:19 232:22 197:26]
+    node _P_WIRE_0 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_1 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_2 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_3 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_4 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_5 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_6 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_7 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_8 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_9 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_10 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_11 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_12 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _P_WIRE_13 = UInt<47>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{38,38}]
+    node _X_WIRE_0 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_1 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_2 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_3 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_4 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_5 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_6 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_7 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_8 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_9 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_10 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_11 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_12 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _X_WIRE_13 = UInt<48>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{38,38}]
+    node _results_WIRE_0 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_1 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_2 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_3 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_4 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_5 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_6 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_7 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_8 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_9 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_10 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_11 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_12 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_13 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node _results_WIRE_14 = UInt<23>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{42,42}]
+    node shifted_ones_14 = pad(_shifted_ones_14_T, 47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 200:28 201:48]
+    io_out_valid <= io_out_valid_r_14 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 206:18]
+    io_out_s <= results_14 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 207:14]
+    P_0 <= mux(reset, _P_WIRE_0, _GEN_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_1 <= mux(reset, _P_WIRE_1, _GEN_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_2 <= mux(reset, _P_WIRE_2, _GEN_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_3 <= mux(reset, _P_WIRE_3, _GEN_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_4 <= mux(reset, _P_WIRE_4, _GEN_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_5 <= mux(reset, _P_WIRE_5, _GEN_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_6 <= mux(reset, _P_WIRE_6, _GEN_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_7 <= mux(reset, _P_WIRE_7, _GEN_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_8 <= mux(reset, _P_WIRE_8, _GEN_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_9 <= mux(reset, _P_WIRE_9, _GEN_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_10 <= mux(reset, _P_WIRE_10, _GEN_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_11 <= mux(reset, _P_WIRE_11, _GEN_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_12 <= mux(reset, _P_WIRE_12, _GEN_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    P_13 <= mux(reset, _P_WIRE_13, _GEN_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 193:{20,20}]
+    X_0 <= mux(reset, _X_WIRE_0, _GEN_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_1 <= mux(reset, _X_WIRE_1, _GEN_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_2 <= mux(reset, _X_WIRE_2, _GEN_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_3 <= mux(reset, _X_WIRE_3, _GEN_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_4 <= mux(reset, _X_WIRE_4, _GEN_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_5 <= mux(reset, _X_WIRE_5, _GEN_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_6 <= mux(reset, _X_WIRE_6, _GEN_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_7 <= mux(reset, _X_WIRE_7, _GEN_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_8 <= mux(reset, _X_WIRE_8, _GEN_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_9 <= mux(reset, _X_WIRE_9, _GEN_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_10 <= mux(reset, _X_WIRE_10, _GEN_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_11 <= mux(reset, _X_WIRE_11, _GEN_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_12 <= mux(reset, _X_WIRE_12, _GEN_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    X_13 <= mux(reset, _X_WIRE_13, _GEN_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 194:{20,20}]
+    results_0 <= mux(reset, _results_WIRE_0, _GEN_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_1 <= mux(reset, _results_WIRE_1, _GEN_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_2 <= mux(reset, _results_WIRE_2, _GEN_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_3 <= mux(reset, _results_WIRE_3, _GEN_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_4 <= mux(reset, _results_WIRE_4, _GEN_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_5 <= mux(reset, _results_WIRE_5, _GEN_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_6 <= mux(reset, _results_WIRE_6, _GEN_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_7 <= mux(reset, _results_WIRE_7, _GEN_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_8 <= mux(reset, _results_WIRE_8, _GEN_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_9 <= mux(reset, _results_WIRE_9, _GEN_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_10 <= mux(reset, _results_WIRE_10, _GEN_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_11 <= mux(reset, _results_WIRE_11, _GEN_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_12 <= mux(reset, _results_WIRE_12, _GEN_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_13 <= mux(reset, _results_WIRE_13, _GEN_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    results_14 <= mux(reset, _results_WIRE_14, _GEN_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 197:{26,26}]
+    io_out_valid_r <= _GEN_0
+    io_out_valid_r_1 <= _GEN_1
+    io_out_valid_r_2 <= _GEN_2
+    io_out_valid_r_3 <= _GEN_3
+    io_out_valid_r_4 <= _GEN_4
+    io_out_valid_r_5 <= _GEN_5
+    io_out_valid_r_6 <= _GEN_6
+    io_out_valid_r_7 <= _GEN_7
+    io_out_valid_r_8 <= _GEN_8
+    io_out_valid_r_9 <= _GEN_9
+    io_out_valid_r_10 <= _GEN_10
+    io_out_valid_r_11 <= _GEN_11
+    io_out_valid_r_12 <= _GEN_12
+    io_out_valid_r_13 <= _GEN_13
+    io_out_valid_r_14 <= _GEN_14
+
+  module FP_sqrt_32_15 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 103:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 103:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 103:9]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 111:16]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 111:16]
+    input io_in_a : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 111:16]
+    output io_out_s : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 111:16]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 111:16]
+
+    inst frac_sqrt of frac_sqrt @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 134:23]
+    node sign = bits(io_in_a, 31, 31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 121:23]
+    node _exp_T = bits(io_in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 122:22]
+    node _exp_T_1 = sub(_exp_T, UInt<8>("h7f")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 122:39]
+    node exp = asUInt(_exp_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 122:39]
+    node _frac_T = bits(io_in_a, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 123:35]
+    node frac = cat(UInt<2>("h1"), _frac_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 123:25]
+    node _ref_exp_T = bits(exp, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 129:26]
+    node _ref_exp_T_1 = bits(exp, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 129:50]
+    node _ref_exp_T_2 = not(_ref_exp_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 129:46]
+    node _ref_exp_T_3 = add(_ref_exp_T_2, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 129:73]
+    node _ref_exp_T_4 = tail(_ref_exp_T_3, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 129:73]
+    node _ref_exp_T_5 = bits(exp, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 129:84]
+    node ref_exp = mux(_ref_exp_T, _ref_exp_T_4, _ref_exp_T_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 129:22]
+    node _exp_new_T = bits(ref_exp, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 130:30]
+    node _exp_new_T_1 = sub(ref_exp, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 130:50]
+    node _exp_new_T_2 = tail(_exp_new_T_1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 130:50]
+    node _exp_new_T_3 = shr(_exp_new_T_2, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 130:57]
+    node _exp_new_T_4 = shr(ref_exp, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 130:71]
+    node exp_new = mux(_exp_new_T, _exp_new_T_3, _exp_new_T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 130:22]
+    node _ref_frac_T = bits(ref_exp, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 132:31]
+    node _ref_frac_T_1 = shl(frac, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 132:48]
+    node ref_frac = mux(_ref_frac_T, _ref_frac_T_1, frac) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 132:23]
+    reg out_sign_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_0 = mux(io_in_en, sign, out_sign_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_1 = mux(io_in_en, out_sign_r, out_sign_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_2 = mux(io_in_en, out_sign_r_1, out_sign_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_3 = mux(io_in_en, out_sign_r_2, out_sign_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_4 = mux(io_in_en, out_sign_r_3, out_sign_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_5 = mux(io_in_en, out_sign_r_4, out_sign_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_6 = mux(io_in_en, out_sign_r_5, out_sign_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_7 = mux(io_in_en, out_sign_r_6, out_sign_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_8 = mux(io_in_en, out_sign_r_7, out_sign_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_9 = mux(io_in_en, out_sign_r_8, out_sign_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_10 = mux(io_in_en, out_sign_r_9, out_sign_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_11 = mux(io_in_en, out_sign_r_10, out_sign_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_12 = mux(io_in_en, out_sign_r_11, out_sign_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign_r_13 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_13 = mux(io_in_en, out_sign_r_12, out_sign_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_sign : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), out_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:33]
+    node _GEN_14 = mux(io_in_en, out_sign_r_13, out_sign) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 139:{33,33,33}]
+    reg out_exp_r : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_15 = mux(io_in_en, exp_new, out_exp_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_1 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_16 = mux(io_in_en, out_exp_r, out_exp_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_2 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_17 = mux(io_in_en, out_exp_r_1, out_exp_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_3 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_18 = mux(io_in_en, out_exp_r_2, out_exp_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_4 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_19 = mux(io_in_en, out_exp_r_3, out_exp_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_5 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_20 = mux(io_in_en, out_exp_r_4, out_exp_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_6 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_21 = mux(io_in_en, out_exp_r_5, out_exp_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_7 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_22 = mux(io_in_en, out_exp_r_6, out_exp_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_8 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_23 = mux(io_in_en, out_exp_r_7, out_exp_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_9 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_24 = mux(io_in_en, out_exp_r_8, out_exp_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_10 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_25 = mux(io_in_en, out_exp_r_9, out_exp_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_11 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_26 = mux(io_in_en, out_exp_r_10, out_exp_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_12 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_27 = mux(io_in_en, out_exp_r_11, out_exp_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_13 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_28 = mux(io_in_en, out_exp_r_12, out_exp_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    reg out_exp_r_14 : UInt<7>, clock with :
+      reset => (UInt<1>("h0"), out_exp_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:32]
+    node _GEN_29 = mux(io_in_en, out_exp_r_13, out_exp_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:{32,32,32}]
+    node _out_exp_T = add(out_exp_r_14, UInt<8>("h7f")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:55]
+    node out_exp = tail(_out_exp_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 140:55]
+    node _io_out_s_T = bits(out_exp, 7, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 144:36]
+    node _io_out_s_T_1 = cat(out_sign, _io_out_s_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 144:26]
+    node _io_out_s_T_2 = cat(_io_out_s_T_1, frac_sqrt.io_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 144:54]
+    io_out_s <= _io_out_s_T_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 144:14]
+    io_out_valid <= frac_sqrt.io_out_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 143:18]
+    frac_sqrt.clock <= clock
+    frac_sqrt.reset <= reset
+    frac_sqrt.io_in_en <= io_in_en @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 135:17]
+    frac_sqrt.io_in_a <= bits(ref_frac, 24, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 137:16]
+    frac_sqrt.io_in_valid <= io_in_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 136:20]
+    out_sign_r <= _GEN_0
+    out_sign_r_1 <= _GEN_1
+    out_sign_r_2 <= _GEN_2
+    out_sign_r_3 <= _GEN_3
+    out_sign_r_4 <= _GEN_4
+    out_sign_r_5 <= _GEN_5
+    out_sign_r_6 <= _GEN_6
+    out_sign_r_7 <= _GEN_7
+    out_sign_r_8 <= _GEN_8
+    out_sign_r_9 <= _GEN_9
+    out_sign_r_10 <= _GEN_10
+    out_sign_r_11 <= _GEN_11
+    out_sign_r_12 <= _GEN_12
+    out_sign_r_13 <= _GEN_13
+    out_sign <= _GEN_14
+    out_exp_r <= _GEN_15
+    out_exp_r_1 <= _GEN_16
+    out_exp_r_2 <= _GEN_17
+    out_exp_r_3 <= _GEN_18
+    out_exp_r_4 <= _GEN_19
+    out_exp_r_5 <= _GEN_20
+    out_exp_r_6 <= _GEN_21
+    out_exp_r_7 <= _GEN_22
+    out_exp_r_8 <= _GEN_23
+    out_exp_r_9 <= _GEN_24
+    out_exp_r_10 <= _GEN_25
+    out_exp_r_11 <= _GEN_26
+    out_exp_r_12 <= _GEN_27
+    out_exp_r_13 <= _GEN_28
+    out_exp_r_14 <= _GEN_29
+
+  module divider_BW25 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 117:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 117:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 117:9]
+    input io_in_ready : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+    input io_in_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+    input io_in_a : UInt<25> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+    input io_in_b : UInt<25> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+    output io_out_s : UInt<25> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+    output io_out_r : UInt<25> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 119:16]
+
+    reg a_aux_reg_0 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_1 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_2 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_3 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_4 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_5 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_6 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_7 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_8 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg a_aux_reg_9 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), a_aux_reg_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:28]
+    reg b_aux_reg_0 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_1 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_2 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_3 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_4 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_5 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_6 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_7 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_8 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg b_aux_reg_9 : UInt<50>, clock with :
+      reset => (UInt<1>("h0"), b_aux_reg_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:28]
+    reg result_reg_0 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_1 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_2 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_3 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_4 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_5 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_6 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_7 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_8 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg result_reg_9 : UInt<25>, clock with :
+      reset => (UInt<1>("h0"), result_reg_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:29]
+    reg sr_out_valid_0 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    reg sr_out_valid_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), sr_out_valid_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:31]
+    node ina = cat(io_in_a, UInt<25>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 142:33]
+    node inb = cat(io_in_b, UInt<25>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 143:33]
+    node init_res = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 133:24 134:14]
+    node _t_T = bits(init_res, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_1 = bits(init_res, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_2 = bits(init_res, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_3 = bits(init_res, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_4 = bits(init_res, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_5 = bits(init_res, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_6 = bits(init_res, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_7 = bits(init_res, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_8 = bits(init_res, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_9 = bits(init_res, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_10 = bits(init_res, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_11 = bits(init_res, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_12 = bits(init_res, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_13 = bits(init_res, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_14 = bits(init_res, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_15 = bits(init_res, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_16 = bits(init_res, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_17 = bits(init_res, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_18 = bits(init_res, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_19 = bits(init_res, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_20 = bits(init_res, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_21 = bits(init_res, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_22 = bits(init_res, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_23 = bits(init_res, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _t_T_24 = bits(init_res, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:38]
+    node _T = geq(ina, inb) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 156:22]
+    node _a_aux_reg_0_T = sub(ina, inb) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 157:35]
+    node _a_aux_reg_0_T_1 = tail(_a_aux_reg_0_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 157:35]
+    node _GEN_0 = mux(_T, _a_aux_reg_0_T_1, ina) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 156:36 157:28 160:28]
+    node _GEN_1 = mux(_T, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 156:36 158:25 161:25]
+    node t__2 = _t_T_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__1 = _t_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_lo_lo_hi = cat(t__2, t__1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__0 = _t_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_lo_lo = cat(result_reg_0_lo_lo_lo_hi, t__0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__5 = _t_T_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__4 = _t_T_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_lo_hi_hi = cat(t__5, t__4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__3 = _t_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_lo_hi = cat(result_reg_0_lo_lo_hi_hi, t__3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node result_reg_0_lo_lo = cat(result_reg_0_lo_lo_hi, result_reg_0_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__8 = _t_T_8 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__7 = _t_T_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_hi_lo_hi = cat(t__8, t__7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__6 = _t_T_6 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_hi_lo = cat(result_reg_0_lo_hi_lo_hi, t__6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__11 = _t_T_11 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__10 = _t_T_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_hi_hi_hi = cat(t__11, t__10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__9 = _t_T_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_lo_hi_hi = cat(result_reg_0_lo_hi_hi_hi, t__9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node result_reg_0_lo_hi = cat(result_reg_0_lo_hi_hi, result_reg_0_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node result_reg_0_lo = cat(result_reg_0_lo_hi, result_reg_0_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__14 = _t_T_14 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__13 = _t_T_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_lo_lo_hi = cat(t__14, t__13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__12 = _t_T_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_lo_lo = cat(result_reg_0_hi_lo_lo_hi, t__12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__17 = _t_T_17 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__16 = _t_T_16 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_lo_hi_hi = cat(t__17, t__16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__15 = _t_T_15 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_lo_hi = cat(result_reg_0_hi_lo_hi_hi, t__15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node result_reg_0_hi_lo = cat(result_reg_0_hi_lo_hi, result_reg_0_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__20 = _t_T_20 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__19 = _t_T_19 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_hi_lo_hi = cat(t__20, t__19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__18 = _t_T_18 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_hi_lo = cat(result_reg_0_hi_hi_lo_hi, t__18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__22 = _t_T_22 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node t__21 = _t_T_21 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_hi_hi_lo = cat(t__22, t__21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node t__24 = _GEN_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:28]
+    node t__23 = _t_T_23 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 154:{28,28}]
+    node result_reg_0_hi_hi_hi_hi = cat(t__24, t__23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node result_reg_0_hi_hi_hi = cat(result_reg_0_hi_hi_hi_hi, result_reg_0_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node result_reg_0_hi_hi = cat(result_reg_0_hi_hi_hi, result_reg_0_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node result_reg_0_hi = cat(result_reg_0_hi_hi, result_reg_0_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node _result_reg_0_T = cat(result_reg_0_hi, result_reg_0_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 163:32]
+    node shifted_b = shr(b_aux_reg_0, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_0 = result_reg_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_25 = bits(wire_res_0, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_26 = bits(wire_res_0, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_27 = bits(wire_res_0, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_28 = bits(wire_res_0, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_29 = bits(wire_res_0, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_30 = bits(wire_res_0, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_31 = bits(wire_res_0, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_32 = bits(wire_res_0, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_33 = bits(wire_res_0, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_34 = bits(wire_res_0, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_35 = bits(wire_res_0, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_36 = bits(wire_res_0, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_37 = bits(wire_res_0, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_38 = bits(wire_res_0, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_39 = bits(wire_res_0, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_40 = bits(wire_res_0, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_41 = bits(wire_res_0, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_42 = bits(wire_res_0, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_43 = bits(wire_res_0, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_44 = bits(wire_res_0, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_45 = bits(wire_res_0, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_46 = bits(wire_res_0, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_47 = bits(wire_res_0, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_48 = bits(wire_res_0, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_49 = bits(wire_res_0, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_1 = geq(a_aux_reg_0, shifted_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_1_T = sub(a_aux_reg_0, shifted_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_1_T_1 = tail(_a_aux_reg_1_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_2 = mux(_T_1, _a_aux_reg_1_T_1, a_aux_reg_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_3 = mux(_T_1, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_1_2 = _t_T_27 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_1 = _t_T_26 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_lo_lo_hi = cat(t_1_2, t_1_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_0 = _t_T_25 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_lo_lo = cat(result_reg_1_lo_lo_lo_hi, t_1_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_5 = _t_T_30 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_4 = _t_T_29 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_lo_hi_hi = cat(t_1_5, t_1_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_3 = _t_T_28 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_lo_hi = cat(result_reg_1_lo_lo_hi_hi, t_1_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_1_lo_lo = cat(result_reg_1_lo_lo_hi, result_reg_1_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_8 = _t_T_33 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_7 = _t_T_32 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_hi_lo_hi = cat(t_1_8, t_1_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_6 = _t_T_31 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_hi_lo = cat(result_reg_1_lo_hi_lo_hi, t_1_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_11 = _t_T_36 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_10 = _t_T_35 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_hi_hi_hi = cat(t_1_11, t_1_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_9 = _t_T_34 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_lo_hi_hi = cat(result_reg_1_lo_hi_hi_hi, t_1_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_1_lo_hi = cat(result_reg_1_lo_hi_hi, result_reg_1_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_1_lo = cat(result_reg_1_lo_hi, result_reg_1_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_14 = _t_T_39 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_13 = _t_T_38 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_hi_lo_lo_hi = cat(t_1_14, t_1_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_12 = _t_T_37 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_hi_lo_lo = cat(result_reg_1_hi_lo_lo_hi, t_1_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_17 = _t_T_42 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_16 = _t_T_41 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_hi_lo_hi_hi = cat(t_1_17, t_1_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_15 = _t_T_40 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_hi_lo_hi = cat(result_reg_1_hi_lo_hi_hi, t_1_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_1_hi_lo = cat(result_reg_1_hi_lo_hi, result_reg_1_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_20 = _t_T_45 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_19 = _t_T_44 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_hi_hi_lo_hi = cat(t_1_20, t_1_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_18 = _t_T_43 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_hi_hi_lo = cat(result_reg_1_hi_hi_lo_hi, t_1_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_22 = _t_T_47 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_21 = _t_T_46 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_1_hi_hi_hi_lo = cat(t_1_22, t_1_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_1_24 = _t_T_49 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_1_23 = _GEN_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node result_reg_1_hi_hi_hi_hi = cat(t_1_24, t_1_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_1_hi_hi_hi = cat(result_reg_1_hi_hi_hi_hi, result_reg_1_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_1_hi_hi = cat(result_reg_1_hi_hi_hi, result_reg_1_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_1_hi = cat(result_reg_1_hi_hi, result_reg_1_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_1_T = cat(result_reg_1_hi, result_reg_1_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_1 = shr(b_aux_reg_1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_1 = result_reg_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_50 = bits(wire_res_1, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_51 = bits(wire_res_1, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_52 = bits(wire_res_1, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_53 = bits(wire_res_1, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_54 = bits(wire_res_1, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_55 = bits(wire_res_1, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_56 = bits(wire_res_1, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_57 = bits(wire_res_1, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_58 = bits(wire_res_1, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_59 = bits(wire_res_1, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_60 = bits(wire_res_1, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_61 = bits(wire_res_1, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_62 = bits(wire_res_1, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_63 = bits(wire_res_1, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_64 = bits(wire_res_1, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_65 = bits(wire_res_1, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_66 = bits(wire_res_1, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_67 = bits(wire_res_1, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_68 = bits(wire_res_1, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_69 = bits(wire_res_1, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_70 = bits(wire_res_1, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_71 = bits(wire_res_1, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_72 = bits(wire_res_1, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_73 = bits(wire_res_1, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_74 = bits(wire_res_1, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_2 = geq(a_aux_reg_1, shifted_b_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_2_T = sub(a_aux_reg_1, shifted_b_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_2_T_1 = tail(_a_aux_reg_2_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_4 = mux(_T_2, _a_aux_reg_2_T_1, a_aux_reg_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_5 = mux(_T_2, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_2_2 = _t_T_52 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_1 = _t_T_51 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_lo_lo_hi = cat(t_2_2, t_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_0 = _t_T_50 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_lo_lo = cat(result_reg_2_lo_lo_lo_hi, t_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_5 = _t_T_55 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_4 = _t_T_54 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_lo_hi_hi = cat(t_2_5, t_2_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_3 = _t_T_53 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_lo_hi = cat(result_reg_2_lo_lo_hi_hi, t_2_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_2_lo_lo = cat(result_reg_2_lo_lo_hi, result_reg_2_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_8 = _t_T_58 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_7 = _t_T_57 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_hi_lo_hi = cat(t_2_8, t_2_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_6 = _t_T_56 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_hi_lo = cat(result_reg_2_lo_hi_lo_hi, t_2_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_11 = _t_T_61 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_10 = _t_T_60 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_hi_hi_hi = cat(t_2_11, t_2_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_9 = _t_T_59 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_lo_hi_hi = cat(result_reg_2_lo_hi_hi_hi, t_2_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_2_lo_hi = cat(result_reg_2_lo_hi_hi, result_reg_2_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_2_lo = cat(result_reg_2_lo_hi, result_reg_2_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_14 = _t_T_64 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_13 = _t_T_63 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_lo_lo_hi = cat(t_2_14, t_2_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_12 = _t_T_62 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_lo_lo = cat(result_reg_2_hi_lo_lo_hi, t_2_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_17 = _t_T_67 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_16 = _t_T_66 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_lo_hi_hi = cat(t_2_17, t_2_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_15 = _t_T_65 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_lo_hi = cat(result_reg_2_hi_lo_hi_hi, t_2_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_2_hi_lo = cat(result_reg_2_hi_lo_hi, result_reg_2_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_20 = _t_T_70 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_19 = _t_T_69 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_hi_lo_hi = cat(t_2_20, t_2_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_18 = _t_T_68 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_hi_lo = cat(result_reg_2_hi_hi_lo_hi, t_2_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_22 = _GEN_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node t_2_21 = _t_T_71 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_hi_hi_lo = cat(t_2_22, t_2_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_2_24 = _t_T_74 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_2_23 = _t_T_73 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_2_hi_hi_hi_hi = cat(t_2_24, t_2_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_2_hi_hi_hi = cat(result_reg_2_hi_hi_hi_hi, result_reg_2_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_2_hi_hi = cat(result_reg_2_hi_hi_hi, result_reg_2_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_2_hi = cat(result_reg_2_hi_hi, result_reg_2_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_2_T = cat(result_reg_2_hi, result_reg_2_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_2 = shr(b_aux_reg_2, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_2 = result_reg_2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_75 = bits(wire_res_2, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_76 = bits(wire_res_2, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_77 = bits(wire_res_2, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_78 = bits(wire_res_2, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_79 = bits(wire_res_2, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_80 = bits(wire_res_2, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_81 = bits(wire_res_2, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_82 = bits(wire_res_2, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_83 = bits(wire_res_2, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_84 = bits(wire_res_2, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_85 = bits(wire_res_2, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_86 = bits(wire_res_2, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_87 = bits(wire_res_2, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_88 = bits(wire_res_2, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_89 = bits(wire_res_2, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_90 = bits(wire_res_2, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_91 = bits(wire_res_2, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_92 = bits(wire_res_2, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_93 = bits(wire_res_2, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_94 = bits(wire_res_2, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_95 = bits(wire_res_2, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_96 = bits(wire_res_2, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_97 = bits(wire_res_2, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_98 = bits(wire_res_2, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_99 = bits(wire_res_2, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_3 = geq(a_aux_reg_2, shifted_b_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_3_T = sub(a_aux_reg_2, shifted_b_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_3_T_1 = tail(_a_aux_reg_3_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_6 = mux(_T_3, _a_aux_reg_3_T_1, a_aux_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_7 = mux(_T_3, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_3_2 = _t_T_77 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_1 = _t_T_76 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_lo_lo_hi = cat(t_3_2, t_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_0 = _t_T_75 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_lo_lo = cat(result_reg_3_lo_lo_lo_hi, t_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_5 = _t_T_80 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_4 = _t_T_79 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_lo_hi_hi = cat(t_3_5, t_3_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_3 = _t_T_78 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_lo_hi = cat(result_reg_3_lo_lo_hi_hi, t_3_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_3_lo_lo = cat(result_reg_3_lo_lo_hi, result_reg_3_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_8 = _t_T_83 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_7 = _t_T_82 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_hi_lo_hi = cat(t_3_8, t_3_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_6 = _t_T_81 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_hi_lo = cat(result_reg_3_lo_hi_lo_hi, t_3_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_11 = _t_T_86 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_10 = _t_T_85 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_hi_hi_hi = cat(t_3_11, t_3_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_9 = _t_T_84 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_lo_hi_hi = cat(result_reg_3_lo_hi_hi_hi, t_3_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_3_lo_hi = cat(result_reg_3_lo_hi_hi, result_reg_3_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_3_lo = cat(result_reg_3_lo_hi, result_reg_3_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_14 = _t_T_89 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_13 = _t_T_88 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_hi_lo_lo_hi = cat(t_3_14, t_3_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_12 = _t_T_87 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_hi_lo_lo = cat(result_reg_3_hi_lo_lo_hi, t_3_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_17 = _t_T_92 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_16 = _t_T_91 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_hi_lo_hi_hi = cat(t_3_17, t_3_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_15 = _t_T_90 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_hi_lo_hi = cat(result_reg_3_hi_lo_hi_hi, t_3_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_3_hi_lo = cat(result_reg_3_hi_lo_hi, result_reg_3_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_20 = _t_T_95 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_19 = _t_T_94 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_hi_hi_lo_hi = cat(t_3_20, t_3_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_18 = _t_T_93 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_hi_hi_lo = cat(result_reg_3_hi_hi_lo_hi, t_3_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_22 = _t_T_97 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_21 = _GEN_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node result_reg_3_hi_hi_hi_lo = cat(t_3_22, t_3_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_3_24 = _t_T_99 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_3_23 = _t_T_98 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_3_hi_hi_hi_hi = cat(t_3_24, t_3_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_3_hi_hi_hi = cat(result_reg_3_hi_hi_hi_hi, result_reg_3_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_3_hi_hi = cat(result_reg_3_hi_hi_hi, result_reg_3_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_3_hi = cat(result_reg_3_hi_hi, result_reg_3_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_3_T = cat(result_reg_3_hi, result_reg_3_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_3 = shr(b_aux_reg_3, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_3 = result_reg_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_100 = bits(wire_res_3, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_101 = bits(wire_res_3, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_102 = bits(wire_res_3, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_103 = bits(wire_res_3, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_104 = bits(wire_res_3, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_105 = bits(wire_res_3, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_106 = bits(wire_res_3, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_107 = bits(wire_res_3, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_108 = bits(wire_res_3, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_109 = bits(wire_res_3, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_110 = bits(wire_res_3, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_111 = bits(wire_res_3, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_112 = bits(wire_res_3, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_113 = bits(wire_res_3, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_114 = bits(wire_res_3, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_115 = bits(wire_res_3, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_116 = bits(wire_res_3, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_117 = bits(wire_res_3, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_118 = bits(wire_res_3, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_119 = bits(wire_res_3, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_120 = bits(wire_res_3, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_121 = bits(wire_res_3, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_122 = bits(wire_res_3, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_123 = bits(wire_res_3, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_124 = bits(wire_res_3, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_4 = geq(a_aux_reg_3, shifted_b_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_4_T = sub(a_aux_reg_3, shifted_b_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_4_T_1 = tail(_a_aux_reg_4_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_8 = mux(_T_4, _a_aux_reg_4_T_1, a_aux_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_9 = mux(_T_4, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_4_2 = _t_T_102 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_1 = _t_T_101 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_lo_lo_hi = cat(t_4_2, t_4_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_0 = _t_T_100 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_lo_lo = cat(result_reg_4_lo_lo_lo_hi, t_4_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_5 = _t_T_105 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_4 = _t_T_104 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_lo_hi_hi = cat(t_4_5, t_4_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_3 = _t_T_103 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_lo_hi = cat(result_reg_4_lo_lo_hi_hi, t_4_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_4_lo_lo = cat(result_reg_4_lo_lo_hi, result_reg_4_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_8 = _t_T_108 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_7 = _t_T_107 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_hi_lo_hi = cat(t_4_8, t_4_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_6 = _t_T_106 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_hi_lo = cat(result_reg_4_lo_hi_lo_hi, t_4_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_11 = _t_T_111 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_10 = _t_T_110 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_hi_hi_hi = cat(t_4_11, t_4_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_9 = _t_T_109 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_lo_hi_hi = cat(result_reg_4_lo_hi_hi_hi, t_4_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_4_lo_hi = cat(result_reg_4_lo_hi_hi, result_reg_4_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_4_lo = cat(result_reg_4_lo_hi, result_reg_4_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_14 = _t_T_114 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_13 = _t_T_113 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_lo_lo_hi = cat(t_4_14, t_4_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_12 = _t_T_112 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_lo_lo = cat(result_reg_4_hi_lo_lo_hi, t_4_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_17 = _t_T_117 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_16 = _t_T_116 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_lo_hi_hi = cat(t_4_17, t_4_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_15 = _t_T_115 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_lo_hi = cat(result_reg_4_hi_lo_hi_hi, t_4_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_4_hi_lo = cat(result_reg_4_hi_lo_hi, result_reg_4_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_20 = _GEN_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node t_4_19 = _t_T_119 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_hi_lo_hi = cat(t_4_20, t_4_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_18 = _t_T_118 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_hi_lo = cat(result_reg_4_hi_hi_lo_hi, t_4_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_22 = _t_T_122 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_21 = _t_T_121 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_hi_hi_lo = cat(t_4_22, t_4_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_4_24 = _t_T_124 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_4_23 = _t_T_123 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_4_hi_hi_hi_hi = cat(t_4_24, t_4_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_4_hi_hi_hi = cat(result_reg_4_hi_hi_hi_hi, result_reg_4_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_4_hi_hi = cat(result_reg_4_hi_hi_hi, result_reg_4_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_4_hi = cat(result_reg_4_hi_hi, result_reg_4_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_4_T = cat(result_reg_4_hi, result_reg_4_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_4 = shr(b_aux_reg_4, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_4 = result_reg_4 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_125 = bits(wire_res_4, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_126 = bits(wire_res_4, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_127 = bits(wire_res_4, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_128 = bits(wire_res_4, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_129 = bits(wire_res_4, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_130 = bits(wire_res_4, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_131 = bits(wire_res_4, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_132 = bits(wire_res_4, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_133 = bits(wire_res_4, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_134 = bits(wire_res_4, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_135 = bits(wire_res_4, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_136 = bits(wire_res_4, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_137 = bits(wire_res_4, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_138 = bits(wire_res_4, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_139 = bits(wire_res_4, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_140 = bits(wire_res_4, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_141 = bits(wire_res_4, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_142 = bits(wire_res_4, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_143 = bits(wire_res_4, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_144 = bits(wire_res_4, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_145 = bits(wire_res_4, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_146 = bits(wire_res_4, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_147 = bits(wire_res_4, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_148 = bits(wire_res_4, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_149 = bits(wire_res_4, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_5 = geq(a_aux_reg_4, shifted_b_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_5_T = sub(a_aux_reg_4, shifted_b_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_5_T_1 = tail(_a_aux_reg_5_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_10 = mux(_T_5, _a_aux_reg_5_T_1, a_aux_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_11 = mux(_T_5, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_5_2 = _t_T_127 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_1 = _t_T_126 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_lo_lo_hi = cat(t_5_2, t_5_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_0 = _t_T_125 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_lo_lo = cat(result_reg_5_lo_lo_lo_hi, t_5_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_5 = _t_T_130 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_4 = _t_T_129 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_lo_hi_hi = cat(t_5_5, t_5_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_3 = _t_T_128 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_lo_hi = cat(result_reg_5_lo_lo_hi_hi, t_5_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_5_lo_lo = cat(result_reg_5_lo_lo_hi, result_reg_5_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_8 = _t_T_133 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_7 = _t_T_132 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_hi_lo_hi = cat(t_5_8, t_5_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_6 = _t_T_131 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_hi_lo = cat(result_reg_5_lo_hi_lo_hi, t_5_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_11 = _t_T_136 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_10 = _t_T_135 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_hi_hi_hi = cat(t_5_11, t_5_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_9 = _t_T_134 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_lo_hi_hi = cat(result_reg_5_lo_hi_hi_hi, t_5_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_5_lo_hi = cat(result_reg_5_lo_hi_hi, result_reg_5_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_5_lo = cat(result_reg_5_lo_hi, result_reg_5_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_14 = _t_T_139 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_13 = _t_T_138 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_hi_lo_lo_hi = cat(t_5_14, t_5_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_12 = _t_T_137 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_hi_lo_lo = cat(result_reg_5_hi_lo_lo_hi, t_5_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_17 = _t_T_142 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_16 = _t_T_141 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_hi_lo_hi_hi = cat(t_5_17, t_5_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_15 = _t_T_140 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_hi_lo_hi = cat(result_reg_5_hi_lo_hi_hi, t_5_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_5_hi_lo = cat(result_reg_5_hi_lo_hi, result_reg_5_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_20 = _t_T_145 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_19 = _GEN_11 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node result_reg_5_hi_hi_lo_hi = cat(t_5_20, t_5_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_18 = _t_T_143 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_hi_hi_lo = cat(result_reg_5_hi_hi_lo_hi, t_5_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_22 = _t_T_147 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_21 = _t_T_146 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_hi_hi_hi_lo = cat(t_5_22, t_5_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_5_24 = _t_T_149 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_5_23 = _t_T_148 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_5_hi_hi_hi_hi = cat(t_5_24, t_5_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_5_hi_hi_hi = cat(result_reg_5_hi_hi_hi_hi, result_reg_5_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_5_hi_hi = cat(result_reg_5_hi_hi_hi, result_reg_5_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_5_hi = cat(result_reg_5_hi_hi, result_reg_5_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_5_T = cat(result_reg_5_hi, result_reg_5_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_5 = shr(b_aux_reg_5, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_5 = result_reg_5 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_150 = bits(wire_res_5, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_151 = bits(wire_res_5, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_152 = bits(wire_res_5, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_153 = bits(wire_res_5, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_154 = bits(wire_res_5, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_155 = bits(wire_res_5, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_156 = bits(wire_res_5, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_157 = bits(wire_res_5, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_158 = bits(wire_res_5, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_159 = bits(wire_res_5, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_160 = bits(wire_res_5, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_161 = bits(wire_res_5, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_162 = bits(wire_res_5, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_163 = bits(wire_res_5, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_164 = bits(wire_res_5, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_165 = bits(wire_res_5, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_166 = bits(wire_res_5, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_167 = bits(wire_res_5, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_168 = bits(wire_res_5, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_169 = bits(wire_res_5, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_170 = bits(wire_res_5, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_171 = bits(wire_res_5, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_172 = bits(wire_res_5, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_173 = bits(wire_res_5, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_174 = bits(wire_res_5, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_6 = geq(a_aux_reg_5, shifted_b_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_6_T = sub(a_aux_reg_5, shifted_b_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_6_T_1 = tail(_a_aux_reg_6_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_12 = mux(_T_6, _a_aux_reg_6_T_1, a_aux_reg_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_13 = mux(_T_6, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_6_2 = _t_T_152 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_1 = _t_T_151 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_lo_lo_hi = cat(t_6_2, t_6_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_0 = _t_T_150 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_lo_lo = cat(result_reg_6_lo_lo_lo_hi, t_6_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_5 = _t_T_155 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_4 = _t_T_154 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_lo_hi_hi = cat(t_6_5, t_6_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_3 = _t_T_153 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_lo_hi = cat(result_reg_6_lo_lo_hi_hi, t_6_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_6_lo_lo = cat(result_reg_6_lo_lo_hi, result_reg_6_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_8 = _t_T_158 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_7 = _t_T_157 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_hi_lo_hi = cat(t_6_8, t_6_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_6 = _t_T_156 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_hi_lo = cat(result_reg_6_lo_hi_lo_hi, t_6_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_11 = _t_T_161 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_10 = _t_T_160 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_hi_hi_hi = cat(t_6_11, t_6_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_9 = _t_T_159 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_lo_hi_hi = cat(result_reg_6_lo_hi_hi_hi, t_6_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_6_lo_hi = cat(result_reg_6_lo_hi_hi, result_reg_6_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_6_lo = cat(result_reg_6_lo_hi, result_reg_6_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_14 = _t_T_164 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_13 = _t_T_163 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_hi_lo_lo_hi = cat(t_6_14, t_6_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_12 = _t_T_162 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_hi_lo_lo = cat(result_reg_6_hi_lo_lo_hi, t_6_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_17 = _t_T_167 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_16 = _t_T_166 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_hi_lo_hi_hi = cat(t_6_17, t_6_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_15 = _t_T_165 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_hi_lo_hi = cat(result_reg_6_hi_lo_hi_hi, t_6_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_6_hi_lo = cat(result_reg_6_hi_lo_hi, result_reg_6_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_20 = _t_T_170 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_19 = _t_T_169 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_hi_hi_lo_hi = cat(t_6_20, t_6_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_18 = _GEN_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node result_reg_6_hi_hi_lo = cat(result_reg_6_hi_hi_lo_hi, t_6_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_22 = _t_T_172 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_21 = _t_T_171 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_hi_hi_hi_lo = cat(t_6_22, t_6_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_6_24 = _t_T_174 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_6_23 = _t_T_173 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_6_hi_hi_hi_hi = cat(t_6_24, t_6_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_6_hi_hi_hi = cat(result_reg_6_hi_hi_hi_hi, result_reg_6_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_6_hi_hi = cat(result_reg_6_hi_hi_hi, result_reg_6_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_6_hi = cat(result_reg_6_hi_hi, result_reg_6_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_6_T = cat(result_reg_6_hi, result_reg_6_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_6 = shr(b_aux_reg_6, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_6 = result_reg_6 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_175 = bits(wire_res_6, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_176 = bits(wire_res_6, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_177 = bits(wire_res_6, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_178 = bits(wire_res_6, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_179 = bits(wire_res_6, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_180 = bits(wire_res_6, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_181 = bits(wire_res_6, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_182 = bits(wire_res_6, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_183 = bits(wire_res_6, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_184 = bits(wire_res_6, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_185 = bits(wire_res_6, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_186 = bits(wire_res_6, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_187 = bits(wire_res_6, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_188 = bits(wire_res_6, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_189 = bits(wire_res_6, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_190 = bits(wire_res_6, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_191 = bits(wire_res_6, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_192 = bits(wire_res_6, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_193 = bits(wire_res_6, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_194 = bits(wire_res_6, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_195 = bits(wire_res_6, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_196 = bits(wire_res_6, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_197 = bits(wire_res_6, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_198 = bits(wire_res_6, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_199 = bits(wire_res_6, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_7 = geq(a_aux_reg_6, shifted_b_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_7_T = sub(a_aux_reg_6, shifted_b_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_7_T_1 = tail(_a_aux_reg_7_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_14 = mux(_T_7, _a_aux_reg_7_T_1, a_aux_reg_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_15 = mux(_T_7, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_7_2 = _t_T_177 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_1 = _t_T_176 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_lo_lo_hi = cat(t_7_2, t_7_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_0 = _t_T_175 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_lo_lo = cat(result_reg_7_lo_lo_lo_hi, t_7_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_5 = _t_T_180 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_4 = _t_T_179 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_lo_hi_hi = cat(t_7_5, t_7_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_3 = _t_T_178 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_lo_hi = cat(result_reg_7_lo_lo_hi_hi, t_7_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_7_lo_lo = cat(result_reg_7_lo_lo_hi, result_reg_7_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_8 = _t_T_183 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_7 = _t_T_182 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_hi_lo_hi = cat(t_7_8, t_7_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_6 = _t_T_181 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_hi_lo = cat(result_reg_7_lo_hi_lo_hi, t_7_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_11 = _t_T_186 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_10 = _t_T_185 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_hi_hi_hi = cat(t_7_11, t_7_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_9 = _t_T_184 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_lo_hi_hi = cat(result_reg_7_lo_hi_hi_hi, t_7_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_7_lo_hi = cat(result_reg_7_lo_hi_hi, result_reg_7_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_7_lo = cat(result_reg_7_lo_hi, result_reg_7_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_14 = _t_T_189 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_13 = _t_T_188 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_lo_lo_hi = cat(t_7_14, t_7_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_12 = _t_T_187 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_lo_lo = cat(result_reg_7_hi_lo_lo_hi, t_7_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_17 = _GEN_15 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node t_7_16 = _t_T_191 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_lo_hi_hi = cat(t_7_17, t_7_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_15 = _t_T_190 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_lo_hi = cat(result_reg_7_hi_lo_hi_hi, t_7_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_7_hi_lo = cat(result_reg_7_hi_lo_hi, result_reg_7_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_20 = _t_T_195 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_19 = _t_T_194 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_hi_lo_hi = cat(t_7_20, t_7_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_18 = _t_T_193 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_hi_lo = cat(result_reg_7_hi_hi_lo_hi, t_7_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_22 = _t_T_197 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_21 = _t_T_196 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_hi_hi_lo = cat(t_7_22, t_7_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_7_24 = _t_T_199 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_7_23 = _t_T_198 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_7_hi_hi_hi_hi = cat(t_7_24, t_7_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_7_hi_hi_hi = cat(result_reg_7_hi_hi_hi_hi, result_reg_7_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_7_hi_hi = cat(result_reg_7_hi_hi_hi, result_reg_7_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_7_hi = cat(result_reg_7_hi_hi, result_reg_7_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_7_T = cat(result_reg_7_hi, result_reg_7_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_7 = shr(b_aux_reg_7, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_7 = result_reg_7 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_200 = bits(wire_res_7, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_201 = bits(wire_res_7, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_202 = bits(wire_res_7, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_203 = bits(wire_res_7, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_204 = bits(wire_res_7, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_205 = bits(wire_res_7, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_206 = bits(wire_res_7, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_207 = bits(wire_res_7, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_208 = bits(wire_res_7, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_209 = bits(wire_res_7, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_210 = bits(wire_res_7, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_211 = bits(wire_res_7, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_212 = bits(wire_res_7, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_213 = bits(wire_res_7, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_214 = bits(wire_res_7, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_215 = bits(wire_res_7, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_216 = bits(wire_res_7, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_217 = bits(wire_res_7, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_218 = bits(wire_res_7, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_219 = bits(wire_res_7, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_220 = bits(wire_res_7, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_221 = bits(wire_res_7, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_222 = bits(wire_res_7, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_223 = bits(wire_res_7, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_224 = bits(wire_res_7, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_8 = geq(a_aux_reg_7, shifted_b_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_8_T = sub(a_aux_reg_7, shifted_b_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_8_T_1 = tail(_a_aux_reg_8_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_16 = mux(_T_8, _a_aux_reg_8_T_1, a_aux_reg_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_17 = mux(_T_8, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_8_2 = _t_T_202 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_1 = _t_T_201 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_lo_lo_hi = cat(t_8_2, t_8_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_0 = _t_T_200 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_lo_lo = cat(result_reg_8_lo_lo_lo_hi, t_8_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_5 = _t_T_205 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_4 = _t_T_204 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_lo_hi_hi = cat(t_8_5, t_8_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_3 = _t_T_203 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_lo_hi = cat(result_reg_8_lo_lo_hi_hi, t_8_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_8_lo_lo = cat(result_reg_8_lo_lo_hi, result_reg_8_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_8 = _t_T_208 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_7 = _t_T_207 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_hi_lo_hi = cat(t_8_8, t_8_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_6 = _t_T_206 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_hi_lo = cat(result_reg_8_lo_hi_lo_hi, t_8_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_11 = _t_T_211 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_10 = _t_T_210 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_hi_hi_hi = cat(t_8_11, t_8_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_9 = _t_T_209 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_lo_hi_hi = cat(result_reg_8_lo_hi_hi_hi, t_8_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_8_lo_hi = cat(result_reg_8_lo_hi_hi, result_reg_8_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_8_lo = cat(result_reg_8_lo_hi, result_reg_8_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_14 = _t_T_214 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_13 = _t_T_213 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_hi_lo_lo_hi = cat(t_8_14, t_8_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_12 = _t_T_212 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_hi_lo_lo = cat(result_reg_8_hi_lo_lo_hi, t_8_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_17 = _t_T_217 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_16 = _GEN_17 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node result_reg_8_hi_lo_hi_hi = cat(t_8_17, t_8_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_15 = _t_T_215 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_hi_lo_hi = cat(result_reg_8_hi_lo_hi_hi, t_8_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_8_hi_lo = cat(result_reg_8_hi_lo_hi, result_reg_8_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_20 = _t_T_220 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_19 = _t_T_219 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_hi_hi_lo_hi = cat(t_8_20, t_8_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_18 = _t_T_218 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_hi_hi_lo = cat(result_reg_8_hi_hi_lo_hi, t_8_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_22 = _t_T_222 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_21 = _t_T_221 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_hi_hi_hi_lo = cat(t_8_22, t_8_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_8_24 = _t_T_224 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_8_23 = _t_T_223 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_8_hi_hi_hi_hi = cat(t_8_24, t_8_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_8_hi_hi_hi = cat(result_reg_8_hi_hi_hi_hi, result_reg_8_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_8_hi_hi = cat(result_reg_8_hi_hi_hi, result_reg_8_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_8_hi = cat(result_reg_8_hi_hi, result_reg_8_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_8_T = cat(result_reg_8_hi, result_reg_8_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node shifted_b_8 = shr(b_aux_reg_8, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 167:47]
+    node wire_res_8 = result_reg_8 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _t_T_225 = bits(wire_res_8, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_226 = bits(wire_res_8, 1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_227 = bits(wire_res_8, 2, 2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_228 = bits(wire_res_8, 3, 3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_229 = bits(wire_res_8, 4, 4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_230 = bits(wire_res_8, 5, 5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_231 = bits(wire_res_8, 6, 6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_232 = bits(wire_res_8, 7, 7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_233 = bits(wire_res_8, 8, 8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_234 = bits(wire_res_8, 9, 9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_235 = bits(wire_res_8, 10, 10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_236 = bits(wire_res_8, 11, 11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_237 = bits(wire_res_8, 12, 12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_238 = bits(wire_res_8, 13, 13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_239 = bits(wire_res_8, 14, 14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_240 = bits(wire_res_8, 15, 15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_241 = bits(wire_res_8, 16, 16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_242 = bits(wire_res_8, 17, 17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_243 = bits(wire_res_8, 18, 18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_244 = bits(wire_res_8, 19, 19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_245 = bits(wire_res_8, 20, 20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_246 = bits(wire_res_8, 21, 21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_247 = bits(wire_res_8, 22, 22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_248 = bits(wire_res_8, 23, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _t_T_249 = bits(wire_res_8, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:45]
+    node _T_9 = geq(a_aux_reg_8, shifted_b_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:35]
+    node _a_aux_reg_9_T = sub(a_aux_reg_8, shifted_b_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _a_aux_reg_9_T_1 = tail(_a_aux_reg_9_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 170:48]
+    node _GEN_18 = mux(_T_9, _a_aux_reg_9_T_1, a_aux_reg_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 170:28 173:28]
+    node _GEN_19 = mux(_T_9, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 169:49 171:29 174:29]
+    node t_9_2 = _t_T_227 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_1 = _t_T_226 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_lo_lo_hi = cat(t_9_2, t_9_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_0 = _t_T_225 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_lo_lo = cat(result_reg_9_lo_lo_lo_hi, t_9_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_5 = _t_T_230 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_4 = _t_T_229 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_lo_hi_hi = cat(t_9_5, t_9_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_3 = _t_T_228 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_lo_hi = cat(result_reg_9_lo_lo_hi_hi, t_9_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_9_lo_lo = cat(result_reg_9_lo_lo_hi, result_reg_9_lo_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_8 = _t_T_233 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_7 = _t_T_232 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_hi_lo_hi = cat(t_9_8, t_9_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_6 = _t_T_231 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_hi_lo = cat(result_reg_9_lo_hi_lo_hi, t_9_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_11 = _t_T_236 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_10 = _t_T_235 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_hi_hi_hi = cat(t_9_11, t_9_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_9 = _t_T_234 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_lo_hi_hi = cat(result_reg_9_lo_hi_hi_hi, t_9_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_9_lo_hi = cat(result_reg_9_lo_hi_hi, result_reg_9_lo_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_9_lo = cat(result_reg_9_lo_hi, result_reg_9_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_14 = _t_T_239 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_13 = _t_T_238 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_hi_lo_lo_hi = cat(t_9_14, t_9_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_12 = _t_T_237 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_hi_lo_lo = cat(result_reg_9_hi_lo_lo_hi, t_9_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_17 = _t_T_242 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_16 = _t_T_241 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_hi_lo_hi_hi = cat(t_9_17, t_9_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_15 = _GEN_19 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:28]
+    node result_reg_9_hi_lo_hi = cat(result_reg_9_hi_lo_hi_hi, t_9_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_9_hi_lo = cat(result_reg_9_hi_lo_hi, result_reg_9_hi_lo_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_20 = _t_T_245 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_19 = _t_T_244 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_hi_hi_lo_hi = cat(t_9_20, t_9_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_18 = _t_T_243 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_hi_hi_lo = cat(result_reg_9_hi_hi_lo_hi, t_9_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_22 = _t_T_247 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_21 = _t_T_246 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_hi_hi_hi_lo = cat(t_9_22, t_9_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node t_9_24 = _t_T_249 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node t_9_23 = _t_T_248 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 168:{28,28}]
+    node result_reg_9_hi_hi_hi_hi = cat(t_9_24, t_9_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_9_hi_hi_hi = cat(result_reg_9_hi_hi_hi_hi, result_reg_9_hi_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_9_hi_hi = cat(result_reg_9_hi_hi_hi, result_reg_9_hi_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node result_reg_9_hi = cat(result_reg_9_hi_hi, result_reg_9_hi_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _result_reg_9_T = cat(result_reg_9_hi, result_reg_9_lo) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 176:32]
+    node _WIRE__0 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_20 = mux(io_in_reset, _WIRE__0, _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__1 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_21 = mux(io_in_reset, _WIRE__1, _GEN_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__2 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_22 = mux(io_in_reset, _WIRE__2, _GEN_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__3 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_23 = mux(io_in_reset, _WIRE__3, _GEN_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__4 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_24 = mux(io_in_reset, _WIRE__4, _GEN_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__5 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_25 = mux(io_in_reset, _WIRE__5, _GEN_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__6 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_26 = mux(io_in_reset, _WIRE__6, _GEN_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__7 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_27 = mux(io_in_reset, _WIRE__7, _GEN_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__8 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_28 = mux(io_in_reset, _WIRE__8, _GEN_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE__9 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 146:{37,37}]
+    node _GEN_29 = mux(io_in_reset, _WIRE__9, _GEN_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 146:19]
+    node _WIRE_1_0 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_30 = mux(io_in_reset, _WIRE_1_0, inb) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 164:26]
+    node _WIRE_1_1 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_31 = mux(io_in_reset, _WIRE_1_1, shifted_b) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_2 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_32 = mux(io_in_reset, _WIRE_1_2, shifted_b_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_3 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_33 = mux(io_in_reset, _WIRE_1_3, shifted_b_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_4 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_34 = mux(io_in_reset, _WIRE_1_4, shifted_b_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_5 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_35 = mux(io_in_reset, _WIRE_1_5, shifted_b_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_6 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_36 = mux(io_in_reset, _WIRE_1_6, shifted_b_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_7 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_37 = mux(io_in_reset, _WIRE_1_7, shifted_b_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_8 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_38 = mux(io_in_reset, _WIRE_1_8, shifted_b_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_1_9 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 147:{37,37}]
+    node _GEN_39 = mux(io_in_reset, _WIRE_1_9, shifted_b_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 147:19 177:26]
+    node _WIRE_2_0 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_40 = mux(io_in_reset, _WIRE_2_0, _result_reg_0_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 163:27]
+    node _WIRE_2_1 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_41 = mux(io_in_reset, _WIRE_2_1, _result_reg_1_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_2 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_42 = mux(io_in_reset, _WIRE_2_2, _result_reg_2_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_3 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_43 = mux(io_in_reset, _WIRE_2_3, _result_reg_3_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_4 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_44 = mux(io_in_reset, _WIRE_2_4, _result_reg_4_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_5 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_45 = mux(io_in_reset, _WIRE_2_5, _result_reg_5_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_6 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_46 = mux(io_in_reset, _WIRE_2_6, _result_reg_6_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_7 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_47 = mux(io_in_reset, _WIRE_2_7, _result_reg_7_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_8 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_48 = mux(io_in_reset, _WIRE_2_8, _result_reg_8_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_2_9 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 148:{38,38}]
+    node _GEN_49 = mux(io_in_reset, _WIRE_2_9, _result_reg_9_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 148:20 176:27]
+    node _WIRE_3_0 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_50 = mux(io_in_reset, _WIRE_3_0, io_in_valid) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 151:25]
+    node _WIRE_3_1 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_51 = mux(io_in_reset, _WIRE_3_1, sr_out_valid_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_2 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_52 = mux(io_in_reset, _WIRE_3_2, sr_out_valid_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_3 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_53 = mux(io_in_reset, _WIRE_3_3, sr_out_valid_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_4 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_54 = mux(io_in_reset, _WIRE_3_4, sr_out_valid_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_5 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_55 = mux(io_in_reset, _WIRE_3_5, sr_out_valid_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_6 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_56 = mux(io_in_reset, _WIRE_3_6, sr_out_valid_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_7 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_57 = mux(io_in_reset, _WIRE_3_7, sr_out_valid_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_8 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_58 = mux(io_in_reset, _WIRE_3_8, sr_out_valid_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _WIRE_3_9 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 149:{40,40}]
+    node _GEN_59 = mux(io_in_reset, _WIRE_3_9, sr_out_valid_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 145:24 149:22 166:29]
+    node _GEN_60 = mux(io_in_ready, _GEN_20, a_aux_reg_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_61 = mux(io_in_ready, _GEN_21, a_aux_reg_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_62 = mux(io_in_ready, _GEN_22, a_aux_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_63 = mux(io_in_ready, _GEN_23, a_aux_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_64 = mux(io_in_ready, _GEN_24, a_aux_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_65 = mux(io_in_ready, _GEN_25, a_aux_reg_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_66 = mux(io_in_ready, _GEN_26, a_aux_reg_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_67 = mux(io_in_ready, _GEN_27, a_aux_reg_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_68 = mux(io_in_ready, _GEN_28, a_aux_reg_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_69 = mux(io_in_ready, _GEN_29, a_aux_reg_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 131:28]
+    node _GEN_70 = mux(io_in_ready, _GEN_30, b_aux_reg_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_71 = mux(io_in_ready, _GEN_31, b_aux_reg_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_72 = mux(io_in_ready, _GEN_32, b_aux_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_73 = mux(io_in_ready, _GEN_33, b_aux_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_74 = mux(io_in_ready, _GEN_34, b_aux_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_75 = mux(io_in_ready, _GEN_35, b_aux_reg_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_76 = mux(io_in_ready, _GEN_36, b_aux_reg_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_77 = mux(io_in_ready, _GEN_37, b_aux_reg_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_78 = mux(io_in_ready, _GEN_38, b_aux_reg_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_79 = mux(io_in_ready, _GEN_39, b_aux_reg_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 132:28]
+    node _GEN_80 = mux(io_in_ready, _GEN_40, result_reg_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_81 = mux(io_in_ready, _GEN_41, result_reg_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_82 = mux(io_in_ready, _GEN_42, result_reg_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_83 = mux(io_in_ready, _GEN_43, result_reg_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_84 = mux(io_in_ready, _GEN_44, result_reg_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_85 = mux(io_in_ready, _GEN_45, result_reg_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_86 = mux(io_in_ready, _GEN_46, result_reg_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_87 = mux(io_in_ready, _GEN_47, result_reg_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_88 = mux(io_in_ready, _GEN_48, result_reg_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_89 = mux(io_in_ready, _GEN_49, result_reg_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 136:29]
+    node _GEN_90 = mux(io_in_ready, _GEN_50, sr_out_valid_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_91 = mux(io_in_ready, _GEN_51, sr_out_valid_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_92 = mux(io_in_ready, _GEN_52, sr_out_valid_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_93 = mux(io_in_ready, _GEN_53, sr_out_valid_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_94 = mux(io_in_ready, _GEN_54, sr_out_valid_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_95 = mux(io_in_ready, _GEN_55, sr_out_valid_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_96 = mux(io_in_ready, _GEN_56, sr_out_valid_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_97 = mux(io_in_ready, _GEN_57, sr_out_valid_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_98 = mux(io_in_ready, _GEN_58, sr_out_valid_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _GEN_99 = mux(io_in_ready, _GEN_59, sr_out_valid_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 144:22 137:31]
+    node _a_aux_reg_WIRE_0 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_1 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_2 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_3 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_4 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_5 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_6 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_7 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_8 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _a_aux_reg_WIRE_9 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{44,44}]
+    node _b_aux_reg_WIRE_0 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_1 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_2 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_3 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_4 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_5 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_6 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_7 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_8 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node _b_aux_reg_WIRE_9 = UInt<50>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{44,44}]
+    node wire_res_9 = result_reg_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 135:24 138:14]
+    node _result_reg_WIRE_0 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_1 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_2 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_3 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_4 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_5 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_6 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_7 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_8 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _result_reg_WIRE_9 = UInt<25>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{45,45}]
+    node _sr_out_valid_WIRE_0 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_1 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_2 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_3 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_4 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_5 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_6 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_7 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_8 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    node _sr_out_valid_WIRE_9 = UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{47,47}]
+    io_out_s <= result_reg_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 140:14]
+    io_out_r <= bits(a_aux_reg_9, 24, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 141:15]
+    io_out_valid <= sr_out_valid_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 139:18]
+    a_aux_reg_0 <= mux(reset, _a_aux_reg_WIRE_0, _GEN_60) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_1 <= mux(reset, _a_aux_reg_WIRE_1, _GEN_61) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_2 <= mux(reset, _a_aux_reg_WIRE_2, _GEN_62) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_3 <= mux(reset, _a_aux_reg_WIRE_3, _GEN_63) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_4 <= mux(reset, _a_aux_reg_WIRE_4, _GEN_64) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_5 <= mux(reset, _a_aux_reg_WIRE_5, _GEN_65) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_6 <= mux(reset, _a_aux_reg_WIRE_6, _GEN_66) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_7 <= mux(reset, _a_aux_reg_WIRE_7, _GEN_67) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_8 <= mux(reset, _a_aux_reg_WIRE_8, _GEN_68) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    a_aux_reg_9 <= mux(reset, _a_aux_reg_WIRE_9, _GEN_69) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 131:{28,28}]
+    b_aux_reg_0 <= mux(reset, _b_aux_reg_WIRE_0, _GEN_70) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_1 <= mux(reset, _b_aux_reg_WIRE_1, _GEN_71) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_2 <= mux(reset, _b_aux_reg_WIRE_2, _GEN_72) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_3 <= mux(reset, _b_aux_reg_WIRE_3, _GEN_73) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_4 <= mux(reset, _b_aux_reg_WIRE_4, _GEN_74) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_5 <= mux(reset, _b_aux_reg_WIRE_5, _GEN_75) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_6 <= mux(reset, _b_aux_reg_WIRE_6, _GEN_76) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_7 <= mux(reset, _b_aux_reg_WIRE_7, _GEN_77) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_8 <= mux(reset, _b_aux_reg_WIRE_8, _GEN_78) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    b_aux_reg_9 <= mux(reset, _b_aux_reg_WIRE_9, _GEN_79) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 132:{28,28}]
+    result_reg_0 <= mux(reset, _result_reg_WIRE_0, _GEN_80) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_1 <= mux(reset, _result_reg_WIRE_1, _GEN_81) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_2 <= mux(reset, _result_reg_WIRE_2, _GEN_82) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_3 <= mux(reset, _result_reg_WIRE_3, _GEN_83) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_4 <= mux(reset, _result_reg_WIRE_4, _GEN_84) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_5 <= mux(reset, _result_reg_WIRE_5, _GEN_85) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_6 <= mux(reset, _result_reg_WIRE_6, _GEN_86) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_7 <= mux(reset, _result_reg_WIRE_7, _GEN_87) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_8 <= mux(reset, _result_reg_WIRE_8, _GEN_88) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    result_reg_9 <= mux(reset, _result_reg_WIRE_9, _GEN_89) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 136:{29,29}]
+    sr_out_valid_0 <= mux(reset, _sr_out_valid_WIRE_0, _GEN_90) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_1 <= mux(reset, _sr_out_valid_WIRE_1, _GEN_91) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_2 <= mux(reset, _sr_out_valid_WIRE_2, _GEN_92) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_3 <= mux(reset, _sr_out_valid_WIRE_3, _GEN_93) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_4 <= mux(reset, _sr_out_valid_WIRE_4, _GEN_94) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_5 <= mux(reset, _sr_out_valid_WIRE_5, _GEN_95) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_6 <= mux(reset, _sr_out_valid_WIRE_6, _GEN_96) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_7 <= mux(reset, _sr_out_valid_WIRE_7, _GEN_97) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_8 <= mux(reset, _sr_out_valid_WIRE_8, _GEN_98) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+    sr_out_valid_9 <= mux(reset, _sr_out_valid_WIRE_9, _GEN_99) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_Binary_Mario/BinaryDesignsNew.scala 137:{31,31}]
+
+  module FP_divider_32_10 : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 12:9]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 12:9]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 12:9]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 14:16]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 14:16]
+    input io_in_a : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 14:16]
+    input io_in_b : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 14:16]
+    output io_out_s : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 14:16]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 14:16]
+
+    inst postProcess_exp_subtractor of full_subtractor @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 70:44]
+    inst divider_BW25 of divider_BW25 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 75:30]
+    node _sign_wire_0_T = bits(io_in_a, 31, 31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 36:28]
+    node _sign_wire_1_T = bits(io_in_b, 31, 31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 37:28]
+    node _T = bits(io_in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 41:17]
+    node _T_1 = gt(_T, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 41:36]
+    node _T_2 = bits(io_in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 43:23]
+    node _T_3 = lt(_T_2, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 43:39]
+    node _exp_wire_0_T = bits(io_in_a, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 46:29]
+    node _GEN_0 = mux(_T_3, UInt<8>("h1"), _exp_wire_0_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 43:49 44:19 46:19]
+    node _GEN_1 = mux(_T_1, UInt<8>("hfe"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 41:47 42:19]
+    node _T_4 = bits(io_in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 48:17]
+    node _T_5 = gt(_T_4, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 48:36]
+    node _T_6 = bits(io_in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 50:23]
+    node _T_7 = lt(_T_6, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 50:39]
+    node _exp_wire_1_T = bits(io_in_b, 30, 23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 53:29]
+    node _GEN_2 = mux(_T_7, UInt<8>("h1"), _exp_wire_1_T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 50:49 51:19 53:19]
+    node _GEN_3 = mux(_T_5, UInt<8>("hfe"), _GEN_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 48:47 49:19]
+    node _frac_wire_0_T = bits(io_in_a, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 58:28]
+    node _frac_wire_1_T = bits(io_in_b, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 59:28]
+    node frac_wire_0 = _frac_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 57:25 58:18]
+    node _whole_frac_wire_0_T = cat(UInt<1>("h1"), frac_wire_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 63:31]
+    node frac_wire_1 = _frac_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 57:25 59:18]
+    node _whole_frac_wire_1_T = cat(UInt<1>("h1"), frac_wire_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 64:31]
+    node sign_wire_0 = _sign_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 35:25 36:18]
+    node sign_wire_1 = _sign_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 35:25 37:18]
+    node _new_sign_wire_T = xor(sign_wire_0, sign_wire_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 67:35]
+    node exp_wire_1 = _GEN_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 40:24]
+    node _postProcess_exp_subtractor_io_in_b_T = sub(exp_wire_1, UInt<8>("h7f")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 72:55]
+    node _postProcess_exp_subtractor_io_in_b_T_1 = tail(_postProcess_exp_subtractor_io_in_b_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 72:55]
+    node whole_frac_wire_0 = _whole_frac_wire_0_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 62:31 63:24]
+    node _T_8 = cat(whole_frac_wire_0, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 79:45]
+    node whole_frac_wire_1 = _whole_frac_wire_1_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 62:31 64:24]
+    node _T_9 = cat(whole_frac_wire_1, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 80:45]
+    node _uo_check_T = lt(exp_wire_1, UInt<8>("h7f")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:46]
+    reg uo_check_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_4 = mux(io_in_en, _uo_check_T, uo_check_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_5 = mux(io_in_en, uo_check_r, uo_check_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_6 = mux(io_in_en, uo_check_r_1, uo_check_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_7 = mux(io_in_en, uo_check_r_2, uo_check_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_8 = mux(io_in_en, uo_check_r_3, uo_check_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_9 = mux(io_in_en, uo_check_r_4, uo_check_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_10 = mux(io_in_en, uo_check_r_5, uo_check_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_11 = mux(io_in_en, uo_check_r_6, uo_check_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_12 = mux(io_in_en, uo_check_r_7, uo_check_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    reg uo_check : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), uo_check) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:33]
+    node _GEN_13 = mux(io_in_en, uo_check_r_8, uo_check) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 82:{33,33,33}]
+    node _carry_flag_T = bits(postProcess_exp_subtractor.io_out_c, 0, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:72]
+    reg carry_flag_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_14 = mux(io_in_en, _carry_flag_T, carry_flag_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_15 = mux(io_in_en, carry_flag_r, carry_flag_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_16 = mux(io_in_en, carry_flag_r_1, carry_flag_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_17 = mux(io_in_en, carry_flag_r_2, carry_flag_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_18 = mux(io_in_en, carry_flag_r_3, carry_flag_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_19 = mux(io_in_en, carry_flag_r_4, carry_flag_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_20 = mux(io_in_en, carry_flag_r_5, carry_flag_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_21 = mux(io_in_en, carry_flag_r_6, carry_flag_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_22 = mux(io_in_en, carry_flag_r_7, carry_flag_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    reg carry_flag : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), carry_flag) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:35]
+    node _GEN_23 = mux(io_in_en, carry_flag_r_8, carry_flag) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 83:{35,35,35}]
+    node msb_check = bits(divider_BW25.io_out_s, 24, 24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 84:39]
+    reg exp_sum_r : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_24 = mux(io_in_en, postProcess_exp_subtractor.io_out_s, exp_sum_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_1 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_25 = mux(io_in_en, exp_sum_r, exp_sum_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_2 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_26 = mux(io_in_en, exp_sum_r_1, exp_sum_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_3 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_27 = mux(io_in_en, exp_sum_r_2, exp_sum_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_4 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_28 = mux(io_in_en, exp_sum_r_3, exp_sum_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_5 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_29 = mux(io_in_en, exp_sum_r_4, exp_sum_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_6 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_30 = mux(io_in_en, exp_sum_r_5, exp_sum_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_7 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_31 = mux(io_in_en, exp_sum_r_6, exp_sum_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum_r_8 : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_32 = mux(io_in_en, exp_sum_r_7, exp_sum_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg exp_sum : UInt<8>, clock with :
+      reset => (UInt<1>("h0"), exp_sum) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:32]
+    node _GEN_33 = mux(io_in_en, exp_sum_r_8, exp_sum) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 85:{32,32,32}]
+    reg new_sign_reg_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node new_sign_wire = _new_sign_wire_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 66:29 67:19]
+    node _GEN_34 = mux(io_in_en, new_sign_wire, new_sign_reg_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_35 = mux(io_in_en, new_sign_reg_r, new_sign_reg_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_36 = mux(io_in_en, new_sign_reg_r_1, new_sign_reg_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_37 = mux(io_in_en, new_sign_reg_r_2, new_sign_reg_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_38 = mux(io_in_en, new_sign_reg_r_3, new_sign_reg_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_39 = mux(io_in_en, new_sign_reg_r_4, new_sign_reg_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_40 = mux(io_in_en, new_sign_reg_r_5, new_sign_reg_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_41 = mux(io_in_en, new_sign_reg_r_6, new_sign_reg_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_42 = mux(io_in_en, new_sign_reg_r_7, new_sign_reg_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    reg new_sign_reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), new_sign_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:37]
+    node _GEN_43 = mux(io_in_en, new_sign_reg_r_8, new_sign_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 87:{37,37,37}]
+    node _o_flag_reg_T = eq(carry_flag, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 90:35]
+    node _o_flag_reg_T_1 = eq(msb_check, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 90:64]
+    node _o_flag_reg_T_2 = sub(exp_sum, _o_flag_reg_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 90:60]
+    node _o_flag_reg_T_3 = asUInt(_o_flag_reg_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 90:60]
+    node _o_flag_reg_T_4 = gt(_o_flag_reg_T_3, UInt<8>("hfe")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 90:84]
+    node _o_flag_reg_T_5 = or(_o_flag_reg_T, _o_flag_reg_T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 90:47]
+    node o_flag_reg = mux(uo_check, _o_flag_reg_T_5, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 90:25]
+    node _u_flag_reg_T = eq(uo_check, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 91:26]
+    node _u_flag_reg_T_1 = eq(msb_check, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 91:64]
+    node _u_flag_reg_T_2 = sub(exp_sum, _u_flag_reg_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 91:60]
+    node _u_flag_reg_T_3 = asUInt(_u_flag_reg_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 91:60]
+    node _u_flag_reg_T_4 = lt(_u_flag_reg_T_3, UInt<8>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 91:84]
+    node _u_flag_reg_T_5 = or(carry_flag, _u_flag_reg_T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 91:47]
+    node u_flag_reg = mux(_u_flag_reg_T, _u_flag_reg_T_5, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 91:25]
+    node _out_exp_T = sub(exp_sum, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 97:109]
+    node _out_exp_T_1 = tail(_out_exp_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 97:109]
+    node _out_exp_T_2 = mux(msb_check, exp_sum, _out_exp_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 97:72]
+    node _out_exp_T_3 = mux(u_flag_reg, UInt<8>("h1"), _out_exp_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 97:47]
+    node out_exp = mux(o_flag_reg, UInt<8>("hfe"), _out_exp_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 97:22]
+    node _out_frac_T = bits(divider_BW25.io_out_s, 23, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 98:98]
+    node _out_frac_T_1 = bits(divider_BW25.io_out_s, 22, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 98:125]
+    node _out_frac_T_2 = mux(msb_check, _out_frac_T, _out_frac_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 98:74]
+    node _out_frac_T_3 = mux(u_flag_reg, UInt<23>("h0"), _out_frac_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 98:49]
+    node out_frac = mux(o_flag_reg, UInt<23>("h7fffff"), _out_frac_T_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 98:23]
+    node _io_out_s_T = cat(new_sign_reg, out_exp) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 99:26]
+    node _io_out_s_T_1 = cat(_io_out_s_T, out_frac) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 99:37]
+    node exp_wire_0 = _GEN_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 40:24]
+    io_out_s <= _io_out_s_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 99:14]
+    io_out_valid <= divider_BW25.io_out_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 95:18]
+    postProcess_exp_subtractor.clock <= clock
+    postProcess_exp_subtractor.reset <= reset
+    postProcess_exp_subtractor.io_in_a <= exp_wire_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 71:40]
+    postProcess_exp_subtractor.io_in_b <= _postProcess_exp_subtractor_io_in_b_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 72:40]
+    postProcess_exp_subtractor.io_in_c <= UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 73:40]
+    divider_BW25.clock <= clock
+    divider_BW25.reset <= reset
+    divider_BW25.io_in_ready <= io_in_en @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 76:27]
+    divider_BW25.io_in_valid <= io_in_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 78:27]
+    divider_BW25.io_in_reset <= UInt<1>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 77:27]
+    divider_BW25.io_in_a <= _T_8 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 79:23]
+    divider_BW25.io_in_b <= _T_9 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/New_FPU_Mario/FPUnits.scala 80:23]
+    uo_check_r <= _GEN_4
+    uo_check_r_1 <= _GEN_5
+    uo_check_r_2 <= _GEN_6
+    uo_check_r_3 <= _GEN_7
+    uo_check_r_4 <= _GEN_8
+    uo_check_r_5 <= _GEN_9
+    uo_check_r_6 <= _GEN_10
+    uo_check_r_7 <= _GEN_11
+    uo_check_r_8 <= _GEN_12
+    uo_check <= _GEN_13
+    carry_flag_r <= _GEN_14
+    carry_flag_r_1 <= _GEN_15
+    carry_flag_r_2 <= _GEN_16
+    carry_flag_r_3 <= _GEN_17
+    carry_flag_r_4 <= _GEN_18
+    carry_flag_r_5 <= _GEN_19
+    carry_flag_r_6 <= _GEN_20
+    carry_flag_r_7 <= _GEN_21
+    carry_flag_r_8 <= _GEN_22
+    carry_flag <= _GEN_23
+    exp_sum_r <= _GEN_24
+    exp_sum_r_1 <= _GEN_25
+    exp_sum_r_2 <= _GEN_26
+    exp_sum_r_3 <= _GEN_27
+    exp_sum_r_4 <= _GEN_28
+    exp_sum_r_5 <= _GEN_29
+    exp_sum_r_6 <= _GEN_30
+    exp_sum_r_7 <= _GEN_31
+    exp_sum_r_8 <= _GEN_32
+    exp_sum <= _GEN_33
+    new_sign_reg_r <= _GEN_34
+    new_sign_reg_r_1 <= _GEN_35
+    new_sign_reg_r_2 <= _GEN_36
+    new_sign_reg_r_3 <= _GEN_37
+    new_sign_reg_r_4 <= _GEN_38
+    new_sign_reg_r_5 <= _GEN_39
+    new_sign_reg_r_6 <= _GEN_40
+    new_sign_reg_r_7 <= _GEN_41
+    new_sign_reg_r_8 <= _GEN_42
+    new_sign_reg <= _GEN_43
+
+  module alpha : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 11:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 11:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 11:7]
+    input io_in_x0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    input io_in_eu_norm : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    input io_counter_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    output io_out_s : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    output io_out_real : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+    output io_out_imag : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 12:14]
+
+    inst mult_0 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 48:32]
+    inst mult_1 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 48:32]
+    inst mult_2 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 48:32]
+    inst mult_3 of FP_mult_32_10_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 48:32]
+    inst adder of FP_add_32_13 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 57:21]
+    inst sqrt of FP_sqrt_32_15 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 63:20]
+    inst divider_0 of FP_divider_32_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 68:35]
+    inst divider_1 of FP_divider_32_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 68:35]
+    reg counter : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 31:24]
+    node _T = leq(counter, UInt<6>("h3a")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 34:34]
+    node _T_1 = and(io_in_en, _T) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 34:23]
+    node _counter_T = add(counter, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 35:24]
+    node _counter_T_1 = tail(_counter_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 35:24]
+    node _GEN_0 = mux(_T_1, _counter_T_1, counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 34:48 35:13 31:24]
+    node _GEN_1 = mux(io_counter_reset, UInt<1>("h0"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 32:27 33:13]
+    reg eu_norm_reg : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), eu_norm_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 38:28]
+    node _T_2 = eq(counter, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 39:16]
+    node _GEN_2 = mux(_T_2, io_in_eu_norm, eu_norm_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 39:25 40:17 38:28]
+    node _mult_0_io_in_a_T = bits(io_in_x0, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 83:32]
+    node _mult_0_io_in_b_T = bits(io_in_x0, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 84:32]
+    node _mult_1_io_in_a_T = bits(io_in_x0, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 86:32]
+    node _mult_1_io_in_b_T = bits(io_in_x0, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 87:32]
+    node _GEN_3 = mux(io_in_en, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 51:16 77:17 78:22]
+    node _GEN_4 = mux(io_in_en, _mult_0_io_in_a_T, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 53:15 77:17 83:21]
+    node _GEN_5 = mux(io_in_en, _mult_0_io_in_b_T, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 54:15 77:17 84:21]
+    node _GEN_6 = mux(io_in_en, _mult_1_io_in_a_T, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 53:15 77:17 86:21]
+    node _GEN_7 = mux(io_in_en, _mult_1_io_in_b_T, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 54:15 77:17 87:21]
+    node _T_3 = geq(counter, UInt<4>("ha")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 90:16]
+    node _GEN_8 = mux(_T_3, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 58:18 90:32 91:20]
+    node _GEN_9 = mux(_T_3, mult_0.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 60:17 90:32 93:19]
+    node _GEN_10 = mux(_T_3, mult_1.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 61:17 90:32 94:19]
+    node _T_4 = geq(counter, UInt<5>("h17")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 97:16]
+    node _GEN_11 = mux(_T_4, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 64:17 97:31 98:19]
+    node _GEN_12 = mux(_T_4, adder.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 100:18 66:16 97:31]
+    node _x0_real_shift_T = bits(io_in_x0, 63, 32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:45]
+    reg x0_real_shift_r : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_13 = mux(io_in_en, _x0_real_shift_T, x0_real_shift_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_1 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_14 = mux(io_in_en, x0_real_shift_r, x0_real_shift_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_2 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_15 = mux(io_in_en, x0_real_shift_r_1, x0_real_shift_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_3 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_16 = mux(io_in_en, x0_real_shift_r_2, x0_real_shift_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_4 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_17 = mux(io_in_en, x0_real_shift_r_3, x0_real_shift_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_5 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_18 = mux(io_in_en, x0_real_shift_r_4, x0_real_shift_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_6 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_19 = mux(io_in_en, x0_real_shift_r_5, x0_real_shift_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_7 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_20 = mux(io_in_en, x0_real_shift_r_6, x0_real_shift_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_8 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_21 = mux(io_in_en, x0_real_shift_r_7, x0_real_shift_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_9 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_22 = mux(io_in_en, x0_real_shift_r_8, x0_real_shift_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_10 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_23 = mux(io_in_en, x0_real_shift_r_9, x0_real_shift_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_11 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_24 = mux(io_in_en, x0_real_shift_r_10, x0_real_shift_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_12 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_25 = mux(io_in_en, x0_real_shift_r_11, x0_real_shift_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_13 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_26 = mux(io_in_en, x0_real_shift_r_12, x0_real_shift_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_14 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_27 = mux(io_in_en, x0_real_shift_r_13, x0_real_shift_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_15 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_28 = mux(io_in_en, x0_real_shift_r_14, x0_real_shift_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_16 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_29 = mux(io_in_en, x0_real_shift_r_15, x0_real_shift_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_17 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_30 = mux(io_in_en, x0_real_shift_r_16, x0_real_shift_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_18 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_31 = mux(io_in_en, x0_real_shift_r_17, x0_real_shift_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_19 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_32 = mux(io_in_en, x0_real_shift_r_18, x0_real_shift_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_20 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_33 = mux(io_in_en, x0_real_shift_r_19, x0_real_shift_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_21 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_34 = mux(io_in_en, x0_real_shift_r_20, x0_real_shift_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_22 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_35 = mux(io_in_en, x0_real_shift_r_21, x0_real_shift_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_23 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_36 = mux(io_in_en, x0_real_shift_r_22, x0_real_shift_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_24 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_37 = mux(io_in_en, x0_real_shift_r_23, x0_real_shift_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_25 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_38 = mux(io_in_en, x0_real_shift_r_24, x0_real_shift_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_26 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_39 = mux(io_in_en, x0_real_shift_r_25, x0_real_shift_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_27 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_40 = mux(io_in_en, x0_real_shift_r_26, x0_real_shift_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_28 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_41 = mux(io_in_en, x0_real_shift_r_27, x0_real_shift_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_29 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_42 = mux(io_in_en, x0_real_shift_r_28, x0_real_shift_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_30 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_43 = mux(io_in_en, x0_real_shift_r_29, x0_real_shift_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift_r_31 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_44 = mux(io_in_en, x0_real_shift_r_30, x0_real_shift_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    reg x0_real_shift : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_real_shift) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:36]
+    node _GEN_45 = mux(io_in_en, x0_real_shift_r_31, x0_real_shift) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 103:{36,36,36}]
+    node _x0_imag_shift_T = bits(io_in_x0, 31, 0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:45]
+    reg x0_imag_shift_r : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_46 = mux(io_in_en, _x0_imag_shift_T, x0_imag_shift_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_1 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_47 = mux(io_in_en, x0_imag_shift_r, x0_imag_shift_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_2 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_48 = mux(io_in_en, x0_imag_shift_r_1, x0_imag_shift_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_3 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_49 = mux(io_in_en, x0_imag_shift_r_2, x0_imag_shift_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_4 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_50 = mux(io_in_en, x0_imag_shift_r_3, x0_imag_shift_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_5 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_51 = mux(io_in_en, x0_imag_shift_r_4, x0_imag_shift_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_6 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_52 = mux(io_in_en, x0_imag_shift_r_5, x0_imag_shift_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_7 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_53 = mux(io_in_en, x0_imag_shift_r_6, x0_imag_shift_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_8 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_54 = mux(io_in_en, x0_imag_shift_r_7, x0_imag_shift_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_9 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_55 = mux(io_in_en, x0_imag_shift_r_8, x0_imag_shift_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_10 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_56 = mux(io_in_en, x0_imag_shift_r_9, x0_imag_shift_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_11 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_57 = mux(io_in_en, x0_imag_shift_r_10, x0_imag_shift_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_12 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_58 = mux(io_in_en, x0_imag_shift_r_11, x0_imag_shift_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_13 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_59 = mux(io_in_en, x0_imag_shift_r_12, x0_imag_shift_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_14 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_60 = mux(io_in_en, x0_imag_shift_r_13, x0_imag_shift_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_15 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_61 = mux(io_in_en, x0_imag_shift_r_14, x0_imag_shift_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_16 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_62 = mux(io_in_en, x0_imag_shift_r_15, x0_imag_shift_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_17 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_63 = mux(io_in_en, x0_imag_shift_r_16, x0_imag_shift_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_18 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_64 = mux(io_in_en, x0_imag_shift_r_17, x0_imag_shift_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_19 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_65 = mux(io_in_en, x0_imag_shift_r_18, x0_imag_shift_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_20 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_66 = mux(io_in_en, x0_imag_shift_r_19, x0_imag_shift_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_21 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_67 = mux(io_in_en, x0_imag_shift_r_20, x0_imag_shift_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_22 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_68 = mux(io_in_en, x0_imag_shift_r_21, x0_imag_shift_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_23 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_69 = mux(io_in_en, x0_imag_shift_r_22, x0_imag_shift_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_24 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_70 = mux(io_in_en, x0_imag_shift_r_23, x0_imag_shift_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_25 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_71 = mux(io_in_en, x0_imag_shift_r_24, x0_imag_shift_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_26 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_72 = mux(io_in_en, x0_imag_shift_r_25, x0_imag_shift_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_27 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_73 = mux(io_in_en, x0_imag_shift_r_26, x0_imag_shift_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_28 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_74 = mux(io_in_en, x0_imag_shift_r_27, x0_imag_shift_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_29 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_75 = mux(io_in_en, x0_imag_shift_r_28, x0_imag_shift_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_30 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_76 = mux(io_in_en, x0_imag_shift_r_29, x0_imag_shift_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift_r_31 : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_77 = mux(io_in_en, x0_imag_shift_r_30, x0_imag_shift_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    reg x0_imag_shift : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), x0_imag_shift) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:36]
+    node _GEN_78 = mux(io_in_en, x0_imag_shift_r_31, x0_imag_shift) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 104:{36,36,36}]
+    node _T_5 = geq(counter, UInt<6>("h26")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 106:16]
+    node _GEN_79 = mux(_T_5, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 106:32 107:25 71:16]
+    node _GEN_80 = mux(_T_5, x0_real_shift, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 106:32 112:24 73:15]
+    node _GEN_81 = mux(_T_5, sqrt.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 106:32 113:24 74:15]
+    node _GEN_82 = mux(_T_5, x0_imag_shift, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 106:32 115:24 73:15]
+    node _T_6 = geq(counter, UInt<6>("h30")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 119:16]
+    node _GEN_83 = mux(_T_6, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 119:30 120:22 51:16]
+    node _GEN_84 = mux(_T_6, eu_norm_reg, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 119:30 125:21 53:15]
+    node _GEN_85 = mux(_T_6, divider_0.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 119:30 126:21 54:15]
+    node _GEN_86 = mux(_T_6, divider_1.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 119:30 129:21 54:15]
+    node _io_out_s_T = cat(mult_2.io_out_s, mult_3.io_out_s) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 132:18]
+    reg io_out_valid_r : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_87 = mux(io_in_en, io_in_valid, io_out_valid_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_88 = mux(io_in_en, io_out_valid_r, io_out_valid_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_89 = mux(io_in_en, io_out_valid_r_1, io_out_valid_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_3 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_90 = mux(io_in_en, io_out_valid_r_2, io_out_valid_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_4 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_91 = mux(io_in_en, io_out_valid_r_3, io_out_valid_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_5 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_92 = mux(io_in_en, io_out_valid_r_4, io_out_valid_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_6 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_93 = mux(io_in_en, io_out_valid_r_5, io_out_valid_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_7 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_94 = mux(io_in_en, io_out_valid_r_6, io_out_valid_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_8 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_95 = mux(io_in_en, io_out_valid_r_7, io_out_valid_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_9 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_96 = mux(io_in_en, io_out_valid_r_8, io_out_valid_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_10 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_97 = mux(io_in_en, io_out_valid_r_9, io_out_valid_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_11 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_98 = mux(io_in_en, io_out_valid_r_10, io_out_valid_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_12 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_99 = mux(io_in_en, io_out_valid_r_11, io_out_valid_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_13 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_100 = mux(io_in_en, io_out_valid_r_12, io_out_valid_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_14 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_101 = mux(io_in_en, io_out_valid_r_13, io_out_valid_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_15 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_102 = mux(io_in_en, io_out_valid_r_14, io_out_valid_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_16 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_103 = mux(io_in_en, io_out_valid_r_15, io_out_valid_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_17 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_104 = mux(io_in_en, io_out_valid_r_16, io_out_valid_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_18 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_105 = mux(io_in_en, io_out_valid_r_17, io_out_valid_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_19 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_106 = mux(io_in_en, io_out_valid_r_18, io_out_valid_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_20 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_107 = mux(io_in_en, io_out_valid_r_19, io_out_valid_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_21 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_108 = mux(io_in_en, io_out_valid_r_20, io_out_valid_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_22 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_109 = mux(io_in_en, io_out_valid_r_21, io_out_valid_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_23 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_110 = mux(io_in_en, io_out_valid_r_22, io_out_valid_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_24 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_111 = mux(io_in_en, io_out_valid_r_23, io_out_valid_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_25 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_112 = mux(io_in_en, io_out_valid_r_24, io_out_valid_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_26 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_113 = mux(io_in_en, io_out_valid_r_25, io_out_valid_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_27 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_114 = mux(io_in_en, io_out_valid_r_26, io_out_valid_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_28 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_115 = mux(io_in_en, io_out_valid_r_27, io_out_valid_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_29 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_116 = mux(io_in_en, io_out_valid_r_28, io_out_valid_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_30 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_117 = mux(io_in_en, io_out_valid_r_29, io_out_valid_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_31 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_118 = mux(io_in_en, io_out_valid_r_30, io_out_valid_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_32 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_119 = mux(io_in_en, io_out_valid_r_31, io_out_valid_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_33 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_120 = mux(io_in_en, io_out_valid_r_32, io_out_valid_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_34 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_121 = mux(io_in_en, io_out_valid_r_33, io_out_valid_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_35 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_122 = mux(io_in_en, io_out_valid_r_34, io_out_valid_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_36 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_123 = mux(io_in_en, io_out_valid_r_35, io_out_valid_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_37 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_124 = mux(io_in_en, io_out_valid_r_36, io_out_valid_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_38 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_125 = mux(io_in_en, io_out_valid_r_37, io_out_valid_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_39 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_126 = mux(io_in_en, io_out_valid_r_38, io_out_valid_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_40 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_127 = mux(io_in_en, io_out_valid_r_39, io_out_valid_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_41 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_128 = mux(io_in_en, io_out_valid_r_40, io_out_valid_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_42 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_129 = mux(io_in_en, io_out_valid_r_41, io_out_valid_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_43 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_130 = mux(io_in_en, io_out_valid_r_42, io_out_valid_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_44 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_131 = mux(io_in_en, io_out_valid_r_43, io_out_valid_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_45 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_132 = mux(io_in_en, io_out_valid_r_44, io_out_valid_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_46 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_133 = mux(io_in_en, io_out_valid_r_45, io_out_valid_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_47 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_134 = mux(io_in_en, io_out_valid_r_46, io_out_valid_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_48 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_135 = mux(io_in_en, io_out_valid_r_47, io_out_valid_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_49 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_136 = mux(io_in_en, io_out_valid_r_48, io_out_valid_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_50 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_137 = mux(io_in_en, io_out_valid_r_49, io_out_valid_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_51 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_138 = mux(io_in_en, io_out_valid_r_50, io_out_valid_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_52 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_139 = mux(io_in_en, io_out_valid_r_51, io_out_valid_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_53 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_140 = mux(io_in_en, io_out_valid_r_52, io_out_valid_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_54 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_141 = mux(io_in_en, io_out_valid_r_53, io_out_valid_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_55 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_142 = mux(io_in_en, io_out_valid_r_54, io_out_valid_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_56 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_143 = mux(io_in_en, io_out_valid_r_55, io_out_valid_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    reg io_out_valid_r_57 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), io_out_valid_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:32]
+    node _GEN_144 = mux(io_in_en, io_out_valid_r_56, io_out_valid_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:{32,32,32}]
+    io_out_valid <= io_out_valid_r_57 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 135:16]
+    io_out_s <= _io_out_s_T @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 132:12]
+    io_out_real <= mult_2.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 133:15]
+    io_out_imag <= mult_3.io_out_s @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 134:15]
+    counter <= mux(reset, UInt<32>("h0"), _GEN_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 31:{24,24}]
+    eu_norm_reg <= mux(reset, UInt<32>("h0"), _GEN_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 38:{28,28}]
+    mult_0.clock <= clock
+    mult_0.reset <= reset
+    mult_0.io_in_en <= _GEN_3
+    mult_0.io_in_valid <= _GEN_3
+    mult_0.io_in_a <= _GEN_4
+    mult_0.io_in_b <= _GEN_5
+    mult_1.clock <= clock
+    mult_1.reset <= reset
+    mult_1.io_in_en <= _GEN_3
+    mult_1.io_in_valid <= _GEN_3
+    mult_1.io_in_a <= _GEN_6
+    mult_1.io_in_b <= _GEN_7
+    mult_2.clock <= clock
+    mult_2.reset <= reset
+    mult_2.io_in_en <= _GEN_83
+    mult_2.io_in_valid <= _GEN_83
+    mult_2.io_in_a <= _GEN_84
+    mult_2.io_in_b <= _GEN_85
+    mult_3.clock <= clock
+    mult_3.reset <= reset
+    mult_3.io_in_en <= _GEN_83
+    mult_3.io_in_valid <= _GEN_83
+    mult_3.io_in_a <= _GEN_84
+    mult_3.io_in_b <= _GEN_86
+    adder.clock <= clock
+    adder.reset <= reset
+    adder.io_in_en <= _GEN_8
+    adder.io_in_valid <= _GEN_8
+    adder.io_in_a <= _GEN_9
+    adder.io_in_b <= _GEN_10
+    sqrt.clock <= clock
+    sqrt.reset <= reset
+    sqrt.io_in_en <= _GEN_11
+    sqrt.io_in_valid <= _GEN_11
+    sqrt.io_in_a <= _GEN_12
+    divider_0.clock <= clock
+    divider_0.reset <= reset
+    divider_0.io_in_en <= _GEN_79
+    divider_0.io_in_valid <= _GEN_79
+    divider_0.io_in_a <= _GEN_80
+    divider_0.io_in_b <= _GEN_81
+    divider_1.clock <= clock
+    divider_1.reset <= reset
+    divider_1.io_in_en <= _GEN_79
+    divider_1.io_in_valid <= _GEN_79
+    divider_1.io_in_a <= _GEN_82
+    divider_1.io_in_b <= _GEN_81
+    x0_real_shift_r <= _GEN_13
+    x0_real_shift_r_1 <= _GEN_14
+    x0_real_shift_r_2 <= _GEN_15
+    x0_real_shift_r_3 <= _GEN_16
+    x0_real_shift_r_4 <= _GEN_17
+    x0_real_shift_r_5 <= _GEN_18
+    x0_real_shift_r_6 <= _GEN_19
+    x0_real_shift_r_7 <= _GEN_20
+    x0_real_shift_r_8 <= _GEN_21
+    x0_real_shift_r_9 <= _GEN_22
+    x0_real_shift_r_10 <= _GEN_23
+    x0_real_shift_r_11 <= _GEN_24
+    x0_real_shift_r_12 <= _GEN_25
+    x0_real_shift_r_13 <= _GEN_26
+    x0_real_shift_r_14 <= _GEN_27
+    x0_real_shift_r_15 <= _GEN_28
+    x0_real_shift_r_16 <= _GEN_29
+    x0_real_shift_r_17 <= _GEN_30
+    x0_real_shift_r_18 <= _GEN_31
+    x0_real_shift_r_19 <= _GEN_32
+    x0_real_shift_r_20 <= _GEN_33
+    x0_real_shift_r_21 <= _GEN_34
+    x0_real_shift_r_22 <= _GEN_35
+    x0_real_shift_r_23 <= _GEN_36
+    x0_real_shift_r_24 <= _GEN_37
+    x0_real_shift_r_25 <= _GEN_38
+    x0_real_shift_r_26 <= _GEN_39
+    x0_real_shift_r_27 <= _GEN_40
+    x0_real_shift_r_28 <= _GEN_41
+    x0_real_shift_r_29 <= _GEN_42
+    x0_real_shift_r_30 <= _GEN_43
+    x0_real_shift_r_31 <= _GEN_44
+    x0_real_shift <= _GEN_45
+    x0_imag_shift_r <= _GEN_46
+    x0_imag_shift_r_1 <= _GEN_47
+    x0_imag_shift_r_2 <= _GEN_48
+    x0_imag_shift_r_3 <= _GEN_49
+    x0_imag_shift_r_4 <= _GEN_50
+    x0_imag_shift_r_5 <= _GEN_51
+    x0_imag_shift_r_6 <= _GEN_52
+    x0_imag_shift_r_7 <= _GEN_53
+    x0_imag_shift_r_8 <= _GEN_54
+    x0_imag_shift_r_9 <= _GEN_55
+    x0_imag_shift_r_10 <= _GEN_56
+    x0_imag_shift_r_11 <= _GEN_57
+    x0_imag_shift_r_12 <= _GEN_58
+    x0_imag_shift_r_13 <= _GEN_59
+    x0_imag_shift_r_14 <= _GEN_60
+    x0_imag_shift_r_15 <= _GEN_61
+    x0_imag_shift_r_16 <= _GEN_62
+    x0_imag_shift_r_17 <= _GEN_63
+    x0_imag_shift_r_18 <= _GEN_64
+    x0_imag_shift_r_19 <= _GEN_65
+    x0_imag_shift_r_20 <= _GEN_66
+    x0_imag_shift_r_21 <= _GEN_67
+    x0_imag_shift_r_22 <= _GEN_68
+    x0_imag_shift_r_23 <= _GEN_69
+    x0_imag_shift_r_24 <= _GEN_70
+    x0_imag_shift_r_25 <= _GEN_71
+    x0_imag_shift_r_26 <= _GEN_72
+    x0_imag_shift_r_27 <= _GEN_73
+    x0_imag_shift_r_28 <= _GEN_74
+    x0_imag_shift_r_29 <= _GEN_75
+    x0_imag_shift_r_30 <= _GEN_76
+    x0_imag_shift_r_31 <= _GEN_77
+    x0_imag_shift <= _GEN_78
+    io_out_valid_r <= _GEN_87
+    io_out_valid_r_1 <= _GEN_88
+    io_out_valid_r_2 <= _GEN_89
+    io_out_valid_r_3 <= _GEN_90
+    io_out_valid_r_4 <= _GEN_91
+    io_out_valid_r_5 <= _GEN_92
+    io_out_valid_r_6 <= _GEN_93
+    io_out_valid_r_7 <= _GEN_94
+    io_out_valid_r_8 <= _GEN_95
+    io_out_valid_r_9 <= _GEN_96
+    io_out_valid_r_10 <= _GEN_97
+    io_out_valid_r_11 <= _GEN_98
+    io_out_valid_r_12 <= _GEN_99
+    io_out_valid_r_13 <= _GEN_100
+    io_out_valid_r_14 <= _GEN_101
+    io_out_valid_r_15 <= _GEN_102
+    io_out_valid_r_16 <= _GEN_103
+    io_out_valid_r_17 <= _GEN_104
+    io_out_valid_r_18 <= _GEN_105
+    io_out_valid_r_19 <= _GEN_106
+    io_out_valid_r_20 <= _GEN_107
+    io_out_valid_r_21 <= _GEN_108
+    io_out_valid_r_22 <= _GEN_109
+    io_out_valid_r_23 <= _GEN_110
+    io_out_valid_r_24 <= _GEN_111
+    io_out_valid_r_25 <= _GEN_112
+    io_out_valid_r_26 <= _GEN_113
+    io_out_valid_r_27 <= _GEN_114
+    io_out_valid_r_28 <= _GEN_115
+    io_out_valid_r_29 <= _GEN_116
+    io_out_valid_r_30 <= _GEN_117
+    io_out_valid_r_31 <= _GEN_118
+    io_out_valid_r_32 <= _GEN_119
+    io_out_valid_r_33 <= _GEN_120
+    io_out_valid_r_34 <= _GEN_121
+    io_out_valid_r_35 <= _GEN_122
+    io_out_valid_r_36 <= _GEN_123
+    io_out_valid_r_37 <= _GEN_124
+    io_out_valid_r_38 <= _GEN_125
+    io_out_valid_r_39 <= _GEN_126
+    io_out_valid_r_40 <= _GEN_127
+    io_out_valid_r_41 <= _GEN_128
+    io_out_valid_r_42 <= _GEN_129
+    io_out_valid_r_43 <= _GEN_130
+    io_out_valid_r_44 <= _GEN_131
+    io_out_valid_r_45 <= _GEN_132
+    io_out_valid_r_46 <= _GEN_133
+    io_out_valid_r_47 <= _GEN_134
+    io_out_valid_r_48 <= _GEN_135
+    io_out_valid_r_49 <= _GEN_136
+    io_out_valid_r_50 <= _GEN_137
+    io_out_valid_r_51 <= _GEN_138
+    io_out_valid_r_52 <= _GEN_139
+    io_out_valid_r_53 <= _GEN_140
+    io_out_valid_r_54 <= _GEN_141
+    io_out_valid_r_55 <= _GEN_142
+    io_out_valid_r_56 <= _GEN_143
+    io_out_valid_r_57 <= _GEN_144
+
+  module vk_gen : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 139:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 139:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 139:7]
+    input io_xk_in_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    input io_xk_in_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    input io_alpha_in : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    input io_k_in : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    input io_counter_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    output io_out_s_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+    output io_out_s_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 140:14]
+
+    inst adder of complex_adder @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 159:21]
+    node _cycles_T = add(io_k_in, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 151:26]
+    node _cycles_T_1 = tail(_cycles_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 151:26]
+    node cycles = shr(_cycles_T_1, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 151:33]
+    reg counter : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 152:24]
+    node _counter_T = add(counter, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 156:38]
+    node _counter_T_1 = tail(_counter_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 156:38]
+    node _counter_T_2 = mux(io_in_en, _counter_T_1, counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 156:19]
+    node _GEN_0 = mux(io_counter_reset, UInt<1>("h0"), _counter_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 153:27 154:13 156:13]
+    node _T = geq(counter, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 165:16]
+    node _T_1 = eq(counter, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 168:18]
+    node _GEN_1 = mux(_T_1, io_xk_in_0, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 162:21 168:27 169:25]
+    node _GEN_2 = mux(_T_1, io_alpha_in, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 163:21 168:27 170:25]
+    node _GEN_3 = mux(_T, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 160:18 165:24 166:20]
+    node _GEN_4 = mux(_T, _GEN_1, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 162:21 165:24]
+    node _GEN_5 = mux(_T, _GEN_2, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 163:21 165:24]
+    reg shifted_xk_r : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_6 = mux(UInt<1>("h1"), io_xk_in_0, shifted_xk_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_1 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_7 = mux(UInt<1>("h1"), shifted_xk_r, shifted_xk_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_2 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_8 = mux(UInt<1>("h1"), shifted_xk_r_1, shifted_xk_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_3 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_9 = mux(UInt<1>("h1"), shifted_xk_r_2, shifted_xk_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_4 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_10 = mux(UInt<1>("h1"), shifted_xk_r_3, shifted_xk_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_5 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_11 = mux(UInt<1>("h1"), shifted_xk_r_4, shifted_xk_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_6 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_12 = mux(UInt<1>("h1"), shifted_xk_r_5, shifted_xk_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_7 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_13 = mux(UInt<1>("h1"), shifted_xk_r_6, shifted_xk_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_8 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_14 = mux(UInt<1>("h1"), shifted_xk_r_7, shifted_xk_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_9 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_15 = mux(UInt<1>("h1"), shifted_xk_r_8, shifted_xk_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_10 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_16 = mux(UInt<1>("h1"), shifted_xk_r_9, shifted_xk_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_11 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_17 = mux(UInt<1>("h1"), shifted_xk_r_10, shifted_xk_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_12 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_18 = mux(UInt<1>("h1"), shifted_xk_r_11, shifted_xk_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_13 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_19 = mux(UInt<1>("h1"), io_xk_in_1, shifted_xk_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_14 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_20 = mux(UInt<1>("h1"), shifted_xk_r_13, shifted_xk_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_15 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_21 = mux(UInt<1>("h1"), shifted_xk_r_14, shifted_xk_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_16 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_22 = mux(UInt<1>("h1"), shifted_xk_r_15, shifted_xk_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_17 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_23 = mux(UInt<1>("h1"), shifted_xk_r_16, shifted_xk_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_18 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_24 = mux(UInt<1>("h1"), shifted_xk_r_17, shifted_xk_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_19 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_25 = mux(UInt<1>("h1"), shifted_xk_r_18, shifted_xk_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_20 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_26 = mux(UInt<1>("h1"), shifted_xk_r_19, shifted_xk_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_21 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_27 = mux(UInt<1>("h1"), shifted_xk_r_20, shifted_xk_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_22 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_28 = mux(UInt<1>("h1"), shifted_xk_r_21, shifted_xk_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_23 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_29 = mux(UInt<1>("h1"), shifted_xk_r_22, shifted_xk_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_24 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_30 = mux(UInt<1>("h1"), shifted_xk_r_23, shifted_xk_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    reg shifted_xk_r_25 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:63]
+    node _GEN_31 = mux(UInt<1>("h1"), shifted_xk_r_24, shifted_xk_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{63,63,63}]
+    node _outVec_0_T = eq(UInt<1>("h0"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:26]
+    node _outVec_0_T_1 = eq(counter, UInt<4>("hd")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:45]
+    node _outVec_0_T_2 = and(_outVec_0_T, _outVec_0_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:34]
+    node shifted_xk_0 = shifted_xk_r_12 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{27,27}]
+    node _outVec_0_T_3 = mux(_outVec_0_T_2, adder.io_out_s, shifted_xk_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:21]
+    node _outVec_1_T = eq(UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:26]
+    node _outVec_1_T_1 = eq(counter, UInt<4>("hd")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:45]
+    node _outVec_1_T_2 = and(_outVec_1_T, _outVec_1_T_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:34]
+    node shifted_xk_1 = shifted_xk_r_25 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 174:{27,27}]
+    node _outVec_1_T_3 = mux(_outVec_1_T_2, adder.io_out_s, shifted_xk_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 178:21]
+    node _T_2 = geq(counter, UInt<4>("hd")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 184:16]
+    node _T_3 = add(cycles, UInt<4>("hd")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 184:49]
+    node _T_4 = tail(_T_3, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 184:49]
+    node _T_5 = lt(counter, _T_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 184:39]
+    node _T_6 = and(_T_2, _T_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 184:28]
+    node _GEN_32 = mux(_T_6, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 184:62 185:15 183:30]
+    node outVec_0 = _outVec_0_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 175:20 178:15]
+    node outVec_1 = _outVec_1_T_3 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 175:20 178:15]
+    node out_valid = _GEN_32 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 183:30]
+    io_out_valid <= out_valid @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 188:16]
+    io_out_s_0 <= outVec_0 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 181:12]
+    io_out_s_1 <= outVec_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 181:12]
+    counter <= mux(reset, UInt<32>("h0"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 152:{24,24}]
+    adder.clock <= clock
+    adder.reset <= reset
+    adder.io_complexA <= _GEN_4
+    adder.io_complexB <= _GEN_5
+    adder.io_in_en <= _GEN_3
+    adder.io_in_valid <= _GEN_3
+    shifted_xk_r <= _GEN_6
+    shifted_xk_r_1 <= _GEN_7
+    shifted_xk_r_2 <= _GEN_8
+    shifted_xk_r_3 <= _GEN_9
+    shifted_xk_r_4 <= _GEN_10
+    shifted_xk_r_5 <= _GEN_11
+    shifted_xk_r_6 <= _GEN_12
+    shifted_xk_r_7 <= _GEN_13
+    shifted_xk_r_8 <= _GEN_14
+    shifted_xk_r_9 <= _GEN_15
+    shifted_xk_r_10 <= _GEN_16
+    shifted_xk_r_11 <= _GEN_17
+    shifted_xk_r_12 <= _GEN_18
+    shifted_xk_r_13 <= _GEN_19
+    shifted_xk_r_14 <= _GEN_20
+    shifted_xk_r_15 <= _GEN_21
+    shifted_xk_r_16 <= _GEN_22
+    shifted_xk_r_17 <= _GEN_23
+    shifted_xk_r_18 <= _GEN_24
+    shifted_xk_r_19 <= _GEN_25
+    shifted_xk_r_20 <= _GEN_26
+    shifted_xk_r_21 <= _GEN_27
+    shifted_xk_r_22 <= _GEN_28
+    shifted_xk_r_23 <= _GEN_29
+    shifted_xk_r_24 <= _GEN_30
+    shifted_xk_r_25 <= _GEN_31
+
+  module tk_gen : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 191:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 191:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 191:7]
+    input io_vk_in_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 192:14]
+    input io_vk_in_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 192:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 192:14]
+    input io_counter_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 192:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 192:14]
+    output io_out_s : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 192:14]
+
+    inst dot of cmplx_dot_iterative_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 210:19]
+    inst divider of FP_divider_32_10 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 217:23]
+    reg out_s_reg : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), out_s_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 207:26]
+    reg counter : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 223:24]
+    node _counter_T = add(counter, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 227:38]
+    node _counter_T_1 = tail(_counter_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 227:38]
+    node _counter_T_2 = mux(io_in_en, _counter_T_1, counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 227:19]
+    node _GEN_0 = mux(io_counter_reset, UInt<1>("h0"), _counter_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 224:27 225:13 227:13]
+    node _GEN_1 = mux(io_in_en, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 213:16 230:18 231:18]
+    node _GEN_2 = mux(io_in_en, io_counter_reset, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 230:18 214:24 233:26]
+    node _WIRE__0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 211:{26,26}]
+    node _GEN_3 = mux(io_in_en, io_vk_in_0, _WIRE__0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 211:16 230:18 234:18]
+    node _WIRE__1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 211:{26,26}]
+    node _GEN_4 = mux(io_in_en, io_vk_in_1, _WIRE__1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 211:16 230:18 234:18]
+    node _WIRE_1_0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 212:{26,26}]
+    node _GEN_5 = mux(io_in_en, io_vk_in_0, _WIRE_1_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 212:16 230:18 235:18]
+    node _WIRE_1_1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 212:{26,26}]
+    node _GEN_6 = mux(io_in_en, io_vk_in_1, _WIRE_1_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 212:16 230:18 235:18]
+    node _T = geq(counter, UInt<6>("h32")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 238:16]
+    node _GEN_7 = mux(_T, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 220:20 238:33 239:22]
+    node _GEN_8 = mux(_T, UInt<32>("hc0000000"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 218:19 238:33 241:21]
+    node _GEN_9 = mux(_T, dot.io_out_real, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 219:19 238:33 242:21]
+    node _T_1 = eq(counter, UInt<6>("h3c")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 245:16]
+    node _GEN_10 = mux(_T_1, divider.io_out_s, out_s_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 245:36 246:15 207:26]
+    io_out_s <= out_s_reg @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 208:12]
+    out_s_reg <= mux(reset, UInt<32>("h0"), _GEN_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 207:{26,26}]
+    dot.clock <= clock
+    dot.reset <= reset
+    dot.io_vec_a_0 <= _GEN_3
+    dot.io_vec_a_1 <= _GEN_4
+    dot.io_vec_b_0 <= _GEN_5
+    dot.io_vec_b_1 <= _GEN_6
+    dot.io_counter_reset <= _GEN_2
+    dot.io_in_en <= _GEN_1
+    dot.io_in_valid <= _GEN_1
+    divider.clock <= clock
+    divider.reset <= reset
+    divider.io_in_en <= _GEN_7
+    divider.io_in_valid <= _GEN_7
+    divider.io_in_a <= _GEN_8
+    divider.io_in_b <= _GEN_9
+    counter <= mux(reset, UInt<32>("h0"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 223:{24,24}]
+
+  module tsqr_outer_loop : @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 316:7]
+    input clock : Clock @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 316:7]
+    input reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 316:7]
+    input io_xk_in_0 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+    input io_xk_in_1 : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+    input io_in_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+    input io_counter_reset : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+    input io_in_en : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+    output io_alpha_out : UInt<64> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+    output io_out_tk : UInt<32> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+    output io_out_valid : UInt<1> @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 317:14]
+
+    inst eu_norm_dot of cmplx_dot_iterative_v2 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 352:27]
+    inst alpha_gen of alpha @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 359:25]
+    inst vk_gen of vk_gen @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 368:22]
+    inst tk_gen of tk_gen @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 375:22]
+    inst sqrt of FP_sqrt_32_15 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 381:20]
+    reg counter : UInt<32>, clock with :
+      reset => (UInt<1>("h0"), counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 345:24]
+    node _counter_T = add(counter, UInt<1>("h1")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 349:38]
+    node _counter_T_1 = tail(_counter_T, 1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 349:38]
+    node _counter_T_2 = mux(io_in_en, _counter_T_1, counter) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 349:19]
+    node _GEN_0 = mux(io_counter_reset, UInt<1>("h0"), _counter_T_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 346:26 347:13 349:13]
+    reg x0_reg : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), x0_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 386:23]
+    node _T = eq(counter, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 387:17]
+    node _GEN_1 = mux(_T, io_xk_in_0, x0_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 387:26 388:12 386:23]
+    reg shifted_x0_r : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_2 = mux(UInt<1>("h1"), x0_reg, shifted_x0_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_1 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_3 = mux(UInt<1>("h1"), shifted_x0_r, shifted_x0_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_2 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_4 = mux(UInt<1>("h1"), shifted_x0_r_1, shifted_x0_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_3 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_5 = mux(UInt<1>("h1"), shifted_x0_r_2, shifted_x0_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_4 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_6 = mux(UInt<1>("h1"), shifted_x0_r_3, shifted_x0_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_5 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_7 = mux(UInt<1>("h1"), shifted_x0_r_4, shifted_x0_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_6 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_8 = mux(UInt<1>("h1"), shifted_x0_r_5, shifted_x0_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_7 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_9 = mux(UInt<1>("h1"), shifted_x0_r_6, shifted_x0_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_8 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_10 = mux(UInt<1>("h1"), shifted_x0_r_7, shifted_x0_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_9 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_11 = mux(UInt<1>("h1"), shifted_x0_r_8, shifted_x0_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_10 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_12 = mux(UInt<1>("h1"), shifted_x0_r_9, shifted_x0_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_11 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_13 = mux(UInt<1>("h1"), shifted_x0_r_10, shifted_x0_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_12 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_14 = mux(UInt<1>("h1"), shifted_x0_r_11, shifted_x0_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_13 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_15 = mux(UInt<1>("h1"), shifted_x0_r_12, shifted_x0_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_14 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_16 = mux(UInt<1>("h1"), shifted_x0_r_13, shifted_x0_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_15 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_17 = mux(UInt<1>("h1"), shifted_x0_r_14, shifted_x0_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_16 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_18 = mux(UInt<1>("h1"), shifted_x0_r_15, shifted_x0_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_17 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_19 = mux(UInt<1>("h1"), shifted_x0_r_16, shifted_x0_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_18 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_20 = mux(UInt<1>("h1"), shifted_x0_r_17, shifted_x0_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_19 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_21 = mux(UInt<1>("h1"), shifted_x0_r_18, shifted_x0_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_20 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_22 = mux(UInt<1>("h1"), shifted_x0_r_19, shifted_x0_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_21 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_23 = mux(UInt<1>("h1"), shifted_x0_r_20, shifted_x0_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_22 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_24 = mux(UInt<1>("h1"), shifted_x0_r_21, shifted_x0_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_23 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_25 = mux(UInt<1>("h1"), shifted_x0_r_22, shifted_x0_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_24 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_26 = mux(UInt<1>("h1"), shifted_x0_r_23, shifted_x0_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_25 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_27 = mux(UInt<1>("h1"), shifted_x0_r_24, shifted_x0_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_26 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_28 = mux(UInt<1>("h1"), shifted_x0_r_25, shifted_x0_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_27 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_29 = mux(UInt<1>("h1"), shifted_x0_r_26, shifted_x0_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_28 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_30 = mux(UInt<1>("h1"), shifted_x0_r_27, shifted_x0_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_29 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_31 = mux(UInt<1>("h1"), shifted_x0_r_28, shifted_x0_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_30 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_32 = mux(UInt<1>("h1"), shifted_x0_r_29, shifted_x0_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_31 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_33 = mux(UInt<1>("h1"), shifted_x0_r_30, shifted_x0_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_32 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_34 = mux(UInt<1>("h1"), shifted_x0_r_31, shifted_x0_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_33 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_35 = mux(UInt<1>("h1"), shifted_x0_r_32, shifted_x0_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_34 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_36 = mux(UInt<1>("h1"), shifted_x0_r_33, shifted_x0_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_35 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_37 = mux(UInt<1>("h1"), shifted_x0_r_34, shifted_x0_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_36 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_38 = mux(UInt<1>("h1"), shifted_x0_r_35, shifted_x0_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_37 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_39 = mux(UInt<1>("h1"), shifted_x0_r_36, shifted_x0_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_38 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_40 = mux(UInt<1>("h1"), shifted_x0_r_37, shifted_x0_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_39 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_41 = mux(UInt<1>("h1"), shifted_x0_r_38, shifted_x0_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_40 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_42 = mux(UInt<1>("h1"), shifted_x0_r_39, shifted_x0_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_41 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_43 = mux(UInt<1>("h1"), shifted_x0_r_40, shifted_x0_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_42 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_44 = mux(UInt<1>("h1"), shifted_x0_r_41, shifted_x0_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_43 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_45 = mux(UInt<1>("h1"), shifted_x0_r_42, shifted_x0_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_44 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_46 = mux(UInt<1>("h1"), shifted_x0_r_43, shifted_x0_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_45 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_47 = mux(UInt<1>("h1"), shifted_x0_r_44, shifted_x0_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_46 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_48 = mux(UInt<1>("h1"), shifted_x0_r_45, shifted_x0_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_47 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_49 = mux(UInt<1>("h1"), shifted_x0_r_46, shifted_x0_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_48 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_50 = mux(UInt<1>("h1"), shifted_x0_r_47, shifted_x0_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_49 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_51 = mux(UInt<1>("h1"), shifted_x0_r_48, shifted_x0_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_50 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_52 = mux(UInt<1>("h1"), shifted_x0_r_49, shifted_x0_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_51 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_53 = mux(UInt<1>("h1"), shifted_x0_r_50, shifted_x0_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_52 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_54 = mux(UInt<1>("h1"), shifted_x0_r_51, shifted_x0_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_53 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_55 = mux(UInt<1>("h1"), shifted_x0_r_52, shifted_x0_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_54 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_56 = mux(UInt<1>("h1"), shifted_x0_r_53, shifted_x0_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_55 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_57 = mux(UInt<1>("h1"), shifted_x0_r_54, shifted_x0_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_56 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_58 = mux(UInt<1>("h1"), shifted_x0_r_55, shifted_x0_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_57 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_59 = mux(UInt<1>("h1"), shifted_x0_r_56, shifted_x0_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_58 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_58) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_60 = mux(UInt<1>("h1"), shifted_x0_r_57, shifted_x0_r_58) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_59 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_59) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_61 = mux(UInt<1>("h1"), shifted_x0_r_58, shifted_x0_r_59) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_60 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_60) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_62 = mux(UInt<1>("h1"), shifted_x0_r_59, shifted_x0_r_60) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_61 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_61) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_63 = mux(UInt<1>("h1"), shifted_x0_r_60, shifted_x0_r_61) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0_r_62 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0_r_62) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_64 = mux(UInt<1>("h1"), shifted_x0_r_61, shifted_x0_r_62) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_x0 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_x0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:33]
+    node _GEN_65 = mux(UInt<1>("h1"), shifted_x0_r_62, shifted_x0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 390:{33,33,33}]
+    reg shifted_xk_0_r : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_66 = mux(UInt<1>("h1"), io_xk_in_0, shifted_xk_0_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_1 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_67 = mux(UInt<1>("h1"), shifted_xk_0_r, shifted_xk_0_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_2 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_68 = mux(UInt<1>("h1"), shifted_xk_0_r_1, shifted_xk_0_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_3 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_69 = mux(UInt<1>("h1"), shifted_xk_0_r_2, shifted_xk_0_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_4 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_70 = mux(UInt<1>("h1"), shifted_xk_0_r_3, shifted_xk_0_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_5 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_71 = mux(UInt<1>("h1"), shifted_xk_0_r_4, shifted_xk_0_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_6 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_72 = mux(UInt<1>("h1"), shifted_xk_0_r_5, shifted_xk_0_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_7 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_73 = mux(UInt<1>("h1"), shifted_xk_0_r_6, shifted_xk_0_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_8 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_74 = mux(UInt<1>("h1"), shifted_xk_0_r_7, shifted_xk_0_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_9 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_75 = mux(UInt<1>("h1"), shifted_xk_0_r_8, shifted_xk_0_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_10 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_76 = mux(UInt<1>("h1"), shifted_xk_0_r_9, shifted_xk_0_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_11 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_77 = mux(UInt<1>("h1"), shifted_xk_0_r_10, shifted_xk_0_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_12 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_78 = mux(UInt<1>("h1"), shifted_xk_0_r_11, shifted_xk_0_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_13 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_79 = mux(UInt<1>("h1"), shifted_xk_0_r_12, shifted_xk_0_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_14 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_80 = mux(UInt<1>("h1"), shifted_xk_0_r_13, shifted_xk_0_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_15 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_81 = mux(UInt<1>("h1"), shifted_xk_0_r_14, shifted_xk_0_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_16 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_82 = mux(UInt<1>("h1"), shifted_xk_0_r_15, shifted_xk_0_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_17 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_83 = mux(UInt<1>("h1"), shifted_xk_0_r_16, shifted_xk_0_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_18 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_84 = mux(UInt<1>("h1"), shifted_xk_0_r_17, shifted_xk_0_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_19 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_85 = mux(UInt<1>("h1"), shifted_xk_0_r_18, shifted_xk_0_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_20 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_86 = mux(UInt<1>("h1"), shifted_xk_0_r_19, shifted_xk_0_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_21 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_87 = mux(UInt<1>("h1"), shifted_xk_0_r_20, shifted_xk_0_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_22 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_88 = mux(UInt<1>("h1"), shifted_xk_0_r_21, shifted_xk_0_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_23 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_89 = mux(UInt<1>("h1"), shifted_xk_0_r_22, shifted_xk_0_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_24 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_90 = mux(UInt<1>("h1"), shifted_xk_0_r_23, shifted_xk_0_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_25 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_91 = mux(UInt<1>("h1"), shifted_xk_0_r_24, shifted_xk_0_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_26 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_92 = mux(UInt<1>("h1"), shifted_xk_0_r_25, shifted_xk_0_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_27 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_93 = mux(UInt<1>("h1"), shifted_xk_0_r_26, shifted_xk_0_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_28 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_94 = mux(UInt<1>("h1"), shifted_xk_0_r_27, shifted_xk_0_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_29 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_95 = mux(UInt<1>("h1"), shifted_xk_0_r_28, shifted_xk_0_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_30 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_96 = mux(UInt<1>("h1"), shifted_xk_0_r_29, shifted_xk_0_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_31 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_97 = mux(UInt<1>("h1"), shifted_xk_0_r_30, shifted_xk_0_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_32 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_98 = mux(UInt<1>("h1"), shifted_xk_0_r_31, shifted_xk_0_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_33 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_99 = mux(UInt<1>("h1"), shifted_xk_0_r_32, shifted_xk_0_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_34 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_100 = mux(UInt<1>("h1"), shifted_xk_0_r_33, shifted_xk_0_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_35 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_101 = mux(UInt<1>("h1"), shifted_xk_0_r_34, shifted_xk_0_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_36 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_102 = mux(UInt<1>("h1"), shifted_xk_0_r_35, shifted_xk_0_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_37 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_103 = mux(UInt<1>("h1"), shifted_xk_0_r_36, shifted_xk_0_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_38 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_104 = mux(UInt<1>("h1"), shifted_xk_0_r_37, shifted_xk_0_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_39 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_105 = mux(UInt<1>("h1"), shifted_xk_0_r_38, shifted_xk_0_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_40 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_106 = mux(UInt<1>("h1"), shifted_xk_0_r_39, shifted_xk_0_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_41 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_107 = mux(UInt<1>("h1"), shifted_xk_0_r_40, shifted_xk_0_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_42 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_108 = mux(UInt<1>("h1"), shifted_xk_0_r_41, shifted_xk_0_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_43 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_109 = mux(UInt<1>("h1"), shifted_xk_0_r_42, shifted_xk_0_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_44 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_110 = mux(UInt<1>("h1"), shifted_xk_0_r_43, shifted_xk_0_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_45 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_111 = mux(UInt<1>("h1"), shifted_xk_0_r_44, shifted_xk_0_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_46 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_112 = mux(UInt<1>("h1"), shifted_xk_0_r_45, shifted_xk_0_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_47 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_113 = mux(UInt<1>("h1"), shifted_xk_0_r_46, shifted_xk_0_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_48 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_114 = mux(UInt<1>("h1"), shifted_xk_0_r_47, shifted_xk_0_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_49 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_115 = mux(UInt<1>("h1"), shifted_xk_0_r_48, shifted_xk_0_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_50 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_116 = mux(UInt<1>("h1"), shifted_xk_0_r_49, shifted_xk_0_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_51 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_117 = mux(UInt<1>("h1"), shifted_xk_0_r_50, shifted_xk_0_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_52 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_118 = mux(UInt<1>("h1"), shifted_xk_0_r_51, shifted_xk_0_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_53 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_119 = mux(UInt<1>("h1"), shifted_xk_0_r_52, shifted_xk_0_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_54 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_120 = mux(UInt<1>("h1"), shifted_xk_0_r_53, shifted_xk_0_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_55 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_121 = mux(UInt<1>("h1"), shifted_xk_0_r_54, shifted_xk_0_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_56 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_122 = mux(UInt<1>("h1"), shifted_xk_0_r_55, shifted_xk_0_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_57 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_123 = mux(UInt<1>("h1"), shifted_xk_0_r_56, shifted_xk_0_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_58 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_58) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_124 = mux(UInt<1>("h1"), shifted_xk_0_r_57, shifted_xk_0_r_58) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_59 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_59) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_125 = mux(UInt<1>("h1"), shifted_xk_0_r_58, shifted_xk_0_r_59) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_60 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_60) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_126 = mux(UInt<1>("h1"), shifted_xk_0_r_59, shifted_xk_0_r_60) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_61 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_61) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_127 = mux(UInt<1>("h1"), shifted_xk_0_r_60, shifted_xk_0_r_61) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_62 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_62) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_128 = mux(UInt<1>("h1"), shifted_xk_0_r_61, shifted_xk_0_r_62) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_63 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_63) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_129 = mux(UInt<1>("h1"), shifted_xk_0_r_62, shifted_xk_0_r_63) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_64 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_64) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_130 = mux(UInt<1>("h1"), shifted_xk_0_r_63, shifted_xk_0_r_64) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_65 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_65) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_131 = mux(UInt<1>("h1"), shifted_xk_0_r_64, shifted_xk_0_r_65) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_66 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_66) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_132 = mux(UInt<1>("h1"), shifted_xk_0_r_65, shifted_xk_0_r_66) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_67 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_67) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_133 = mux(UInt<1>("h1"), shifted_xk_0_r_66, shifted_xk_0_r_67) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_68 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_68) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_134 = mux(UInt<1>("h1"), shifted_xk_0_r_67, shifted_xk_0_r_68) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_69 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_69) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_135 = mux(UInt<1>("h1"), shifted_xk_0_r_68, shifted_xk_0_r_69) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_70 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_70) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_136 = mux(UInt<1>("h1"), shifted_xk_0_r_69, shifted_xk_0_r_70) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_71 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_71) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_137 = mux(UInt<1>("h1"), shifted_xk_0_r_70, shifted_xk_0_r_71) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_72 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_72) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_138 = mux(UInt<1>("h1"), shifted_xk_0_r_71, shifted_xk_0_r_72) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_73 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_73) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_139 = mux(UInt<1>("h1"), shifted_xk_0_r_72, shifted_xk_0_r_73) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_74 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_74) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_140 = mux(UInt<1>("h1"), shifted_xk_0_r_73, shifted_xk_0_r_74) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_75 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_75) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_141 = mux(UInt<1>("h1"), shifted_xk_0_r_74, shifted_xk_0_r_75) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_76 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_76) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_142 = mux(UInt<1>("h1"), shifted_xk_0_r_75, shifted_xk_0_r_76) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_77 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_77) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_143 = mux(UInt<1>("h1"), shifted_xk_0_r_76, shifted_xk_0_r_77) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_78 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_78) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_144 = mux(UInt<1>("h1"), shifted_xk_0_r_77, shifted_xk_0_r_78) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_79 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_79) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_145 = mux(UInt<1>("h1"), shifted_xk_0_r_78, shifted_xk_0_r_79) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_80 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_80) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_146 = mux(UInt<1>("h1"), shifted_xk_0_r_79, shifted_xk_0_r_80) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_81 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_81) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_147 = mux(UInt<1>("h1"), shifted_xk_0_r_80, shifted_xk_0_r_81) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_82 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_82) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_148 = mux(UInt<1>("h1"), shifted_xk_0_r_81, shifted_xk_0_r_82) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_83 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_83) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_149 = mux(UInt<1>("h1"), shifted_xk_0_r_82, shifted_xk_0_r_83) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_84 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_84) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_150 = mux(UInt<1>("h1"), shifted_xk_0_r_83, shifted_xk_0_r_84) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_85 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_85) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_151 = mux(UInt<1>("h1"), shifted_xk_0_r_84, shifted_xk_0_r_85) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_86 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_86) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_152 = mux(UInt<1>("h1"), shifted_xk_0_r_85, shifted_xk_0_r_86) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_87 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_87) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_153 = mux(UInt<1>("h1"), shifted_xk_0_r_86, shifted_xk_0_r_87) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_88 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_88) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_154 = mux(UInt<1>("h1"), shifted_xk_0_r_87, shifted_xk_0_r_88) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_89 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_89) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_155 = mux(UInt<1>("h1"), shifted_xk_0_r_88, shifted_xk_0_r_89) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_90 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_90) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_156 = mux(UInt<1>("h1"), shifted_xk_0_r_89, shifted_xk_0_r_90) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_91 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_91) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_157 = mux(UInt<1>("h1"), shifted_xk_0_r_90, shifted_xk_0_r_91) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_92 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_92) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_158 = mux(UInt<1>("h1"), shifted_xk_0_r_91, shifted_xk_0_r_92) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_93 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_93) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_159 = mux(UInt<1>("h1"), shifted_xk_0_r_92, shifted_xk_0_r_93) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_94 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_94) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_160 = mux(UInt<1>("h1"), shifted_xk_0_r_93, shifted_xk_0_r_94) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_95 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_95) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_161 = mux(UInt<1>("h1"), shifted_xk_0_r_94, shifted_xk_0_r_95) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_96 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_96) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_162 = mux(UInt<1>("h1"), shifted_xk_0_r_95, shifted_xk_0_r_96) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_97 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_97) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_163 = mux(UInt<1>("h1"), shifted_xk_0_r_96, shifted_xk_0_r_97) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_98 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_98) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_164 = mux(UInt<1>("h1"), shifted_xk_0_r_97, shifted_xk_0_r_98) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_99 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_99) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_165 = mux(UInt<1>("h1"), shifted_xk_0_r_98, shifted_xk_0_r_99) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_100 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_100) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_166 = mux(UInt<1>("h1"), shifted_xk_0_r_99, shifted_xk_0_r_100) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_101 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_101) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_167 = mux(UInt<1>("h1"), shifted_xk_0_r_100, shifted_xk_0_r_101) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_102 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_102) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_168 = mux(UInt<1>("h1"), shifted_xk_0_r_101, shifted_xk_0_r_102) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_103 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_103) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_169 = mux(UInt<1>("h1"), shifted_xk_0_r_102, shifted_xk_0_r_103) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_104 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_104) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_170 = mux(UInt<1>("h1"), shifted_xk_0_r_103, shifted_xk_0_r_104) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_105 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_105) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_171 = mux(UInt<1>("h1"), shifted_xk_0_r_104, shifted_xk_0_r_105) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_106 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_106) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_172 = mux(UInt<1>("h1"), shifted_xk_0_r_105, shifted_xk_0_r_106) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_107 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_107) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_173 = mux(UInt<1>("h1"), shifted_xk_0_r_106, shifted_xk_0_r_107) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_108 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_108) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_174 = mux(UInt<1>("h1"), shifted_xk_0_r_107, shifted_xk_0_r_108) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_109 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_109) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_175 = mux(UInt<1>("h1"), shifted_xk_0_r_108, shifted_xk_0_r_109) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_110 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_110) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_176 = mux(UInt<1>("h1"), shifted_xk_0_r_109, shifted_xk_0_r_110) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_111 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_111) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_177 = mux(UInt<1>("h1"), shifted_xk_0_r_110, shifted_xk_0_r_111) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_112 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_112) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_178 = mux(UInt<1>("h1"), shifted_xk_0_r_111, shifted_xk_0_r_112) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_113 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_113) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_179 = mux(UInt<1>("h1"), shifted_xk_0_r_112, shifted_xk_0_r_113) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_114 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_114) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_180 = mux(UInt<1>("h1"), shifted_xk_0_r_113, shifted_xk_0_r_114) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_115 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_115) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_181 = mux(UInt<1>("h1"), shifted_xk_0_r_114, shifted_xk_0_r_115) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_116 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_116) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_182 = mux(UInt<1>("h1"), shifted_xk_0_r_115, shifted_xk_0_r_116) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_117 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_117) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_183 = mux(UInt<1>("h1"), shifted_xk_0_r_116, shifted_xk_0_r_117) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_118 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_118) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_184 = mux(UInt<1>("h1"), shifted_xk_0_r_117, shifted_xk_0_r_118) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_119 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_119) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_185 = mux(UInt<1>("h1"), shifted_xk_0_r_118, shifted_xk_0_r_119) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_120 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_120) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_186 = mux(UInt<1>("h1"), shifted_xk_0_r_119, shifted_xk_0_r_120) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_121 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_121) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_187 = mux(UInt<1>("h1"), shifted_xk_0_r_120, shifted_xk_0_r_121) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_0_r_122 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_0_r_122) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_188 = mux(UInt<1>("h1"), shifted_xk_0_r_121, shifted_xk_0_r_122) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_189 = mux(UInt<1>("h1"), io_xk_in_1, shifted_xk_1_r) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_1 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_190 = mux(UInt<1>("h1"), shifted_xk_1_r, shifted_xk_1_r_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_2 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_191 = mux(UInt<1>("h1"), shifted_xk_1_r_1, shifted_xk_1_r_2) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_3 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_192 = mux(UInt<1>("h1"), shifted_xk_1_r_2, shifted_xk_1_r_3) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_4 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_193 = mux(UInt<1>("h1"), shifted_xk_1_r_3, shifted_xk_1_r_4) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_5 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_194 = mux(UInt<1>("h1"), shifted_xk_1_r_4, shifted_xk_1_r_5) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_6 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_195 = mux(UInt<1>("h1"), shifted_xk_1_r_5, shifted_xk_1_r_6) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_7 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_196 = mux(UInt<1>("h1"), shifted_xk_1_r_6, shifted_xk_1_r_7) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_8 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_197 = mux(UInt<1>("h1"), shifted_xk_1_r_7, shifted_xk_1_r_8) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_9 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_198 = mux(UInt<1>("h1"), shifted_xk_1_r_8, shifted_xk_1_r_9) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_10 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_199 = mux(UInt<1>("h1"), shifted_xk_1_r_9, shifted_xk_1_r_10) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_11 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_200 = mux(UInt<1>("h1"), shifted_xk_1_r_10, shifted_xk_1_r_11) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_12 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_201 = mux(UInt<1>("h1"), shifted_xk_1_r_11, shifted_xk_1_r_12) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_13 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_202 = mux(UInt<1>("h1"), shifted_xk_1_r_12, shifted_xk_1_r_13) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_14 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_203 = mux(UInt<1>("h1"), shifted_xk_1_r_13, shifted_xk_1_r_14) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_15 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_204 = mux(UInt<1>("h1"), shifted_xk_1_r_14, shifted_xk_1_r_15) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_16 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_205 = mux(UInt<1>("h1"), shifted_xk_1_r_15, shifted_xk_1_r_16) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_17 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_206 = mux(UInt<1>("h1"), shifted_xk_1_r_16, shifted_xk_1_r_17) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_18 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_207 = mux(UInt<1>("h1"), shifted_xk_1_r_17, shifted_xk_1_r_18) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_19 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_208 = mux(UInt<1>("h1"), shifted_xk_1_r_18, shifted_xk_1_r_19) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_20 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_209 = mux(UInt<1>("h1"), shifted_xk_1_r_19, shifted_xk_1_r_20) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_21 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_210 = mux(UInt<1>("h1"), shifted_xk_1_r_20, shifted_xk_1_r_21) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_22 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_211 = mux(UInt<1>("h1"), shifted_xk_1_r_21, shifted_xk_1_r_22) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_23 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_212 = mux(UInt<1>("h1"), shifted_xk_1_r_22, shifted_xk_1_r_23) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_24 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_213 = mux(UInt<1>("h1"), shifted_xk_1_r_23, shifted_xk_1_r_24) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_25 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_214 = mux(UInt<1>("h1"), shifted_xk_1_r_24, shifted_xk_1_r_25) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_26 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_215 = mux(UInt<1>("h1"), shifted_xk_1_r_25, shifted_xk_1_r_26) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_27 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_216 = mux(UInt<1>("h1"), shifted_xk_1_r_26, shifted_xk_1_r_27) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_28 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_217 = mux(UInt<1>("h1"), shifted_xk_1_r_27, shifted_xk_1_r_28) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_29 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_218 = mux(UInt<1>("h1"), shifted_xk_1_r_28, shifted_xk_1_r_29) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_30 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_219 = mux(UInt<1>("h1"), shifted_xk_1_r_29, shifted_xk_1_r_30) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_31 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_220 = mux(UInt<1>("h1"), shifted_xk_1_r_30, shifted_xk_1_r_31) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_32 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_221 = mux(UInt<1>("h1"), shifted_xk_1_r_31, shifted_xk_1_r_32) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_33 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_222 = mux(UInt<1>("h1"), shifted_xk_1_r_32, shifted_xk_1_r_33) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_34 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_223 = mux(UInt<1>("h1"), shifted_xk_1_r_33, shifted_xk_1_r_34) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_35 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_224 = mux(UInt<1>("h1"), shifted_xk_1_r_34, shifted_xk_1_r_35) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_36 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_225 = mux(UInt<1>("h1"), shifted_xk_1_r_35, shifted_xk_1_r_36) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_37 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_226 = mux(UInt<1>("h1"), shifted_xk_1_r_36, shifted_xk_1_r_37) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_38 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_227 = mux(UInt<1>("h1"), shifted_xk_1_r_37, shifted_xk_1_r_38) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_39 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_228 = mux(UInt<1>("h1"), shifted_xk_1_r_38, shifted_xk_1_r_39) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_40 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_229 = mux(UInt<1>("h1"), shifted_xk_1_r_39, shifted_xk_1_r_40) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_41 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_230 = mux(UInt<1>("h1"), shifted_xk_1_r_40, shifted_xk_1_r_41) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_42 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_231 = mux(UInt<1>("h1"), shifted_xk_1_r_41, shifted_xk_1_r_42) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_43 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_232 = mux(UInt<1>("h1"), shifted_xk_1_r_42, shifted_xk_1_r_43) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_44 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_233 = mux(UInt<1>("h1"), shifted_xk_1_r_43, shifted_xk_1_r_44) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_45 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_234 = mux(UInt<1>("h1"), shifted_xk_1_r_44, shifted_xk_1_r_45) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_46 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_235 = mux(UInt<1>("h1"), shifted_xk_1_r_45, shifted_xk_1_r_46) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_47 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_236 = mux(UInt<1>("h1"), shifted_xk_1_r_46, shifted_xk_1_r_47) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_48 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_237 = mux(UInt<1>("h1"), shifted_xk_1_r_47, shifted_xk_1_r_48) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_49 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_238 = mux(UInt<1>("h1"), shifted_xk_1_r_48, shifted_xk_1_r_49) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_50 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_239 = mux(UInt<1>("h1"), shifted_xk_1_r_49, shifted_xk_1_r_50) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_51 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_240 = mux(UInt<1>("h1"), shifted_xk_1_r_50, shifted_xk_1_r_51) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_52 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_241 = mux(UInt<1>("h1"), shifted_xk_1_r_51, shifted_xk_1_r_52) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_53 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_242 = mux(UInt<1>("h1"), shifted_xk_1_r_52, shifted_xk_1_r_53) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_54 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_243 = mux(UInt<1>("h1"), shifted_xk_1_r_53, shifted_xk_1_r_54) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_55 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_244 = mux(UInt<1>("h1"), shifted_xk_1_r_54, shifted_xk_1_r_55) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_56 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_245 = mux(UInt<1>("h1"), shifted_xk_1_r_55, shifted_xk_1_r_56) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_57 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_246 = mux(UInt<1>("h1"), shifted_xk_1_r_56, shifted_xk_1_r_57) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_58 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_58) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_247 = mux(UInt<1>("h1"), shifted_xk_1_r_57, shifted_xk_1_r_58) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_59 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_59) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_248 = mux(UInt<1>("h1"), shifted_xk_1_r_58, shifted_xk_1_r_59) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_60 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_60) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_249 = mux(UInt<1>("h1"), shifted_xk_1_r_59, shifted_xk_1_r_60) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_61 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_61) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_250 = mux(UInt<1>("h1"), shifted_xk_1_r_60, shifted_xk_1_r_61) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_62 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_62) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_251 = mux(UInt<1>("h1"), shifted_xk_1_r_61, shifted_xk_1_r_62) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_63 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_63) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_252 = mux(UInt<1>("h1"), shifted_xk_1_r_62, shifted_xk_1_r_63) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_64 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_64) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_253 = mux(UInt<1>("h1"), shifted_xk_1_r_63, shifted_xk_1_r_64) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_65 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_65) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_254 = mux(UInt<1>("h1"), shifted_xk_1_r_64, shifted_xk_1_r_65) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_66 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_66) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_255 = mux(UInt<1>("h1"), shifted_xk_1_r_65, shifted_xk_1_r_66) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_67 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_67) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_256 = mux(UInt<1>("h1"), shifted_xk_1_r_66, shifted_xk_1_r_67) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_68 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_68) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_257 = mux(UInt<1>("h1"), shifted_xk_1_r_67, shifted_xk_1_r_68) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_69 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_69) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_258 = mux(UInt<1>("h1"), shifted_xk_1_r_68, shifted_xk_1_r_69) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_70 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_70) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_259 = mux(UInt<1>("h1"), shifted_xk_1_r_69, shifted_xk_1_r_70) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_71 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_71) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_260 = mux(UInt<1>("h1"), shifted_xk_1_r_70, shifted_xk_1_r_71) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_72 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_72) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_261 = mux(UInt<1>("h1"), shifted_xk_1_r_71, shifted_xk_1_r_72) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_73 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_73) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_262 = mux(UInt<1>("h1"), shifted_xk_1_r_72, shifted_xk_1_r_73) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_74 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_74) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_263 = mux(UInt<1>("h1"), shifted_xk_1_r_73, shifted_xk_1_r_74) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_75 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_75) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_264 = mux(UInt<1>("h1"), shifted_xk_1_r_74, shifted_xk_1_r_75) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_76 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_76) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_265 = mux(UInt<1>("h1"), shifted_xk_1_r_75, shifted_xk_1_r_76) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_77 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_77) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_266 = mux(UInt<1>("h1"), shifted_xk_1_r_76, shifted_xk_1_r_77) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_78 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_78) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_267 = mux(UInt<1>("h1"), shifted_xk_1_r_77, shifted_xk_1_r_78) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_79 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_79) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_268 = mux(UInt<1>("h1"), shifted_xk_1_r_78, shifted_xk_1_r_79) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_80 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_80) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_269 = mux(UInt<1>("h1"), shifted_xk_1_r_79, shifted_xk_1_r_80) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_81 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_81) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_270 = mux(UInt<1>("h1"), shifted_xk_1_r_80, shifted_xk_1_r_81) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_82 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_82) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_271 = mux(UInt<1>("h1"), shifted_xk_1_r_81, shifted_xk_1_r_82) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_83 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_83) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_272 = mux(UInt<1>("h1"), shifted_xk_1_r_82, shifted_xk_1_r_83) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_84 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_84) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_273 = mux(UInt<1>("h1"), shifted_xk_1_r_83, shifted_xk_1_r_84) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_85 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_85) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_274 = mux(UInt<1>("h1"), shifted_xk_1_r_84, shifted_xk_1_r_85) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_86 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_86) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_275 = mux(UInt<1>("h1"), shifted_xk_1_r_85, shifted_xk_1_r_86) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_87 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_87) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_276 = mux(UInt<1>("h1"), shifted_xk_1_r_86, shifted_xk_1_r_87) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_88 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_88) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_277 = mux(UInt<1>("h1"), shifted_xk_1_r_87, shifted_xk_1_r_88) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_89 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_89) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_278 = mux(UInt<1>("h1"), shifted_xk_1_r_88, shifted_xk_1_r_89) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_90 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_90) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_279 = mux(UInt<1>("h1"), shifted_xk_1_r_89, shifted_xk_1_r_90) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_91 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_91) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_280 = mux(UInt<1>("h1"), shifted_xk_1_r_90, shifted_xk_1_r_91) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_92 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_92) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_281 = mux(UInt<1>("h1"), shifted_xk_1_r_91, shifted_xk_1_r_92) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_93 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_93) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_282 = mux(UInt<1>("h1"), shifted_xk_1_r_92, shifted_xk_1_r_93) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_94 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_94) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_283 = mux(UInt<1>("h1"), shifted_xk_1_r_93, shifted_xk_1_r_94) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_95 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_95) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_284 = mux(UInt<1>("h1"), shifted_xk_1_r_94, shifted_xk_1_r_95) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_96 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_96) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_285 = mux(UInt<1>("h1"), shifted_xk_1_r_95, shifted_xk_1_r_96) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_97 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_97) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_286 = mux(UInt<1>("h1"), shifted_xk_1_r_96, shifted_xk_1_r_97) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_98 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_98) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_287 = mux(UInt<1>("h1"), shifted_xk_1_r_97, shifted_xk_1_r_98) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_99 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_99) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_288 = mux(UInt<1>("h1"), shifted_xk_1_r_98, shifted_xk_1_r_99) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_100 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_100) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_289 = mux(UInt<1>("h1"), shifted_xk_1_r_99, shifted_xk_1_r_100) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_101 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_101) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_290 = mux(UInt<1>("h1"), shifted_xk_1_r_100, shifted_xk_1_r_101) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_102 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_102) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_291 = mux(UInt<1>("h1"), shifted_xk_1_r_101, shifted_xk_1_r_102) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_103 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_103) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_292 = mux(UInt<1>("h1"), shifted_xk_1_r_102, shifted_xk_1_r_103) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_104 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_104) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_293 = mux(UInt<1>("h1"), shifted_xk_1_r_103, shifted_xk_1_r_104) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_105 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_105) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_294 = mux(UInt<1>("h1"), shifted_xk_1_r_104, shifted_xk_1_r_105) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_106 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_106) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_295 = mux(UInt<1>("h1"), shifted_xk_1_r_105, shifted_xk_1_r_106) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_107 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_107) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_296 = mux(UInt<1>("h1"), shifted_xk_1_r_106, shifted_xk_1_r_107) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_108 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_108) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_297 = mux(UInt<1>("h1"), shifted_xk_1_r_107, shifted_xk_1_r_108) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_109 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_109) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_298 = mux(UInt<1>("h1"), shifted_xk_1_r_108, shifted_xk_1_r_109) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_110 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_110) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_299 = mux(UInt<1>("h1"), shifted_xk_1_r_109, shifted_xk_1_r_110) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_111 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_111) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_300 = mux(UInt<1>("h1"), shifted_xk_1_r_110, shifted_xk_1_r_111) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_112 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_112) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_301 = mux(UInt<1>("h1"), shifted_xk_1_r_111, shifted_xk_1_r_112) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_113 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_113) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_302 = mux(UInt<1>("h1"), shifted_xk_1_r_112, shifted_xk_1_r_113) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_114 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_114) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_303 = mux(UInt<1>("h1"), shifted_xk_1_r_113, shifted_xk_1_r_114) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_115 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_115) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_304 = mux(UInt<1>("h1"), shifted_xk_1_r_114, shifted_xk_1_r_115) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_116 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_116) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_305 = mux(UInt<1>("h1"), shifted_xk_1_r_115, shifted_xk_1_r_116) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_117 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_117) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_306 = mux(UInt<1>("h1"), shifted_xk_1_r_116, shifted_xk_1_r_117) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_118 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_118) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_307 = mux(UInt<1>("h1"), shifted_xk_1_r_117, shifted_xk_1_r_118) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_119 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_119) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_308 = mux(UInt<1>("h1"), shifted_xk_1_r_118, shifted_xk_1_r_119) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_120 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_120) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_309 = mux(UInt<1>("h1"), shifted_xk_1_r_119, shifted_xk_1_r_120) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_121 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_121) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_310 = mux(UInt<1>("h1"), shifted_xk_1_r_120, shifted_xk_1_r_121) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    reg shifted_xk_1_r_122 : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), shifted_xk_1_r_122) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:35]
+    node _GEN_311 = mux(UInt<1>("h1"), shifted_xk_1_r_121, shifted_xk_1_r_122) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 394:{35,35,35}]
+    node _T_1 = geq(counter, UInt<6>("h32")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 405:18]
+    node _GEN_312 = mux(_T_1, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 382:17 405:36 406:21]
+    node _GEN_313 = mux(_T_1, eu_norm_dot.io_out_real, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 384:16 405:36 409:20]
+    node _GEN_314 = mux(io_in_en, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 397:18 353:24 398:26]
+    node _GEN_315 = mux(io_in_en, io_counter_reset, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 397:18 355:32 400:34]
+    node _WIRE__0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 356:{43,43}]
+    node _GEN_316 = mux(io_in_en, io_xk_in_0, _WIRE__0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 397:18 356:24 402:26]
+    node _WIRE__1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 356:{43,43}]
+    node _GEN_317 = mux(io_in_en, io_xk_in_1, _WIRE__1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 397:18 356:24 402:26]
+    node _WIRE_1_0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 357:{43,43}]
+    node _GEN_318 = mux(io_in_en, io_xk_in_0, _WIRE_1_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 397:18 357:24 403:26]
+    node _WIRE_1_1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 357:{43,43}]
+    node _GEN_319 = mux(io_in_en, io_xk_in_1, _WIRE_1_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 397:18 357:24 403:26]
+    node _GEN_320 = mux(io_in_en, _GEN_312, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 382:17 397:18]
+    node _GEN_321 = mux(io_in_en, _GEN_313, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 384:16 397:18]
+    node _T_2 = geq(counter, UInt<7>("h41")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 413:16]
+    node _GEN_322 = mux(_T_2, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 360:22 413:29 414:24]
+    node _GEN_323 = mux(_T_2, io_counter_reset, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 413:29 362:30 416:32]
+    node _GEN_324 = mux(_T_2, shifted_x0, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 363:22 413:29 418:24]
+    node _GEN_325 = mux(_T_2, sqrt.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 364:27 413:29 419:29]
+    node _T_3 = geq(counter, UInt<7>("h7b")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 422:16]
+    node _GEN_326 = mux(_T_3, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 369:19 422:33 423:21]
+    node _GEN_327 = mux(_T_3, io_counter_reset, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 371:27 422:33 425:29]
+    node _GEN_328 = mux(_T_3, alpha_gen.io_out_s, UInt<64>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 396:23 422:33 427:24]
+    node shifted_xk_0 = shifted_xk_0_r_122 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 392:24 394:19]
+    node _WIRE_2_0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 372:{38,38}]
+    node _GEN_329 = mux(_T_3, shifted_xk_0, _WIRE_2_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 372:19 422:33 428:21]
+    node shifted_xk_1 = shifted_xk_1_r_122 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 392:24 394:19]
+    node _WIRE_2_1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 372:{38,38}]
+    node _GEN_330 = mux(_T_3, shifted_xk_1, _WIRE_2_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 372:19 422:33 428:21]
+    node _T_4 = geq(counter, UInt<8>("h88")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 431:16]
+    node _GEN_331 = mux(_T_4, UInt<1>("h1"), UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 376:19 431:31 432:21]
+    node _GEN_332 = mux(_T_4, io_counter_reset, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 378:27 431:31 434:29]
+    node _WIRE_3_0 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 379:{38,38}]
+    node _GEN_333 = mux(_T_4, vk_gen.io_out_s_0, _WIRE_3_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 379:19 431:31 436:21]
+    node _WIRE_3_1 = UInt<64>("h0") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 379:{38,38}]
+    node _GEN_334 = mux(_T_4, vk_gen.io_out_s_1, _WIRE_3_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 379:19 431:31 436:21]
+    reg alpha_reg : UInt<64>, clock with :
+      reset => (UInt<1>("h0"), alpha_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 438:26]
+    node _T_5 = eq(counter, UInt<7>("h7b")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 440:17]
+    node _GEN_335 = mux(_T_5, alpha_gen.io_out_s, alpha_reg) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 440:34 441:15 438:26]
+    reg valid_done : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), valid_done) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 444:27]
+    node _T_6 = eq(counter, UInt<8>("hc5")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 446:17]
+    node _GEN_336 = mux(_T_6, UInt<1>("h1"), valid_done) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 446:32 447:16 444:27]
+    node _GEN_337 = mux(io_counter_reset, UInt<1>("h0"), _GEN_336) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 450:26 451:16]
+    node _io_out_tk_T = eq(counter, UInt<8>("hc5")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 456:29]
+    node _io_out_tk_T_1 = mux(_io_out_tk_T, tk_gen.io_out_s, UInt<1>("h0")) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 456:20]
+    io_alpha_out <= alpha_reg @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 454:16]
+    io_out_tk <= _io_out_tk_T_1 @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 456:13]
+    io_out_valid <= valid_done @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 457:16]
+    counter <= mux(reset, UInt<32>("h0"), _GEN_0) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 345:{24,24}]
+    eu_norm_dot.clock <= clock
+    eu_norm_dot.reset <= reset
+    eu_norm_dot.io_vec_a_0 <= _GEN_316
+    eu_norm_dot.io_vec_a_1 <= _GEN_317
+    eu_norm_dot.io_vec_b_0 <= _GEN_318
+    eu_norm_dot.io_vec_b_1 <= _GEN_319
+    eu_norm_dot.io_counter_reset <= _GEN_315
+    eu_norm_dot.io_in_en <= _GEN_314
+    eu_norm_dot.io_in_valid <= _GEN_314
+    alpha_gen.clock <= clock
+    alpha_gen.reset <= reset
+    alpha_gen.io_in_x0 <= _GEN_324
+    alpha_gen.io_in_eu_norm <= _GEN_325
+    alpha_gen.io_in_en <= _GEN_322
+    alpha_gen.io_counter_reset <= _GEN_323
+    alpha_gen.io_in_valid <= _GEN_322
+    vk_gen.clock <= clock
+    vk_gen.reset <= reset
+    vk_gen.io_xk_in_0 <= _GEN_329
+    vk_gen.io_xk_in_1 <= _GEN_330
+    vk_gen.io_alpha_in <= _GEN_328
+    vk_gen.io_k_in <= UInt<32>("h4") @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 373:18]
+    vk_gen.io_in_en <= _GEN_326
+    vk_gen.io_counter_reset <= _GEN_327
+    vk_gen.io_in_valid <= _GEN_326
+    tk_gen.clock <= clock
+    tk_gen.reset <= reset
+    tk_gen.io_vk_in_0 <= _GEN_333
+    tk_gen.io_vk_in_1 <= _GEN_334
+    tk_gen.io_in_en <= _GEN_331
+    tk_gen.io_counter_reset <= _GEN_332
+    tk_gen.io_in_valid <= _GEN_331
+    sqrt.clock <= clock
+    sqrt.reset <= reset
+    sqrt.io_in_en <= _GEN_320
+    sqrt.io_in_valid <= _GEN_320
+    sqrt.io_in_a <= _GEN_321
+    x0_reg <= mux(reset, UInt<64>("h0"), _GEN_1) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 386:{23,23}]
+    shifted_x0_r <= _GEN_2
+    shifted_x0_r_1 <= _GEN_3
+    shifted_x0_r_2 <= _GEN_4
+    shifted_x0_r_3 <= _GEN_5
+    shifted_x0_r_4 <= _GEN_6
+    shifted_x0_r_5 <= _GEN_7
+    shifted_x0_r_6 <= _GEN_8
+    shifted_x0_r_7 <= _GEN_9
+    shifted_x0_r_8 <= _GEN_10
+    shifted_x0_r_9 <= _GEN_11
+    shifted_x0_r_10 <= _GEN_12
+    shifted_x0_r_11 <= _GEN_13
+    shifted_x0_r_12 <= _GEN_14
+    shifted_x0_r_13 <= _GEN_15
+    shifted_x0_r_14 <= _GEN_16
+    shifted_x0_r_15 <= _GEN_17
+    shifted_x0_r_16 <= _GEN_18
+    shifted_x0_r_17 <= _GEN_19
+    shifted_x0_r_18 <= _GEN_20
+    shifted_x0_r_19 <= _GEN_21
+    shifted_x0_r_20 <= _GEN_22
+    shifted_x0_r_21 <= _GEN_23
+    shifted_x0_r_22 <= _GEN_24
+    shifted_x0_r_23 <= _GEN_25
+    shifted_x0_r_24 <= _GEN_26
+    shifted_x0_r_25 <= _GEN_27
+    shifted_x0_r_26 <= _GEN_28
+    shifted_x0_r_27 <= _GEN_29
+    shifted_x0_r_28 <= _GEN_30
+    shifted_x0_r_29 <= _GEN_31
+    shifted_x0_r_30 <= _GEN_32
+    shifted_x0_r_31 <= _GEN_33
+    shifted_x0_r_32 <= _GEN_34
+    shifted_x0_r_33 <= _GEN_35
+    shifted_x0_r_34 <= _GEN_36
+    shifted_x0_r_35 <= _GEN_37
+    shifted_x0_r_36 <= _GEN_38
+    shifted_x0_r_37 <= _GEN_39
+    shifted_x0_r_38 <= _GEN_40
+    shifted_x0_r_39 <= _GEN_41
+    shifted_x0_r_40 <= _GEN_42
+    shifted_x0_r_41 <= _GEN_43
+    shifted_x0_r_42 <= _GEN_44
+    shifted_x0_r_43 <= _GEN_45
+    shifted_x0_r_44 <= _GEN_46
+    shifted_x0_r_45 <= _GEN_47
+    shifted_x0_r_46 <= _GEN_48
+    shifted_x0_r_47 <= _GEN_49
+    shifted_x0_r_48 <= _GEN_50
+    shifted_x0_r_49 <= _GEN_51
+    shifted_x0_r_50 <= _GEN_52
+    shifted_x0_r_51 <= _GEN_53
+    shifted_x0_r_52 <= _GEN_54
+    shifted_x0_r_53 <= _GEN_55
+    shifted_x0_r_54 <= _GEN_56
+    shifted_x0_r_55 <= _GEN_57
+    shifted_x0_r_56 <= _GEN_58
+    shifted_x0_r_57 <= _GEN_59
+    shifted_x0_r_58 <= _GEN_60
+    shifted_x0_r_59 <= _GEN_61
+    shifted_x0_r_60 <= _GEN_62
+    shifted_x0_r_61 <= _GEN_63
+    shifted_x0_r_62 <= _GEN_64
+    shifted_x0 <= _GEN_65
+    shifted_xk_0_r <= _GEN_66
+    shifted_xk_0_r_1 <= _GEN_67
+    shifted_xk_0_r_2 <= _GEN_68
+    shifted_xk_0_r_3 <= _GEN_69
+    shifted_xk_0_r_4 <= _GEN_70
+    shifted_xk_0_r_5 <= _GEN_71
+    shifted_xk_0_r_6 <= _GEN_72
+    shifted_xk_0_r_7 <= _GEN_73
+    shifted_xk_0_r_8 <= _GEN_74
+    shifted_xk_0_r_9 <= _GEN_75
+    shifted_xk_0_r_10 <= _GEN_76
+    shifted_xk_0_r_11 <= _GEN_77
+    shifted_xk_0_r_12 <= _GEN_78
+    shifted_xk_0_r_13 <= _GEN_79
+    shifted_xk_0_r_14 <= _GEN_80
+    shifted_xk_0_r_15 <= _GEN_81
+    shifted_xk_0_r_16 <= _GEN_82
+    shifted_xk_0_r_17 <= _GEN_83
+    shifted_xk_0_r_18 <= _GEN_84
+    shifted_xk_0_r_19 <= _GEN_85
+    shifted_xk_0_r_20 <= _GEN_86
+    shifted_xk_0_r_21 <= _GEN_87
+    shifted_xk_0_r_22 <= _GEN_88
+    shifted_xk_0_r_23 <= _GEN_89
+    shifted_xk_0_r_24 <= _GEN_90
+    shifted_xk_0_r_25 <= _GEN_91
+    shifted_xk_0_r_26 <= _GEN_92
+    shifted_xk_0_r_27 <= _GEN_93
+    shifted_xk_0_r_28 <= _GEN_94
+    shifted_xk_0_r_29 <= _GEN_95
+    shifted_xk_0_r_30 <= _GEN_96
+    shifted_xk_0_r_31 <= _GEN_97
+    shifted_xk_0_r_32 <= _GEN_98
+    shifted_xk_0_r_33 <= _GEN_99
+    shifted_xk_0_r_34 <= _GEN_100
+    shifted_xk_0_r_35 <= _GEN_101
+    shifted_xk_0_r_36 <= _GEN_102
+    shifted_xk_0_r_37 <= _GEN_103
+    shifted_xk_0_r_38 <= _GEN_104
+    shifted_xk_0_r_39 <= _GEN_105
+    shifted_xk_0_r_40 <= _GEN_106
+    shifted_xk_0_r_41 <= _GEN_107
+    shifted_xk_0_r_42 <= _GEN_108
+    shifted_xk_0_r_43 <= _GEN_109
+    shifted_xk_0_r_44 <= _GEN_110
+    shifted_xk_0_r_45 <= _GEN_111
+    shifted_xk_0_r_46 <= _GEN_112
+    shifted_xk_0_r_47 <= _GEN_113
+    shifted_xk_0_r_48 <= _GEN_114
+    shifted_xk_0_r_49 <= _GEN_115
+    shifted_xk_0_r_50 <= _GEN_116
+    shifted_xk_0_r_51 <= _GEN_117
+    shifted_xk_0_r_52 <= _GEN_118
+    shifted_xk_0_r_53 <= _GEN_119
+    shifted_xk_0_r_54 <= _GEN_120
+    shifted_xk_0_r_55 <= _GEN_121
+    shifted_xk_0_r_56 <= _GEN_122
+    shifted_xk_0_r_57 <= _GEN_123
+    shifted_xk_0_r_58 <= _GEN_124
+    shifted_xk_0_r_59 <= _GEN_125
+    shifted_xk_0_r_60 <= _GEN_126
+    shifted_xk_0_r_61 <= _GEN_127
+    shifted_xk_0_r_62 <= _GEN_128
+    shifted_xk_0_r_63 <= _GEN_129
+    shifted_xk_0_r_64 <= _GEN_130
+    shifted_xk_0_r_65 <= _GEN_131
+    shifted_xk_0_r_66 <= _GEN_132
+    shifted_xk_0_r_67 <= _GEN_133
+    shifted_xk_0_r_68 <= _GEN_134
+    shifted_xk_0_r_69 <= _GEN_135
+    shifted_xk_0_r_70 <= _GEN_136
+    shifted_xk_0_r_71 <= _GEN_137
+    shifted_xk_0_r_72 <= _GEN_138
+    shifted_xk_0_r_73 <= _GEN_139
+    shifted_xk_0_r_74 <= _GEN_140
+    shifted_xk_0_r_75 <= _GEN_141
+    shifted_xk_0_r_76 <= _GEN_142
+    shifted_xk_0_r_77 <= _GEN_143
+    shifted_xk_0_r_78 <= _GEN_144
+    shifted_xk_0_r_79 <= _GEN_145
+    shifted_xk_0_r_80 <= _GEN_146
+    shifted_xk_0_r_81 <= _GEN_147
+    shifted_xk_0_r_82 <= _GEN_148
+    shifted_xk_0_r_83 <= _GEN_149
+    shifted_xk_0_r_84 <= _GEN_150
+    shifted_xk_0_r_85 <= _GEN_151
+    shifted_xk_0_r_86 <= _GEN_152
+    shifted_xk_0_r_87 <= _GEN_153
+    shifted_xk_0_r_88 <= _GEN_154
+    shifted_xk_0_r_89 <= _GEN_155
+    shifted_xk_0_r_90 <= _GEN_156
+    shifted_xk_0_r_91 <= _GEN_157
+    shifted_xk_0_r_92 <= _GEN_158
+    shifted_xk_0_r_93 <= _GEN_159
+    shifted_xk_0_r_94 <= _GEN_160
+    shifted_xk_0_r_95 <= _GEN_161
+    shifted_xk_0_r_96 <= _GEN_162
+    shifted_xk_0_r_97 <= _GEN_163
+    shifted_xk_0_r_98 <= _GEN_164
+    shifted_xk_0_r_99 <= _GEN_165
+    shifted_xk_0_r_100 <= _GEN_166
+    shifted_xk_0_r_101 <= _GEN_167
+    shifted_xk_0_r_102 <= _GEN_168
+    shifted_xk_0_r_103 <= _GEN_169
+    shifted_xk_0_r_104 <= _GEN_170
+    shifted_xk_0_r_105 <= _GEN_171
+    shifted_xk_0_r_106 <= _GEN_172
+    shifted_xk_0_r_107 <= _GEN_173
+    shifted_xk_0_r_108 <= _GEN_174
+    shifted_xk_0_r_109 <= _GEN_175
+    shifted_xk_0_r_110 <= _GEN_176
+    shifted_xk_0_r_111 <= _GEN_177
+    shifted_xk_0_r_112 <= _GEN_178
+    shifted_xk_0_r_113 <= _GEN_179
+    shifted_xk_0_r_114 <= _GEN_180
+    shifted_xk_0_r_115 <= _GEN_181
+    shifted_xk_0_r_116 <= _GEN_182
+    shifted_xk_0_r_117 <= _GEN_183
+    shifted_xk_0_r_118 <= _GEN_184
+    shifted_xk_0_r_119 <= _GEN_185
+    shifted_xk_0_r_120 <= _GEN_186
+    shifted_xk_0_r_121 <= _GEN_187
+    shifted_xk_0_r_122 <= _GEN_188
+    shifted_xk_1_r <= _GEN_189
+    shifted_xk_1_r_1 <= _GEN_190
+    shifted_xk_1_r_2 <= _GEN_191
+    shifted_xk_1_r_3 <= _GEN_192
+    shifted_xk_1_r_4 <= _GEN_193
+    shifted_xk_1_r_5 <= _GEN_194
+    shifted_xk_1_r_6 <= _GEN_195
+    shifted_xk_1_r_7 <= _GEN_196
+    shifted_xk_1_r_8 <= _GEN_197
+    shifted_xk_1_r_9 <= _GEN_198
+    shifted_xk_1_r_10 <= _GEN_199
+    shifted_xk_1_r_11 <= _GEN_200
+    shifted_xk_1_r_12 <= _GEN_201
+    shifted_xk_1_r_13 <= _GEN_202
+    shifted_xk_1_r_14 <= _GEN_203
+    shifted_xk_1_r_15 <= _GEN_204
+    shifted_xk_1_r_16 <= _GEN_205
+    shifted_xk_1_r_17 <= _GEN_206
+    shifted_xk_1_r_18 <= _GEN_207
+    shifted_xk_1_r_19 <= _GEN_208
+    shifted_xk_1_r_20 <= _GEN_209
+    shifted_xk_1_r_21 <= _GEN_210
+    shifted_xk_1_r_22 <= _GEN_211
+    shifted_xk_1_r_23 <= _GEN_212
+    shifted_xk_1_r_24 <= _GEN_213
+    shifted_xk_1_r_25 <= _GEN_214
+    shifted_xk_1_r_26 <= _GEN_215
+    shifted_xk_1_r_27 <= _GEN_216
+    shifted_xk_1_r_28 <= _GEN_217
+    shifted_xk_1_r_29 <= _GEN_218
+    shifted_xk_1_r_30 <= _GEN_219
+    shifted_xk_1_r_31 <= _GEN_220
+    shifted_xk_1_r_32 <= _GEN_221
+    shifted_xk_1_r_33 <= _GEN_222
+    shifted_xk_1_r_34 <= _GEN_223
+    shifted_xk_1_r_35 <= _GEN_224
+    shifted_xk_1_r_36 <= _GEN_225
+    shifted_xk_1_r_37 <= _GEN_226
+    shifted_xk_1_r_38 <= _GEN_227
+    shifted_xk_1_r_39 <= _GEN_228
+    shifted_xk_1_r_40 <= _GEN_229
+    shifted_xk_1_r_41 <= _GEN_230
+    shifted_xk_1_r_42 <= _GEN_231
+    shifted_xk_1_r_43 <= _GEN_232
+    shifted_xk_1_r_44 <= _GEN_233
+    shifted_xk_1_r_45 <= _GEN_234
+    shifted_xk_1_r_46 <= _GEN_235
+    shifted_xk_1_r_47 <= _GEN_236
+    shifted_xk_1_r_48 <= _GEN_237
+    shifted_xk_1_r_49 <= _GEN_238
+    shifted_xk_1_r_50 <= _GEN_239
+    shifted_xk_1_r_51 <= _GEN_240
+    shifted_xk_1_r_52 <= _GEN_241
+    shifted_xk_1_r_53 <= _GEN_242
+    shifted_xk_1_r_54 <= _GEN_243
+    shifted_xk_1_r_55 <= _GEN_244
+    shifted_xk_1_r_56 <= _GEN_245
+    shifted_xk_1_r_57 <= _GEN_246
+    shifted_xk_1_r_58 <= _GEN_247
+    shifted_xk_1_r_59 <= _GEN_248
+    shifted_xk_1_r_60 <= _GEN_249
+    shifted_xk_1_r_61 <= _GEN_250
+    shifted_xk_1_r_62 <= _GEN_251
+    shifted_xk_1_r_63 <= _GEN_252
+    shifted_xk_1_r_64 <= _GEN_253
+    shifted_xk_1_r_65 <= _GEN_254
+    shifted_xk_1_r_66 <= _GEN_255
+    shifted_xk_1_r_67 <= _GEN_256
+    shifted_xk_1_r_68 <= _GEN_257
+    shifted_xk_1_r_69 <= _GEN_258
+    shifted_xk_1_r_70 <= _GEN_259
+    shifted_xk_1_r_71 <= _GEN_260
+    shifted_xk_1_r_72 <= _GEN_261
+    shifted_xk_1_r_73 <= _GEN_262
+    shifted_xk_1_r_74 <= _GEN_263
+    shifted_xk_1_r_75 <= _GEN_264
+    shifted_xk_1_r_76 <= _GEN_265
+    shifted_xk_1_r_77 <= _GEN_266
+    shifted_xk_1_r_78 <= _GEN_267
+    shifted_xk_1_r_79 <= _GEN_268
+    shifted_xk_1_r_80 <= _GEN_269
+    shifted_xk_1_r_81 <= _GEN_270
+    shifted_xk_1_r_82 <= _GEN_271
+    shifted_xk_1_r_83 <= _GEN_272
+    shifted_xk_1_r_84 <= _GEN_273
+    shifted_xk_1_r_85 <= _GEN_274
+    shifted_xk_1_r_86 <= _GEN_275
+    shifted_xk_1_r_87 <= _GEN_276
+    shifted_xk_1_r_88 <= _GEN_277
+    shifted_xk_1_r_89 <= _GEN_278
+    shifted_xk_1_r_90 <= _GEN_279
+    shifted_xk_1_r_91 <= _GEN_280
+    shifted_xk_1_r_92 <= _GEN_281
+    shifted_xk_1_r_93 <= _GEN_282
+    shifted_xk_1_r_94 <= _GEN_283
+    shifted_xk_1_r_95 <= _GEN_284
+    shifted_xk_1_r_96 <= _GEN_285
+    shifted_xk_1_r_97 <= _GEN_286
+    shifted_xk_1_r_98 <= _GEN_287
+    shifted_xk_1_r_99 <= _GEN_288
+    shifted_xk_1_r_100 <= _GEN_289
+    shifted_xk_1_r_101 <= _GEN_290
+    shifted_xk_1_r_102 <= _GEN_291
+    shifted_xk_1_r_103 <= _GEN_292
+    shifted_xk_1_r_104 <= _GEN_293
+    shifted_xk_1_r_105 <= _GEN_294
+    shifted_xk_1_r_106 <= _GEN_295
+    shifted_xk_1_r_107 <= _GEN_296
+    shifted_xk_1_r_108 <= _GEN_297
+    shifted_xk_1_r_109 <= _GEN_298
+    shifted_xk_1_r_110 <= _GEN_299
+    shifted_xk_1_r_111 <= _GEN_300
+    shifted_xk_1_r_112 <= _GEN_301
+    shifted_xk_1_r_113 <= _GEN_302
+    shifted_xk_1_r_114 <= _GEN_303
+    shifted_xk_1_r_115 <= _GEN_304
+    shifted_xk_1_r_116 <= _GEN_305
+    shifted_xk_1_r_117 <= _GEN_306
+    shifted_xk_1_r_118 <= _GEN_307
+    shifted_xk_1_r_119 <= _GEN_308
+    shifted_xk_1_r_120 <= _GEN_309
+    shifted_xk_1_r_121 <= _GEN_310
+    shifted_xk_1_r_122 <= _GEN_311
+    alpha_reg <= mux(reset, UInt<64>("h0"), _GEN_335) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 438:{26,26}]
+    valid_done <= mux(reset, UInt<1>("h0"), _GEN_337) @[Users/spencerbuchanan/IdeaProjects/Chisel-CFPUs/src/main/scala/iterative_tsqr/tsqr_submodules.scala 444:{27,27}]

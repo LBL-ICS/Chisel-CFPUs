@@ -11,15 +11,6 @@ import Complex_FPU._
 
 
 
-object main2 extends App {
-  (new ChiselStage).execute(
-    Array("--target", "systemverilog", "--target-dir", "verification/dut"),
-    Seq(ChiselGeneratorAnnotation(() => new complex_dot_iterative(2, 128, 64, 10, 13)),
-      FirtoolOption("--disable-all-randomization"),
-      FirtoolOption("-strip-debug-info")
-    )
-  )
-}
 
 object main3 extends App {
   (new ChiselStage).execute(

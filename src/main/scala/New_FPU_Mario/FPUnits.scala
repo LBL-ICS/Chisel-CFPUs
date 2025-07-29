@@ -819,4 +819,42 @@ object FPUnits {
 
   }
 
+  // subtracter
+  class FP_Sub (bw: Int, pd: Int) extends Module {
+    require(bw == 16 || bw == 32 || bw == 64 || bw == 128)
+    require(pd == 1 || pd == 3 || pd == 7 || pd == 10 || pd == 11 || pd == 13)
+
+    val io = IO(new Bundle {
+      val in_a = Input(UInt(bw.W))
+      val in_b = Input(UInt(bw.W))
+      val in_en = Input(Bool())
+      val valid_in = Input(Bool())
+      val valid_out = Output(Bool())
+      val out_s = Output(UInt(bw.W))
+    })
+
+    val adder = Module(new FP_add(bw, pd))
+    adder.io.in_a := 0.U
+    adder.io.in_b := 0.U
+    adder.io.in_valid := false.B
+    adder.io.in_en := false.B
+
+    val negate: UInt = bw match {
+      case 32 => "h80000000".U(bw.W)
+      case 64 => "h8000000000000000".U(bw.W)
+      case 128 => "h800000000000000000000000000000000".U(bw.W)
+      case _ => 0.U((bw / 2).W)
+    }
+
+    when(io.in_en) {
+      adder.io.in_en := io.in_en
+      adder.io.in_valid := io.valid_in
+      adder.io.in_a := io.in_a
+      adder.io.in_b := io.in_b ^ negate
+    }
+
+    io.out_s := adder.io.out_s
+    io.valid_out := ShiftRegister(io.valid_in, pd, io.in_en)
+  }
+
 }

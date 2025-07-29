@@ -4,6 +4,7 @@ import New_FPU_Mario.FPUnits._
 import chisel3._
 import chisel3.util.{Cat, ShiftRegister, log2Ceil}
 
+// 1 to 2 multiplexer used in the complex accumulator
 class demux1 (bw: Int) extends Module {
   val io = IO(new Bundle {
     val input = Input(UInt(bw.W))
@@ -26,6 +27,7 @@ class demux1 (bw: Int) extends Module {
   //io.outputs(io.sel) := io.input
 }
 
+// conjugate A times B multiplier used in dot product
 class complex_conjugate_mult (bw: Int, mult_pd: Int, add_pd: Int) extends Module {
   val io = IO(new Bundle {
     val complexA = Input(UInt(bw.W))
@@ -128,6 +130,7 @@ class complex_conjugate_mult (bw: Int, mult_pd: Int, add_pd: Int) extends Module
 
 }
 
+// normal complex multiplication used in axpy
 class complex_mult (bw: Int, mult_pd: Int, add_pd: Int) extends Module {
   val io = IO(new Bundle {
     val complexA = Input(UInt(bw.W))
@@ -231,6 +234,7 @@ class complex_mult (bw: Int, mult_pd: Int, add_pd: Int) extends Module {
 
 }
 
+// adder/subtracter
 class complex_adder (bw: Int, add_pd: Int) extends Module {
   val io = IO(new Bundle {
     val complexA = Input(UInt(bw.W))
@@ -271,6 +275,50 @@ class complex_adder (bw: Int, add_pd: Int) extends Module {
   io.out_valid := ShiftRegister(io.in_valid, latency, io.in_en)
 }
 
+class complex_sub (bw: Int, sub_pd: Int) extends Module {
+  require(bw == 16 || bw == 32 || bw == 64 || bw == 128)
+  require(sub_pd == 1 || sub_pd == 3 || sub_pd == 7 || sub_pd == 10 || sub_pd == 11 || sub_pd == 13)
+
+  val io = IO(new Bundle {
+    val complexA = Input(UInt(bw.W))
+    val complexB = Input(UInt(bw.W))
+    val in_en = Input(Bool())
+    val in_valid = Input(Bool())
+    val out_valid = Output(Bool())
+    val out_s = Output(UInt(bw.W))
+    val out_real = Output(UInt((bw / 2).W))
+    val out_imag = Output(UInt((bw / 2).W))
+  })
+
+  val latency = sub_pd
+
+  val FP_sub_Inst = Seq.fill(2)(Module(new FP_Sub((bw / 2), sub_pd)))
+  FP_sub_Inst.foreach { mod =>
+    mod.io.in_a := 0.U
+    mod.io.in_b := 0.U
+    mod.io.in_en := false.B
+    mod.io.valid_in := false.B
+  }
+
+  FP_sub_Inst(0).io.in_a := io.complexA((bw - 1), (bw / 2)) //realA
+  FP_sub_Inst(0).io.in_b := io.complexB((bw - 1), (bw / 2)) //realB
+  FP_sub_Inst(1).io.in_a := io.complexA(((bw / 2) - 1), 0)  //imagA
+  FP_sub_Inst(1).io.in_b := io.complexB(((bw / 2) - 1), 0)  //imagB
+
+  when (io.in_en) {
+    FP_sub_Inst(0).io.in_en := io.in_en
+    FP_sub_Inst(1).io.in_en := io.in_en
+    FP_sub_Inst(0).io.valid_in := io.in_valid
+    FP_sub_Inst(1).io.valid_in := io.in_valid
+  }
+
+  io.out_s := Cat(FP_sub_Inst(0).io.out_s, FP_sub_Inst(1).io.out_s)
+  io.out_real := FP_sub_Inst(0).io.out_s
+  io.out_imag := FP_sub_Inst(1).io.out_s
+  io.out_valid := ShiftRegister(io.in_valid, latency, io.in_en)
+}
+
+// accumulator module for iterative dot product
 class complex_acc (bw: Int, x: Int, add_pd: Int, sel_bit: Int) extends Module {
   val io = IO(new Bundle {
     val input = Input(UInt(bw.W))
@@ -323,6 +371,7 @@ class complex_acc (bw: Int, x: Int, add_pd: Int, sel_bit: Int) extends Module {
 
 }
 
+// streaming design dot
 class complex_dot_streaming (n: Int, bw: Int, mult_pd: Int, add_pd: Int) extends Module {
   require(bw == 16 || bw == 32 || bw == 64 || bw == 128)
   val io = IO(new Bundle {
@@ -377,6 +426,7 @@ class complex_dot_streaming (n: Int, bw: Int, mult_pd: Int, add_pd: Int) extends
   io.out_valid := ShiftRegister(io.in_valid, latency, io.in_en)
 }
 
+// iterative design dot
 class cmplx_dot_iterative_v2 (n: Int, k: Int, bw: Int, mult_pd: Int, add_pd: Int) extends Module {
   val io = IO(new Bundle {
     val vec_a = Input(Vec(n, UInt(bw.W)))
@@ -467,4 +517,69 @@ class cmplx_dot_iterative_v2 (n: Int, k: Int, bw: Int, mult_pd: Int, add_pd: Int
   io.out_imag := d2aInst(num_acc - 1).io.output(((bw / 2) - 1), 0)
   io.out_valid := ShiftRegister(io.in_valid, latency, io.in_en)
 
+}
+
+// axpy (technically a streaming design but can be used iteratively in larger designs)
+class iterative_axpy (bw: Int, sw: Int, k: Int, mult_pd: Int, add_pd: Int) extends Module {
+  val io = IO(new Bundle {
+    val s_in = Input(UInt(bw.W))
+    val vk_in = Input(Vec(sw, UInt(bw.W)))
+    val xk_in = Input(Vec(sw, UInt(bw.W)))
+    val en_in = Input(Bool())
+    val counter_reset = Input(Bool())
+    val valid_in = Input(Bool())
+    //val valid_out = Output(Bool())
+    val out_s = Output(Vec(sw, UInt(bw.W)))
+  })
+
+  val counter = RegInit(0.U(32.W))
+  when(io.counter_reset) {
+    counter := 0.U
+  }.otherwise {
+    counter := Mux(io.en_in, counter + 1.U, counter)
+  }
+
+
+  val mult = Seq.fill(sw)(Module(new complex_mult(bw, mult_pd, add_pd)))
+
+  for (m <- mult) {
+    m.io.in_en := io.en_in
+    m.io.in_valid := io.valid_in
+    m.io.counter_reset := false.B
+    m.io.complexA := 0.U
+    m.io.complexB := 0.U
+  }
+
+  val adder = Seq.fill(sw)(Module(new complex_adder(bw, add_pd)))
+
+  for (m <- adder) {
+    m.io.in_en := io.en_in
+    m.io.in_valid := io.valid_in
+    m.io.complexA := 0.U
+    m.io.complexB := 0.U
+  }
+
+
+  when (counter >= 0.U) {
+    for (i <- 0 until sw) {
+      mult(i).io.in_en := true.B
+      mult(i).io.in_valid := true.B
+      mult(i).io.counter_reset
+      mult(i).io.complexA := io.s_in
+      mult(i).io.complexB := io.vk_in(i)
+    }
+  }
+
+
+  when (counter >= (mult_pd + add_pd).U) {
+    for (i <- 0 until sw) {
+      adder(i).io.in_en := true.B
+      adder(i).io.in_valid := true.B
+      adder(i).io.complexA := ShiftRegister(io.xk_in(i), (mult_pd + add_pd))
+      adder(i).io.complexB := mult(i).io.out_s
+    }
+  }
+  for (i <- 0 until sw) {
+    io.out_s(i) := adder(i).io.out_s
+  }
 }
